@@ -1,33 +1,33 @@
-# KoekkenFanatikeren
+# KøkkenFanatikeren
 
 # Forudarbejde
 
 ## Virksomhed
 
-- \[\] Begrund systemet
-- \[\] Værdikæde
-- \[\] Find reskaber
+- \[ \] Begrund systemet
+- \[ \] Værdikæde
+- \[ \] Find reskaber
 
 ## System & UML
 
-- \[\] Udarbejde en kravspecifikation
+- \[ \] Udarbejde en kravspecifikation
     - brug Use Case Diagramer
 
 ## Database
 
-- \[\] Lav en domæne model over systemet
+- \[ \] Lav en domæne model over systemet
 
 # Hoved opgaven
 
 ## Database
 
-- \[\] Lav en database til virksomheden
+- \[ \] Lav en database til virksomheden
     - Vare
-    - Kunde,
+    - Kunde
     - Låger
     - Projekter Table ( kunde.ID, Vare.ID )
-- \[\] Lav C# WinForm UI til databasen
-- \[\] Filter til at sortere databasen
+- \[ \] Lav C# WinForm UI til databasen
+- \[ \] Filter til at sortere databasen
     - Bruger Linq2Sql
 
 # Systems krav
