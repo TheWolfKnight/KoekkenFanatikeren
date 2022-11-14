@@ -29,3 +29,16 @@
 - \[\] Lav C# WinForm UI til databasen
 - \[\] Filter til at sortere databasen
     - Bruger Linq2Sql
+
+# Systems krav
+
+## Nøgle komponenter
+
+- Kunde/Slæger skal kunne udvælge nogle elementer til køkenet
+- Efter opmål kommer farver, greb, og hylde tal
+- DB skal indholde kunde oplysninger, varegrupper (hjørneskabe, hylder etc.), vare, osv.
+
+## Design overvejegelser:
+
+- hurtigt, efiktivt
+- nemt at bruge
