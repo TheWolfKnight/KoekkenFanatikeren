@@ -1,0 +1,7 @@
+SALGSSTATISTIK |			fra dato: |	til dato: |
+
+Kundenummer			Navn			Dato	Køb
+
+|
+
+i alt kr: |
