@@ -52,13 +52,13 @@ create table [Orders] (
 );
 
 /*
-	@Name:			ItemCategorys
-	@Column:		Categorys, int identity starts at 0 incroments by 1, cannot be null, is a primary key
-					Is used as an enumeratort for other tables to have an easy time destinctioning between different item categorys.
+	@Name:			ItemCategories
+	@Column:		Categories, int identity starts at 0 incroments by 1, cannot be null, is a primary key
+					Is used as an enumeratort for other tables to have an easy time destinctioning between different item categories.
 	@Column:		Name, chars between 0 - 255, cannot be null,
 					The name of a given item category, which can easily by the Id.
 */
-create table [ItemCategorys] (
+create table [ItemCategories] (
 	[Category] int identity(0,1) not null primary key,
 	[Name] varchar(255) not null,
 );
@@ -67,7 +67,7 @@ create table [ItemCategorys] (
 	@Name:			Item
 	@Column:		Id, int identity starts at 1000 incroments by 1, cannot be null, is a priamry key,
 					Contains the id of a item, for reference use.
-	@Column:		ItemCategory, int, cannot be null, is a reference to the ItemCategorys Category column
+	@Column:		ItemCategory, int, cannot be null, is a reference to the ItemCategories Category column
 					Used to sort the items based upon different category specifications.
 	@Column:		Name, chars between 0 - 255, cannot be null,
 					Contains the name of an item.
@@ -81,7 +81,7 @@ create table [ItemCategorys] (
 */
 create table [Items] (
 	[Id] int identity(1000, 1) not null primary key,
-	[ItemCategory] int not null foreign key references [ItemCategorys]([Category]),
+	[ItemCategory] int not null foreign key references [ItemCategories]([Category]),
 	[Name] varchar(255) not null,
 	[Producer] varchar(255) not null,
 	[Quantity] int not null,
