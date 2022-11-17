@@ -1,0 +1,10 @@
+insert into ItemCategories (Name) values ('Stone');
+insert into ItemCategories (Name) values ('Brass');
+insert into ItemCategories (Name) values ('Steel');
+insert into ItemCategories (Name) values ('Aluminum');
+insert into ItemCategories (Name) values ('Plastic');
+insert into ItemCategories (Name) values ('Granite');
+insert into ItemCategories (Name) values ('Soft wood');
+insert into ItemCategories (Name) values ('Glass');
+insert into ItemCategories (Name) values ('Iron');
+insert into ItemCategories (Name) values ('Hard wood');
