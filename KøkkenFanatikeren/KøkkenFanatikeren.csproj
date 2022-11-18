@@ -88,6 +88,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Frontend\" />
+    <Folder Include="Src\Database\" />
+    <Folder Include="Src\Models\" />
     <Folder Include="Src\Repository\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
