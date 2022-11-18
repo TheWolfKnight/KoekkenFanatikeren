@@ -51,5 +51,11 @@ namespace KøkkenFanatikeren.Src.Models
             return result;
         }
 
+
+        public override string ToString()
+        {
+            return $"Employee(Id={Id}, FullName={FullName})";
+        }
+
     }
 }

@@ -62,5 +62,12 @@ namespace KøkkenFanatikeren.Src.Models
             // Returns the result variable
             return result;
         }
+
+
+        public override string ToString()
+        {
+            return $"OrderItem(OrderId={OrderId}, ItemId={ItemId}, Quantity={Quantity})";
+        }
+
     }
 }

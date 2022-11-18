@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +55,27 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\Database\KitchenFanatic.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KitchenFanatic.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Interface\RepositoryInterface.cs" />
+    <Compile Include="Src\Models\Customer.cs" />
+    <Compile Include="Src\Models\Employee.cs" />
+    <Compile Include="Src\Models\Item.cs" />
+    <Compile Include="Src\Models\ItemCategory.cs" />
+    <Compile Include="Src\Models\Order.cs" />
+    <Compile Include="Src\Models\OrderItem.cs" />
+    <Compile Include="Src\Repository\CustomerRepository.cs" />
+    <Compile Include="Src\Repository\EmployeeRepository.cs" />
+    <Compile Include="Src\Repository\ItemCategoryRepository.cs" />
+    <Compile Include="Src\Repository\ItemRepository.cs" />
+    <Compile Include="Src\Repository\OrderItemRepository.cs" />
+    <Compile Include="Src\Repository\OrderRepository.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -72,16 +94,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Src\Database\KitchenFanatic.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>KitchenFanatic.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Src\Database\KitchenFanatic.dbml.layout">
+      <DependentUpon>KitchenFanatic.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Frontend\" />
-    <Folder Include="Src\Database\" />
-    <Folder Include="Src\Models\" />
-    <Folder Include="Src\Repository\" />
     <Folder Include="Src\Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

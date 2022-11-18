@@ -63,5 +63,11 @@ namespace KøkkenFanatikeren.Src.Models
             return result;
         }
 
+
+        public override string ToString()
+        {
+            return $"Customer(Id={Id}, FullName={FullName}, PhoneNumber={PhoneNumber}, Email={Email}";
+        }
+
     }
 }

@@ -56,5 +56,11 @@ namespace KøkkenFanatikeren.Src.Models
             return result;
         }
 
+
+        public override string ToString()
+        {
+            return $"ItemCategory(CategoryIndex={Category}, Name={Name})";
+        }
+
     }
 }

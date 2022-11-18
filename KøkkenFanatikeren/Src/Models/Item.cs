@@ -74,5 +74,11 @@ namespace KøkkenFanatikeren.Src.Models
             // returns the result varible
             return result;
         }
+
+
+        public override string ToString()
+        {
+            return $"Item(Id={Id}, Name={Name}, ItemCategory={Category}, Producer={Producer}, Stock={Quantity}, UnitPrice={UnitPrice}";
+        }
     }
 }

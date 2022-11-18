@@ -66,7 +66,15 @@ namespace KøkkenFanatikeren.Src.Models
             // Returns the result variable
             return result;
         }
+
+
+        public override string ToString()
+        {
+            return $"Order(Id={Id}, CreatorId={CreatorId}, CustomerId={CustomerId}, TotalPrice={TotalPrice}, Status={Status})";
+        }
+
     }
+
 
     /// <summary>
     /// Describes the status of an order
