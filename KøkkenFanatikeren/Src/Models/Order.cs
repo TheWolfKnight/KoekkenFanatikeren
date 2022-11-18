@@ -11,13 +11,39 @@ namespace KøkkenFanatikeren.Src.Models
         public int Id { get; private set; }
         public int CustomerId { get; private set; }
         public int CreatorId { get; private set; }
-        public float TotalPrice { get; private set; }
+        public double TotalPrice { get; private set; }
+        public OrderStatus Status { get; private set; }
 
+        /// <summary>
+        /// Creates an empty Order class instance
+        /// </summary>
         public Order() { }
 
-        public Order(int customerId, int creatorId) { }
+        /// <summary>
+        /// Creates a Models.Order instance from a Customer Id and a Creator Id
+        /// </summary>
+        /// <param name="customerId"> The id of the customer, to whom this Order belongs </param>
+        /// <param name="creatorId"> The id of the employee who created this order </param>
+        public Order(int customerId, int creatorId)
+        { 
+            CustomerId = customerId;
+            CreatorId = creatorId;
+            TotalPrice = 0.0d;
+            Status = OrderStatus.NotStarted;
+        }
 
-        public Order(Database.Order dbEntry) { }
+
+        /// <summary>
+        /// Creates a Models.Order class instance based upon a Database.Order class instance
+        /// </summary>
+        /// <param name="dbEntry"> The database entry thath will be converted to a Models.Order instance </param>
+        public Order(Database.Order dbEntry) {
+            this.Id = dbEntry.Id;
+            this.CustomerId = dbEntry.CustomerId;
+            this.CreatorId = dbEntry.CreatorId;
+            this.TotalPrice = dbEntry.TotalPrice.GetValueOrDefault(0.0d);
+            this.Status = (OrderStatus)dbEntry.Status;
+        }
 
 
         /// <summary>
@@ -34,10 +60,36 @@ namespace KøkkenFanatikeren.Src.Models
             result.CreatorId = this.CreatorId;
             result.CustomerId = this.CustomerId;
             result.TotalPrice = this.TotalPrice;
+            // The status is cast to an int, as the database does not have an idéer of what an enum is.
+            result.Status = (int)this.Status;
 
             // Returns the result variable
             return result;
         }
-
     }
+
+    /// <summary>
+    /// Describes the status of an order
+    /// </summary>
+    public enum OrderStatus
+    {
+        /// <summary>
+        /// When the order is not started,
+        /// Default value for the Status field
+        /// </summary>
+        NotStarted = 0,
+        /// <summary>
+        /// When the order is started.
+        /// </summary>
+        Started = 1,
+        /// <summary>
+        /// When the order is completed
+        /// </summary>
+        Done = 2,
+        /// <summary>
+        /// When the order is cancelled
+        /// </summary>
+        Cancelled = 3,
+    }
+
 }

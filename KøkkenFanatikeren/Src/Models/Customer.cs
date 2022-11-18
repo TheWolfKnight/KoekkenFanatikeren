@@ -1,11 +1,4 @@
-﻿
-/*
-    Auther:         Philip,
-    Creation Date:  17-11-2022
-    Last Change:    {TBD}
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,9 +45,9 @@ namespace KøkkenFanatikeren.Src.Models
 
 
         /// <summary>
-        /// Converts the Models.Customer class instance to an Database.Customer class instance.
+        /// Converts the Models.Customer class instance to an Database.Customer class instance
         /// </summary>
-        /// <returns> An Database.Customer instance with the values of the Models.Customer instnace </returns>
+        /// <returns> An Database.Customer instance with the values of the Models.Customer instance </returns>
         public Database.Customer ConvertToDBEntry()
         {
             // Creates an instance of the Database.Customer class

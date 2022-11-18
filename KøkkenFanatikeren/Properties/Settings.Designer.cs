@@ -33,5 +33,16 @@ namespace KøkkenFanatikeren.Properties {
                 return ((string)(this["KoekkenFanatikerenConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=THE-INVADER;Initial Catalog=KoekkenFanatikeren;Integrated Security=Tr" +
+            "ue")]
+        public string KoekkenFanatikerenConnectionString1 {
+            get {
+                return ((string)(this["KoekkenFanatikerenConnectionString1"]));
+            }
+        }
     }
 }
