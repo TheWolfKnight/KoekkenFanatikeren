@@ -7,43 +7,63 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class CustomerRepository : Interface.ICustomer
+    public class CustomerRepository : RepositoryHandle, Interface.ICustomer
     {
-        private Database.KitchenFanaticContext Context;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        public CustomerRepository(Database.KitchenFanaticContext context) : base(context) { }
 
-        public CustomerRepository(Database.KitchenFanaticContext context)
-        {
-            Context = context;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customer"></param>
         public void DeleteCustomer(Database.Customer customer)
         {
-            throw new NotImplementedException();
+            Context.Customers.DeleteOnSubmit(customer);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public Database.Customer GetCustomerById(int customerId)
         {
-            throw new NotImplementedException();
+            return Context.Customers.Where(dbEntry => dbEntry.Id == customerId).First();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Database.Customer> GetCustomers()
         {
-            throw new NotImplementedException();
+            return Context.Customers.AsEnumerable();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customer"></param>
         public void InsertCustomer(Database.Customer customer)
         {
-            throw new NotImplementedException();
+            Context.Customers.InsertOnSubmit(customer);
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customer"></param>
         public void UpdateCustomer(Database.Customer customer)
         {
-            throw new NotImplementedException();
+            Database.Customer dbEntry = Context.Customers.Where(dbInner => dbInner.Id == customer.Id).First();
+            dbEntry = customer;
         }
     }
 }

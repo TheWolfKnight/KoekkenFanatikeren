@@ -11,39 +11,75 @@ namespace KøkkenFanatikeren.Src.Repository
     {
         private Database.KitchenFanaticContext Context;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public ItemRepository(Database.KitchenFanaticContext context)
         {
             Context = context;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         public void DeleteItem(Database.Item item)
         {
-            throw new NotImplementedException();
+            Context.Items.DeleteOnSubmit(item);
         }
 
-        public Database.Item GetItemById(int ItemId)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public Database.Item GetItemById(int itemId)
         {
-            throw new NotImplementedException();
+            return Context.Items.Where(dbEntry => dbEntry.Id == itemId).First();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Database.Item> GetItems()
         {
-            throw new NotImplementedException();
+            return Context.Items.AsEnumerable();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         public void InsertItem(Database.Item item)
         {
-            throw new NotImplementedException();
+            Context.Items.InsertOnSubmit(item);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Save()
         {
-            throw new NotImplementedException();
+            Context.SubmitChanges();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         public void UpdateItem(Database.Item item)
         {
-            throw new NotImplementedException();
+            Database.Item dbEntry = Context.Items.Where(dbInner => dbInner.Id == item.Id).First();
+            dbEntry = item;
         }
     }
 }

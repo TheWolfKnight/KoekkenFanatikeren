@@ -21,31 +21,61 @@ namespace KøkkenFanatikeren.Src.Repository
             Context = context;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
         public void DeleteEmployee(Database.Employee employee)
         {
             Context.Employees.DeleteOnSubmit(employee);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public Database.Employee GetEmployeeById(int employeeId)
         {
             return Context.Employees.Where(employee => employee.Id == employeeId).Single();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Database.Employee> GetEmployees()
         {
             return Context.Employees.AsEnumerable();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
         public void InsertEmployee(Database.Employee employee)
         {
             Context.Employees.InsertOnSubmit(employee);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Save()
         {
             Context.SubmitChanges();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
         public void UpdateEmployee(Database.Employee employee)
         {
             Database.Employee dbEntry = Context.Employees.Where(dbInner => dbInner.Id == employee.Id).First();

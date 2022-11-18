@@ -31,7 +31,7 @@ namespace KøkkenFanatikeren.Src.Interface
     public interface IItem
     {
         IEnumerable<Database.Item> GetItems();
-        Database.Item GetItemById(int ItemId);
+        Database.Item GetItemById(int itemId);
         void InsertItem(Database.Item item);
         void UpdateItem(Database.Item item);
         void DeleteItem(Database.Item item);

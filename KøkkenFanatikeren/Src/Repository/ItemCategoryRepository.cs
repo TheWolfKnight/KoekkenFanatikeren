@@ -11,39 +11,75 @@ namespace KøkkenFanatikeren.Src.Repository
     {
         private Database.KitchenFanaticContext Context;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public ItemCategoryRepository(Database.KitchenFanaticContext context)
         {
             Context = context;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCategory"></param>
         public void DeleteItemCategory(Database.ItemCategory itemCategory)
         {
-            throw new NotImplementedException();
+            Context.ItemCategories.DeleteOnSubmit(itemCategory);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Database.ItemCategory> GetItemCategories()
         {
-            throw new NotImplementedException();
+            return Context.ItemCategories.AsEnumerable();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCategory"></param>
+        /// <returns></returns>
         public Database.ItemCategory GetItemCategoryByCategory(int itemCategory)
         {
-            throw new NotImplementedException();
+            return Context.ItemCategories.Where(dbEntry => dbEntry.Category == itemCategory).First();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCategory"></param>
         public void InsertItemCategory(Database.ItemCategory itemCategory)
         {
-            throw new NotImplementedException();
+            Context.ItemCategories.InsertOnSubmit(itemCategory);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Save()
         {
-            throw new NotImplementedException();
+            Context.SubmitChanges();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemCategory"></param>
         public void UpdateItemCategory(Database.ItemCategory itemCategory)
         {
-            throw new NotImplementedException();
+            Database.ItemCategory dbEntry = Context.ItemCategories.Where(dbInner => dbInner.Category == itemCategory.Category).First();
+            dbEntry = itemCategory;
         }
     }
 }
