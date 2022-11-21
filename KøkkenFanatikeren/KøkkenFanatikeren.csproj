@@ -73,6 +73,7 @@
     <Compile Include="Src\Repository\ItemRepository.cs" />
     <Compile Include="Src\Repository\OrderItemRepository.cs" />
     <Compile Include="Src\Repository\OrderRepository.cs" />
+    <Compile Include="Src\Repository\GenericRepository.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

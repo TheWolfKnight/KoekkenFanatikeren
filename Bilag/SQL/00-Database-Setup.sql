@@ -1,7 +1,7 @@
--- drop database KoekkenFanatikeren;
--- create database KoekkenFanatikeren;
+-- drop database [KitchenFanatic];
+-- create database [KitchenFanatic];
 
-use KoekkenFanatikeren;
+use [KitchenFanatic];
 
 /*
 	@Name:		Employees

@@ -10,7 +10,7 @@ namespace KøkkenFanatikeren.Src.Models
     {
         public int OrderId { get; private set; }
         public int ItemId { get; private set; }
-        public int Quantity { get; private set; }
+        public int Quantity { get; set; }
 
 
         /// <summary>

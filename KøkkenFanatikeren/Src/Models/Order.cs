@@ -11,8 +11,8 @@ namespace KøkkenFanatikeren.Src.Models
         public int Id { get; private set; }
         public int CustomerId { get; private set; }
         public int CreatorId { get; private set; }
-        public double TotalPrice { get; private set; }
-        public OrderStatus Status { get; private set; }
+        public double TotalPrice { get; set; }
+        public OrderStatus Status { get; set; }
 
         /// <summary>
         /// Creates an empty Order class instance

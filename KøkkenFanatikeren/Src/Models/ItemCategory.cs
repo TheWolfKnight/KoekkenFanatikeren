@@ -9,7 +9,7 @@ namespace KøkkenFanatikeren.Src.Models
     public class ItemCategory
     {
         public int Category { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
 
         /// <summary>

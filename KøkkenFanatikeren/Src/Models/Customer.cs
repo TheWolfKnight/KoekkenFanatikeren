@@ -9,9 +9,9 @@ namespace KøkkenFanatikeren.Src.Models
     public class Customer
     {
         public int Id { get; private set; }
-        public string FullName { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string Email { get; private set; }
+        public string FullName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Constructs an empty instance of the Models.Customer class

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using KøkkenFanatikeren.Src.Repository;
 
 namespace KøkkenFanatikeren
 {
@@ -16,6 +17,9 @@ namespace KøkkenFanatikeren
         public Form1()
         {
             InitializeComponent();
+
+            Src.Database.KitchenFanaticDataContext ctx = new Src.Database.KitchenFanaticDataContext();
+            EmployeeRepository repo = new EmployeeRepository(ctx);
         }
     }
 }

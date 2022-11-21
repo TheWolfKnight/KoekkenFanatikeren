@@ -7,79 +7,64 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class EmployeeRepository : Interface.IEmployee
+    public class EmployeeRepository : GenericRepository, Interface.IRepository<Database.Employee>
     {
-        private Database.KitchenFanaticContext Context;
+        /// <summary>
+        /// Creates an instance of theEmployeeRepository class
+        /// </summary>
+        /// <param name="context"> The Database context the class instance will use </param>
+        public EmployeeRepository(Database.KitchenFanaticDataContext context) : base(context)  { }
 
 
         /// <summary>
-        /// 
+        /// Deletes a single entry from the database
         /// </summary>
-        /// <param name="context"></param>
-        public EmployeeRepository(Database.KitchenFanaticContext context )
+        /// <param name="entry"> The entry to be deleted from the database </param>
+        public void DeleteEntry(Database.Employee entry)
         {
-            Context = context;
+            Context.Employees.DeleteOnSubmit(entry);
         }
 
 
         /// <summary>
-        /// 
+        /// Returns a entry defined by the entry id
         /// </summary>
-        /// <param name="employee"></param>
-        public void DeleteEmployee(Database.Employee employee)
+        /// <param name="entryId"> The id of the entry to be returned </param>
+        /// <returns> Returns a Database.entry instance with the data from the database </returns>
+        public Database.Employee GetEntryById(int entryId)
         {
-            Context.Employees.DeleteOnSubmit(employee);
+            return Context.Employees.Where(dbEntry => dbEntry.Id == entryId).First();
         }
 
 
         /// <summary>
-        /// 
+        /// Gets all the entrys in the database as an enumerable
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns></returns>
-        public Database.Employee GetEmployeeById(int employeeId)
-        {
-            return Context.Employees.Where(employee => employee.Id == employeeId).Single();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Database.Employee> GetEmployees()
+        /// <returns> An enumerable of all entrys in the database </returns>
+        public IEnumerable<Database.Employee> GetEntry()
         {
             return Context.Employees.AsEnumerable();
         }
 
 
         /// <summary>
-        /// 
+        /// Inserts an entry in the database
         /// </summary>
-        /// <param name="employee"></param>
-        public void InsertEmployee(Database.Employee employee)
+        /// <param name="entry"> The entry to be inserted </param>
+        public void InsertEntry(Database.Employee entry)
         {
-            Context.Employees.InsertOnSubmit(employee);
+            Context.Employees.InsertOnSubmit(entry);
         }
 
 
         /// <summary>
-        /// 
+        /// Updates an entry with new information
         /// </summary>
-        public void Save()
+        /// <param name="entry"> The entry object containg the new information </param>
+        public void UpdateEntry(Database.Employee entry)
         {
-            Context.SubmitChanges();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="employee"></param>
-        public void UpdateEmployee(Database.Employee employee)
-        {
-            Database.Employee dbEntry = Context.Employees.Where(dbInner => dbInner.Id == employee.Id).First();
-            dbEntry = employee;
+            Database.Employee dbEntry = Context.Employees.Where(dbInner => dbInner.Id == entry.Id).First();
+            dbEntry.FullName = entry.FullName;
         }
     }
 }

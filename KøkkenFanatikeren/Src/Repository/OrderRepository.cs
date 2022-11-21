@@ -7,43 +7,67 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class OrderRepository : Interface.IOrder
+    public class OrderRepository : GenericRepository, Interface.IRepository<Database.Order>
     {
-        private Database.KitchenFanaticContext Context;
+        /// <summary>
+        /// Creates an instance of the OrderRepository class
+        /// </summary>
+        /// <param name="context"> The Database context the class instance will use </param>
+        public OrderRepository(Database.KitchenFanaticDataContext context) : base(context) { }
 
-        private OrderRepository(Database.KitchenFanaticContext context)
+
+        /// <summary>
+        /// Deletes a single entry from the database
+        /// </summary>
+        /// <param name="entry"> The entry to be deleted from the database </param>
+        public void DeleteEntry(Database.Order entry)
         {
-            Context = context;
+            Context.Orders.DeleteOnSubmit(entry);
         }
 
-        public void DeleteOrder(Database.Order order)
+
+        /// <summary>
+        /// Returns a entry defined by the entry id
+        /// </summary>
+        /// <param name="entryId"> The id of the entry to be returned </param>
+        /// <returns> Returns a Database.entry instance with the data from the database </returns>
+        public Database.Order GetEntryById(int entryId)
         {
-            throw new NotImplementedException();
+            return Context.Orders.Where(dbEntry => dbEntry.Id == entryId).First();
         }
 
-        public Database.Order GetOrderById(int orderId)
+
+        /// <summary>
+        /// Gets all the entrys in the database as an enumerable
+        /// </summary>
+        /// <returns> An enumerable of all entrys in the database </returns>
+        public IEnumerable<Database.Order> GetEntry()
         {
-            throw new NotImplementedException();
+            return Context.Orders.AsEnumerable();
         }
 
-        public IEnumerable<Database.Order> GetOrders()
+
+        /// <summary>
+        /// Inserts an entry in the database
+        /// </summary>
+        /// <param name="entry"> The entry to be inserted </param>
+        public void InsertEntry(Database.Order entry)
         {
-            throw new NotImplementedException();
+            Context.Orders.InsertOnSubmit(entry);
         }
 
-        public void InsertOrder(Database.Order order)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Save()
+        /// <summary>
+        /// Updates an entry with new information
+        /// </summary>
+        /// <param name="entry"> The entry object containg the new information </param>
+        public void UpdateEntry(Database.Order entry)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateOrder(Database.Order order)
-        {
-            throw new NotImplementedException();
+            Database.Order dbEntry = Context.Orders.Where(dbInner => dbInner.Id == entry.Id).First();
+            dbEntry.CreatorId = entry.CreatorId;
+            dbEntry.CustomerId = entry.CustomerId;
+            dbEntry.Status = entry.Status;
+            dbEntry.TotalPrice = entry.TotalPrice;
         }
     }
 }

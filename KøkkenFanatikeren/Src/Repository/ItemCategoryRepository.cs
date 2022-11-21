@@ -7,79 +7,64 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class ItemCategoryRepository : Interface.IItemCategory
+    public class EntryRepository : GenericRepository, Interface.IRepository<Database.ItemCategory>
     {
-        private Database.KitchenFanaticContext Context;
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public ItemCategoryRepository(Database.KitchenFanaticContext context)
+        public EntryRepository(Database.KitchenFanaticDataContext context) : base(context) { }
+
+
+        /// <summary>
+        /// Deletes a single entry from the database
+        /// </summary>
+        /// <param name="entry"> The entry to be deleted from the database </param>
+        public void DeleteEntry(Database.ItemCategory entry)
         {
-            Context = context;
+            Context.ItemCategories.DeleteOnSubmit(entry);
         }
 
 
         /// <summary>
-        /// 
+        /// Returns a entry defined by the entry id
         /// </summary>
-        /// <param name="itemCategory"></param>
-        public void DeleteItemCategory(Database.ItemCategory itemCategory)
+        /// <param name="entryId"> The id of the entry to be returned </param>
+        /// <returns> Returns a Database.entry instance with the data from the database </returns>
+        public Database.ItemCategory GetEntryById(int entryId)
         {
-            Context.ItemCategories.DeleteOnSubmit(itemCategory);
+            return Context.ItemCategories.Where(dbEntry => dbEntry.Category == entryId).First();
         }
 
 
         /// <summary>
-        /// 
+        /// Gets all the entrys in the database as an enumerable
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Database.ItemCategory> GetItemCategories()
+        /// <returns> An enumerable of all entrys in the database </returns>
+        public IEnumerable<Database.ItemCategory> GetEntry()
         {
             return Context.ItemCategories.AsEnumerable();
         }
 
 
         /// <summary>
-        /// 
+        /// Inserts an entry in the database
         /// </summary>
-        /// <param name="itemCategory"></param>
-        /// <returns></returns>
-        public Database.ItemCategory GetItemCategoryByCategory(int itemCategory)
+        /// <param name="entry"> The entry to be inserted </param>
+        public void InsertEntry(Database.ItemCategory entry)
         {
-            return Context.ItemCategories.Where(dbEntry => dbEntry.Category == itemCategory).First();
+            Context.ItemCategories.InsertOnSubmit(entry);
         }
 
 
         /// <summary>
-        /// 
+        /// Updates an entry with new information
         /// </summary>
-        /// <param name="itemCategory"></param>
-        public void InsertItemCategory(Database.ItemCategory itemCategory)
+        /// <param name="entry"> The entry object containg the new information </param>
+        public void UpdateEntry(Database.ItemCategory entry)
         {
-            Context.ItemCategories.InsertOnSubmit(itemCategory);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Save()
-        {
-            Context.SubmitChanges();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="itemCategory"></param>
-        public void UpdateItemCategory(Database.ItemCategory itemCategory)
-        {
-            Database.ItemCategory dbEntry = Context.ItemCategories.Where(dbInner => dbInner.Category == itemCategory.Category).First();
-            dbEntry = itemCategory;
+            Database.ItemCategory dbEntry = Context.ItemCategories.Where(dbInner => dbInner.Category == entry.Category).First();
+            dbEntry.Name = entry.Name;
         }
     }
 }
