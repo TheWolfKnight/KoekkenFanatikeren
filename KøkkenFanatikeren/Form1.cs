@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using KøkkenFanatikeren.Src.Repository;
-
 namespace KøkkenFanatikeren
 {
     public partial class Form1 : Form
