@@ -17,9 +17,6 @@ namespace KøkkenFanatikeren
         public Form1()
         {
             InitializeComponent();
-
-            Src.Database.KitchenFanaticDataContext ctx = new Src.Database.KitchenFanaticDataContext();
-            EmployeeRepository repo = new EmployeeRepository(ctx);
         }
     }
 }
