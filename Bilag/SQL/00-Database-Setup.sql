@@ -1,7 +1,7 @@
--- drop database KoekkenFanatikeren;
--- create database KoekkenFanatikeren;
+-- drop database [KitchenFanatic];
+-- create database [KitchenFanatic];
 
-use KoekkenFanatikeren;
+use [KitchenFanatic];
 
 /*
 	@Name:		Employees
@@ -42,13 +42,16 @@ create table [Customers] (
 	@Column:		CreatorId, int, cannot be null, is a reference to the table Employees Id column
 					The id of the employee who created the order.
 	@Column:		TotalPrice, float
-					The total price of all elements of the order, can be null if there are no emelents in the order
+					The total price of all elements of the order, can be null if there are no emelents in the order.
+	@Column:		Status, int, cannot be null, is between 0 and 3, starts with 0
+					Contians the order status, 0: Not begun, 1: Started, 2: Done, 3: Cancelled
 */
 create table [Orders] (
 	[Id] int identity(1000, 1) not null primary key,
 	[CustomerId] int not null foreign key references [Customers]([Id]),
 	[CreatorId] int not null foreign key references [Employees]([Id]),
 	[TotalPrice] float,
+	[Status] int not null check([Status] between 0 and 3) default 0
 );
 
 /*

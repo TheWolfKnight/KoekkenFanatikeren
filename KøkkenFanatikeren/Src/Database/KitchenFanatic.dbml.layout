@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.125" name="KitchenFanatic">
+  <DataContextMoniker Name="/KitchenFanaticDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ea9fb51d-a475-4273-a87f-0e72463e9fa3" absoluteBounds="0.75, 4, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad5580fc-8a3f-4ceb-a62e-7f92bfcf3a81" absoluteBounds="0.765, 4.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c98ed8e1-9406-4508-9250-6065f9ab310c" absoluteBounds="3.5, 0.875, 2, 1.7708968098958333">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5271df8d-98f7-48cf-8247-a7a0283f61c7" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a7fa3d54-7b11-4192-967e-f755551d4062" absoluteBounds="0.75, 1.25, 2, 1.1939925130208338">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2bd157cd-ea1a-4bdd-823b-87ff28cffeb9" absoluteBounds="0.765, 1.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3bd12e90-3f7a-4cf5-9df1-4df9abfb7505" absoluteBounds="0.75, 7.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/ItemCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0e51a666-0b52-49f7-97a2-efbba451bb76" absoluteBounds="0.765, 7.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" absoluteBounds="3.5, 6.875, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Item" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41e4214f-96b8-4cf8-bd78-ae81e85d0729" absoluteBounds="3.515, 7.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3da159a5-630f-47ee-a72e-2afd7e4d438f" absoluteBounds="6.25, 1.125, 2, 1.3862939453124998">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/OrderItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aac48c97-38d0-424e-8182-d2b40696410e" absoluteBounds="6.265, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 4.78929768880208); (4.5 : 4.78929768880208); (4.5 : 2.64589680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Customer/Customer_Order" />
+      <nodes>
+        <classShapeMoniker Id="ea9fb51d-a475-4273-a87f-0e72463e9fa3" />
+        <classShapeMoniker Id="c98ed8e1-9406-4508-9250-6065f9ab310c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.84699625651042); (3.5 : 1.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Employee/Employee_Order" />
+      <nodes>
+        <classShapeMoniker Id="a7fa3d54-7b11-4192-967e-f755551d4062" />
+        <classShapeMoniker Id="c98ed8e1-9406-4508-9250-6065f9ab310c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.84699625651042); (3.5 : 7.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/ItemCategory/ItemCategory_Item" />
+      <nodes>
+        <classShapeMoniker Id="3bd12e90-3f7a-4cf5-9df1-4df9abfb7505" />
+        <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.85659912109375); (7.25 : 7.85659912109375); (7.25 : 2.5112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Item/Item_OrderItem" />
+      <nodes>
+        <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
+        <classShapeMoniker Id="3da159a5-630f-47ee-a72e-2afd7e4d438f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.81814697265625); (6.25 : 1.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Order/Order_OrderItem" />
+      <nodes>
+        <classShapeMoniker Id="c98ed8e1-9406-4508-9250-6065f9ab310c" />
+        <classShapeMoniker Id="3da159a5-630f-47ee-a72e-2afd7e4d438f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
