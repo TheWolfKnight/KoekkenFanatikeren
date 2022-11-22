@@ -41,7 +41,7 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Gets all the entrys in the database as an enumerable
         /// </summary>
         /// <returns> An enumerable of all entrys in the database </returns>
-        public IEnumerable<Database.Order> GetEntry()
+        public IEnumerable<Database.Order> GetEntrys()
         {
             return Context.Orders.AsEnumerable();
         }
