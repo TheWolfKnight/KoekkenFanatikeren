@@ -75,7 +75,7 @@ namespace KøkkenFanatikeren.Src.Repository
         /// <param name="entry"> The entry to be inserted </param>
         public void InsertEntry(Database.OrderItem entry)
         {
-            Context.OrderItem.InsertOnSubmit(entry);
+            Context.OrderItems.InsertOnSubmit(entry);
         }
 
 

@@ -26,7 +26,7 @@ namespace KøkkenFanatikeren.Src.Interface
     /// </summary>
     public interface IOrderItem
     {
-        IEnumerable<Database.Order> GetItemsByOrderId(int orderId);
+        IEnumerable<Database.OrderItem> GetItemsByOrderId(int orderId);
         IEnumerable<Database.OrderItem> GetItemsByItemId(int itemId);
     }
 
