@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class OrderItemRepository : GenericRepository, Interface.IRepository<Database.OrderItem>
+    public class OrderItemRepository : GenericRepository, Interface.IRepository<Database.OrderItem>, Interface.IOrderItem
     {
         /// <summary>
         /// 
@@ -27,13 +27,35 @@ namespace KøkkenFanatikeren.Src.Repository
 
 
         /// <summary>
-        /// Returns a entry defined by the entry id
+        /// WARNING: THIS FUNCTION IS NOT TO BE USED WITH ORDERITEM CLASS
         /// </summary>
-        /// <param name="entryId"> The id of the entry to be returned </param>
-        /// <returns> Returns a Database.entry instance with the data from the database </returns>
+        /// <param name="entryId"> The id of the order whoes items will be returned to be returned </param>
+        /// <returns> THROWS AN ERROR </returns>
         public Database.OrderItem GetEntryById(int entryId)
         {
-            return Context.OrderItems.Where(dbEntry => dbEntry.Id == entryId).First();
+            throw new InvalidOperationException("Do not use this function. It is only here to satisfy the IRepository interface");
+        }
+
+
+        /// <summary>
+        /// Gets the OrderItems related to an Order
+        /// </summary>
+        /// <param name="orderId"> Id of the order that the items will origniate from </param>
+        /// <returns> An enumeable of the items of a given order </returns>
+        public IEnumerable<Database.OrderItem> GetItemsByOrderId(int orderId)
+        {
+            return Context.OrderItems.Where(item => item.OrderId == orderId).AsEnumerable();
+        }
+
+
+        /// <summary>
+        /// Gets the OrderItems related to an Item
+        /// </summary>
+        /// <param name="itemId"> The id of the item whoes orders the function will get </param>
+        /// <returns> An enumerable of all the OrderItems with a given Item </returns>
+        public IEnumerable<Database.OrderItem> GetItemsByItemId(int itemId)
+        {
+            return Context.OrderItems.Where(item => item.ItemId == itemId).AsEnumerable();
         }
 
 
@@ -41,7 +63,7 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Gets all the entrys in the database as an enumerable
         /// </summary>
         /// <returns> An enumerable of all entrys in the database </returns>
-        public IEnumerable<Database.OrderItem> GetEntry()
+        public IEnumerable<Database.OrderItem> GetEntrys()
         {
             return Context.OrderItems.AsEnumerable();
         }
