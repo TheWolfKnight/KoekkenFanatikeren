@@ -22,10 +22,10 @@ namespace KøkkenFanatikeren.Src.Services
 
 
         /// <summary>
-        /// 
+        /// Generates a sales report from the given orders
         /// </summary>
-        /// <param name="orders"></param>
-        /// <returns></returns>
+        /// <param name="orders"> The orders for the sales report </param>
+        /// <returns> An List of strings to be writen to a file </returns>
         public List<string> GenerateReport( IEnumerable<Models.Order> orders )
         {
             // creates variables to store the date of the report in
