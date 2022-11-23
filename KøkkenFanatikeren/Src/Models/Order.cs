@@ -11,13 +11,17 @@ namespace KøkkenFanatikeren.Src.Models
         public int Id { get; private set; }
         public int CustomerId { get; private set; }
         public int CreatorId { get; private set; }
+        public DateTime Creation { get; private set; }
+        public DateTime Completion { get; private set; }
         public double TotalPrice { get; set; }
         public OrderStatus Status { get; set; }
+
 
         /// <summary>
         /// Creates an empty Order class instance
         /// </summary>
         public Order() { }
+
 
         /// <summary>
         /// Creates a Models.Order instance from a Customer Id and a Creator Id
@@ -28,6 +32,7 @@ namespace KøkkenFanatikeren.Src.Models
         { 
             CustomerId = customerId;
             CreatorId = creatorId;
+            Creation = DateTime.Now;
             TotalPrice = 0.0d;
             Status = OrderStatus.NotStarted;
         }
@@ -41,6 +46,11 @@ namespace KøkkenFanatikeren.Src.Models
             this.Id = dbEntry.Id;
             this.CustomerId = dbEntry.CustomerId;
             this.CreatorId = dbEntry.CreatorId;
+            this.Creation = dbEntry.Creation;
+
+            if ( dbEntry.Completion.HasValue )
+                this.Completion = dbEntry.Completion.Value;
+
             this.TotalPrice = dbEntry.TotalPrice.GetValueOrDefault(0.0d);
             this.Status = (OrderStatus)dbEntry.Status;
         }
@@ -60,6 +70,8 @@ namespace KøkkenFanatikeren.Src.Models
             result.CreatorId = this.CreatorId;
             result.CustomerId = this.CustomerId;
             result.TotalPrice = this.TotalPrice;
+            result.Creation = this.Creation;
+            result.Completion = this.Completion;
             // The status is cast to an int, as the database does not have an idéer of what an enum is.
             result.Status = (int)this.Status;
 
@@ -70,9 +82,8 @@ namespace KøkkenFanatikeren.Src.Models
 
         public override string ToString()
         {
-            return $"Order(Id={Id}, CreatorId={CreatorId}, CustomerId={CustomerId}, TotalPrice={TotalPrice}, Status={Status})";
+            return $"Order(Id={Id}, CreatorId={CreatorId}, CustomerId={CustomerId}, Creation=({Creation:g}), Completion=({Completion:g}), TotalPrice={TotalPrice}, Status={Status})";
         }
-
     }
 
 

@@ -41,6 +41,10 @@ create table [Customers] (
 					Contains the id of the customer, who placed the order.
 	@Column:		CreatorId, int, cannot be null, is a reference to the table Employees Id column
 					The id of the employee who created the order.
+	@Column			Creation, datetime, cannot be null,
+					The date and time at which the order was made.
+	@Column			Completion, datetime,
+					The date and time at which the order was completed.
 	@Column:		TotalPrice, float
 					The total price of all elements of the order, can be null if there are no emelents in the order.
 	@Column:		Status, int, cannot be null, is between 0 and 3, starts with 0
@@ -50,6 +54,8 @@ create table [Orders] (
 	[Id] int identity(1000, 1) not null primary key,
 	[CustomerId] int not null foreign key references [Customers]([Id]),
 	[CreatorId] int not null foreign key references [Employees]([Id]),
+	[Creation] datetime not null,
+	[Completion] datetime,
 	[TotalPrice] float,
 	[Status] int not null check([Status] between 0 and 3) default 0
 );
