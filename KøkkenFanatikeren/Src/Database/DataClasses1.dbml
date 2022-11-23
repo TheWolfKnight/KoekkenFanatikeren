@@ -9,6 +9,20 @@
       <Association Name="Customer_Order" Member="Orders" ThisKey="Id" OtherKey="CustomerId" Type="Order" />
     </Type>
   </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Creation" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Completion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_Order" Member="Employee" ThisKey="CreatorId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Employees" Member="Employees">
     <Type Name="Employee">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -42,18 +56,6 @@
       <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Item_OrderItem" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
       <Association Name="Order_OrderItem" Member="Order" ThisKey="OrderId" OtherKey="Id" Type="Order" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Orders" Member="Orders">
-    <Type Name="Order">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
-      <Association Name="Employee_Order" Member="Employee" ThisKey="CreatorId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
-      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
