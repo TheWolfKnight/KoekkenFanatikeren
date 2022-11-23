@@ -59,12 +59,10 @@ namespace KøkkenFanatikeren.Src.Services
         /// Writes a block of text to the file path
         /// </summary>
         /// <param name="content"> An array of text to be writen in the file </param>
-        public void WriteFile(string[] content)
+        public void WriteFile(IEnumerable<string> content)
         {
-            foreach ( string line in content )
-            {
-                File.AppendAllText(Path, line);
-            }
+            File.AppendAllLines(Path, content);
         }
+
     }
 }

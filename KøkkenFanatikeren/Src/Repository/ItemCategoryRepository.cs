@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class EntryRepository : GenericRepository, Interface.IRepository<Database.ItemCategory>
+    public class ItemCategoryRepository : GenericRepository, Interface.IRepository<Database.ItemCategory>
     {
         /// <summary>
-        /// 
+        /// Creates an instance of the ItemCategoryRepository class
         /// </summary>
-        /// <param name="context"></param>
-        public EntryRepository(Database.KitchenFanaticDataContext context) : base(context) { }
+        /// <param name="context"> The database context </param>
+        public ItemCategoryRepository(Database.KitchenFanaticDataContext context) : base(context) { }
 
 
         /// <summary>

@@ -10,9 +10,9 @@ namespace KøkkenFanatikeren.Src.Repository
     public class OrderItemRepository : GenericRepository, Interface.IRepository<Database.OrderItem>, Interface.IOrderItem
     {
         /// <summary>
-        /// 
+        /// Creates an instance of the OrderItemRepository class
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context"> The database context </param>
         public OrderItemRepository(Database.KitchenFanaticDataContext context) : base(context) { }
 
 

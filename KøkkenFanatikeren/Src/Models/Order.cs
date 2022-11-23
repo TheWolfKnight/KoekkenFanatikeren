@@ -16,10 +16,12 @@ namespace KøkkenFanatikeren.Src.Models
         public double TotalPrice { get; set; }
         public OrderStatus Status { get; set; }
 
+
         /// <summary>
         /// Creates an empty Order class instance
         /// </summary>
         public Order() { }
+
 
         /// <summary>
         /// Creates a Models.Order instance from a Customer Id and a Creator Id
