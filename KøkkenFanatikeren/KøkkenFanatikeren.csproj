@@ -64,7 +64,10 @@
     <Compile Include="Src\Models\Employee.cs" />
     <Compile Include="Src\Models\Item.cs" />
     <Compile Include="Src\Models\ItemCategory.cs" />
+    <Compile Include="Src\Models\Colors.cs" />
     <Compile Include="Src\Models\Order.cs" />
+    <Compile Include="Src\Models\ItemDimension.cs" />
+    <Compile Include="Src\Models\ItemColors.cs" />
     <Compile Include="Src\Models\OrderItem.cs" />
     <Compile Include="Src\Repository\FilterRepository.cs" />
     <Compile Include="Src\Services\FilterService.cs" />

@@ -30,12 +30,15 @@ namespace KøkkenFanatikeren.Src.Database
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertCustomer(Customer instance);
-    partial void UpdateCustomer(Customer instance);
-    partial void DeleteCustomer(Customer instance);
+    partial void InsertColor(Color instance);
+    partial void UpdateColor(Color instance);
+    partial void DeleteColor(Color instance);
     partial void InsertOrder(Order instance);
     partial void UpdateOrder(Order instance);
     partial void DeleteOrder(Order instance);
+    partial void InsertCustomer(Customer instance);
+    partial void UpdateCustomer(Customer instance);
+    partial void DeleteCustomer(Customer instance);
     partial void InsertEmployee(Employee instance);
     partial void UpdateEmployee(Employee instance);
     partial void DeleteEmployee(Employee instance);
@@ -77,11 +80,11 @@ namespace KøkkenFanatikeren.Src.Database
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Customer> Customers
+		public System.Data.Linq.Table<Color> Colors
 		{
 			get
 			{
-				return this.GetTable<Customer>();
+				return this.GetTable<Color>();
 			}
 		}
 		
@@ -90,6 +93,14 @@ namespace KøkkenFanatikeren.Src.Database
 			get
 			{
 				return this.GetTable<Order>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Customer> Customers
+		{
+			get
+			{
+				return this.GetTable<Customer>();
 			}
 		}
 		
@@ -106,6 +117,22 @@ namespace KøkkenFanatikeren.Src.Database
 			get
 			{
 				return this.GetTable<ItemCategory>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ItemColor> ItemColors
+		{
+			get
+			{
+				return this.GetTable<ItemColor>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ItemDimension> ItemDimensions
+		{
+			get
+			{
+				return this.GetTable<ItemDimension>();
 			}
 		}
 		
@@ -126,132 +153,68 @@ namespace KøkkenFanatikeren.Src.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Customers")]
-	public partial class Customer : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Colors")]
+	public partial class Color : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
+		private int _ColorId;
 		
-		private string _FullName;
-		
-		private string _PhoneNumber;
-		
-		private string _Email;
-		
-		private EntitySet<Order> _Orders;
+		private string _Name;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnFullNameChanging(string value);
-    partial void OnFullNameChanged();
-    partial void OnPhoneNumberChanging(string value);
-    partial void OnPhoneNumberChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
+    partial void OnColorIdChanging(int value);
+    partial void OnColorIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
-		public Customer()
+		public Color()
 		{
-			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ColorId
 		{
 			get
 			{
-				return this._Id;
+				return this._ColorId;
 			}
 			set
 			{
-				if ((this._Id != value))
+				if ((this._ColorId != value))
 				{
-					this.OnIdChanging(value);
+					this.OnColorIdChanging(value);
 					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
+					this._ColorId = value;
+					this.SendPropertyChanged("ColorId");
+					this.OnColorIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string FullName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._FullName;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._FullName != value))
+				if ((this._Name != value))
 				{
-					this.OnFullNameChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._FullName = value;
-					this.SendPropertyChanged("FullName");
-					this.OnFullNameChanged();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="Char(8) NOT NULL", CanBeNull=false)]
-		public string PhoneNumber
-		{
-			get
-			{
-				return this._PhoneNumber;
-			}
-			set
-			{
-				if ((this._PhoneNumber != value))
-				{
-					this.OnPhoneNumberChanging(value);
-					this.SendPropertyChanging();
-					this._PhoneNumber = value;
-					this.SendPropertyChanged("PhoneNumber");
-					this.OnPhoneNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Orders", ThisKey="Id", OtherKey="CustomerId")]
-		public EntitySet<Order> Orders
-		{
-			get
-			{
-				return this._Orders;
-			}
-			set
-			{
-				this._Orders.Assign(value);
 			}
 		}
 		
@@ -273,18 +236,6 @@ namespace KøkkenFanatikeren.Src.Database
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = this;
-		}
-		
-		private void detach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = null;
 		}
 	}
 	
@@ -576,6 +527,168 @@ namespace KøkkenFanatikeren.Src.Database
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Customers")]
+	public partial class Customer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _FullName;
+		
+		private string _PhoneNumber;
+		
+		private string _Email;
+		
+		private EntitySet<Order> _Orders;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnFullNameChanging(string value);
+    partial void OnFullNameChanged();
+    partial void OnPhoneNumberChanging(string value);
+    partial void OnPhoneNumberChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    #endregion
+		
+		public Customer()
+		{
+			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this.OnFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._FullName = value;
+					this.SendPropertyChanged("FullName");
+					this.OnFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="Char(8) NOT NULL", CanBeNull=false)]
+		public string PhoneNumber
+		{
+			get
+			{
+				return this._PhoneNumber;
+			}
+			set
+			{
+				if ((this._PhoneNumber != value))
+				{
+					this.OnPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PhoneNumber = value;
+					this.SendPropertyChanged("PhoneNumber");
+					this.OnPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Orders", ThisKey="Id", OtherKey="CustomerId")]
+		public EntitySet<Order> Orders
+		{
+			get
+			{
+				return this._Orders;
+			}
+			set
+			{
+				this._Orders.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = this;
+		}
+		
+		private void detach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employees")]
 	public partial class Employee : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -801,6 +914,132 @@ namespace KøkkenFanatikeren.Src.Database
 		{
 			this.SendPropertyChanging();
 			entity.ItemCategory1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ItemColors")]
+	public partial class ItemColor
+	{
+		
+		private int _ItemId;
+		
+		private int _ColorId;
+		
+		public ItemColor()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL")]
+		public int ItemId
+		{
+			get
+			{
+				return this._ItemId;
+			}
+			set
+			{
+				if ((this._ItemId != value))
+				{
+					this._ItemId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorId", DbType="Int NOT NULL")]
+		public int ColorId
+		{
+			get
+			{
+				return this._ColorId;
+			}
+			set
+			{
+				if ((this._ColorId != value))
+				{
+					this._ColorId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ItemDimensions")]
+	public partial class ItemDimension
+	{
+		
+		private int _ItemId;
+		
+		private int _Height;
+		
+		private int _Width;
+		
+		private int _Depth;
+		
+		public ItemDimension()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL")]
+		public int ItemId
+		{
+			get
+			{
+				return this._ItemId;
+			}
+			set
+			{
+				if ((this._ItemId != value))
+				{
+					this._ItemId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Height", DbType="Int NOT NULL")]
+		public int Height
+		{
+			get
+			{
+				return this._Height;
+			}
+			set
+			{
+				if ((this._Height != value))
+				{
+					this._Height = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Width", DbType="Int NOT NULL")]
+		public int Width
+		{
+			get
+			{
+				return this._Width;
+			}
+			set
+			{
+				if ((this._Width != value))
+				{
+					this._Width = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Depth", DbType="Int NOT NULL")]
+		public int Depth
+		{
+			get
+			{
+				return this._Depth;
+			}
+			set
+			{
+				if ((this._Depth != value))
+				{
+					this._Depth = value;
+				}
+			}
 		}
 	}
 	

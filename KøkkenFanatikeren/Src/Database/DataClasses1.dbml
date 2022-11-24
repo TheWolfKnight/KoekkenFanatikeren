@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KitchenFanatic" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=school-database-server.database.windows.net;Initial Catalog=KitchenFanatic;Persist Security Info=True;User ID=server_admin" SettingsObjectName="KøkkenFanatikeren.Properties.Settings" SettingsPropertyName="KitchenFanaticConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Customers" Member="Customers">
-    <Type Name="Customer">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="PhoneNumber" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Customer_Order" Member="Orders" ThisKey="Id" OtherKey="CustomerId" Type="Order" />
+  <Table Name="dbo.Colors" Member="Colors">
+    <Type Name="Color">
+      <Column Name="ColorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Color_ItemColor" Member="ItemColors" ThisKey="ColorId" OtherKey="ColorId" Type="ItemColor" />
     </Type>
   </Table>
   <Table Name="dbo.Orders" Member="Orders">
@@ -23,6 +21,15 @@
       <Association Name="Employee_Order" Member="Employee" ThisKey="CreatorId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="Id" OtherKey="CustomerId" Type="Order" />
+    </Type>
+  </Table>
   <Table Name="dbo.Employees" Member="Employees">
     <Type Name="Employee">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -37,6 +44,23 @@
       <Association Name="ItemCategory_Item" Member="Items" ThisKey="Category" OtherKey="ItemCategory" Type="Item" />
     </Type>
   </Table>
+  <Table Name="dbo.ItemColors" Member="ItemColors">
+    <Type Name="ItemColor">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Color_ItemColor" Member="Color" ThisKey="ColorId" OtherKey="ColorId" Type="Color" IsForeignKey="true" />
+      <Association Name="Item_ItemColor" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemDimensions" Member="ItemDimensions">
+    <Type Name="ItemDimension">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Depth" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Item_ItemDimension" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Items" Member="Items">
     <Type Name="Item">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -45,6 +69,8 @@
       <Column Name="Producer" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UnitPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Item_ItemColor" Member="ItemColors" ThisKey="Id" OtherKey="ItemId" Type="ItemColor" />
+      <Association Name="Item_ItemDimension" Member="ItemDimensions" ThisKey="Id" OtherKey="ItemId" Type="ItemDimension" />
       <Association Name="Item_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="ItemId" Type="OrderItem" />
       <Association Name="ItemCategory_Item" Member="ItemCategory1" ThisKey="ItemCategory" OtherKey="Category" Type="ItemCategory" IsForeignKey="true" />
     </Type>
