@@ -18,9 +18,8 @@ namespace KøkkenFanatikeren
         {
             InitializeComponent();
 
-            Frontend.Form_CustomerQuestions tmp = new Frontend.Form_CustomerQuestions();
+            Frontend.Form_CustomerQuestions tmp = new Frontend.Form_CustomerQuestions(this);
             tmp.ShowDialog();
-            this.Close();
         }
     }
 }
