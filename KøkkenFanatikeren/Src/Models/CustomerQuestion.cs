@@ -29,9 +29,14 @@ namespace KøkkenFanatikeren.Src.Models
         /// </summary>
         /// <param name="displayElements"> The name of the elements needed for the question </param>
         /// <param name="type"> The type of the question </param>
-        /// <param name="question"> The actual question </param>
+        /// <param name="question"> The actual question. WARNING: use a newline about every 20 chars </param>
         /// <param name="constaints"> The text for the diffection elements </param>
-        public CustomerQuestion( IEnumerable<string> displayElements, QuestionType type, string question, Dictionary<string, string> constaints)
+        public CustomerQuestion(
+            IEnumerable<string> displayElements,
+            QuestionType type,
+            string question,
+            Dictionary<string, string> constaints
+        )
         {
             DisplayElements = displayElements;
             Type = type;
@@ -45,6 +50,7 @@ namespace KøkkenFanatikeren.Src.Models
     public enum QuestionType
     {
         Select,
+        MultipleChoice,
         RangeInput,
         SingleInput,
     }

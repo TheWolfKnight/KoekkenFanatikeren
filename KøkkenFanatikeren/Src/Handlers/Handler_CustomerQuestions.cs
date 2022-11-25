@@ -30,12 +30,23 @@ namespace KøkkenFanatikeren.Src.Handlers
             CurrentQuestion = -1;
             Questions = new List<Models.CustomerQuestion>() {
                 new Models.CustomerQuestion(
-                    new List<string>(){ "btn_1" },
-                    Models.QuestionType.Select,
-                    "Lorum Ibsum Denum",
+                    new List<string>(){ "clb_MCQ" },
+                    Models.QuestionType.MultipleChoice,
+                    "Hvilket farver vil du gerne have i dit køkken?",
                     new Dictionary<string, string>() {
-                        { "btn_1", "Click Me" }
+                        { "ctb_MCQ", "color" }, // When color repoes are ready
                     }),
+                new Models.CustomerQuestion(
+                    new List<string>(){ "tb_MinInput1", "tb_MinInput2", "tb_MinInput3", "tb_MaxInput1", "tb_MaxInput2", "tb_MaxInput3", "lb_Input1", "lb_Input2", "lb_Input3" },
+                    Models.QuestionType.RangeInput,
+                    "Hvor stort et skab skal du bruge?",
+                    new Dictionary<string, string>()
+                    {
+                        { "lb_Input1", "Højde:" },
+                        { "lb_Input2", "Brede:" },
+                        { "lb_Input3", "Dybte:" }
+                    }
+                    ),
             };
         }
 
@@ -95,6 +106,10 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// </summary>
         public void DisplayPreviousQuestion()
         {
+            // Makes sure an out of index error does not happen
+            if (CurrentQuestion - 1 < 0)
+                return;
+
             // Decroments the question pointer
             CurrentQuestion--;
 
@@ -104,33 +119,59 @@ namespace KøkkenFanatikeren.Src.Handlers
 
             // Showes all the question elements and sets the question inputs
             DisplayQuestionElements(customerQuestion.DisplayElements, customerQuestion.Constraints);
-            SetQuestionInputs(customerQuestion.Answer, customerQuestion.Type);
+            SetQuestionInputs(customerQuestion);
         }
 
 
         /// <summary>
         /// Handles the click of the btn_Submit element
         /// </summary>
+        /// <param name="event"> The event when the button is clicked </param>
         public void OnSubmitButtonClick( MouseEventArgs @event )
         {
             // Makes sure the left mouse button triggers the event
             if (@event.Button != MouseButtons.Left)
                 return;
 
+            // Gets the current question
             Models.CustomerQuestion question = Questions[CurrentQuestion];
 
+            // Determins the type of the question, then routes the
+            // handling of the question to the designated method
             switch(question.Type) {
                 case Models.QuestionType.Select:
+                    SelectInputQuestionHandler(question);
+                    break;
+                case Models.QuestionType.MultipleChoice:
+                    MultimpleChoiceInputQuestionHandler(question);
                     break;
                 case Models.QuestionType.RangeInput:
+                    RangeInputQuestionHandler(question);
                     break;
                 case Models.QuestionType.SingleInput:
+                    SingleInputQuestionHandler(question);
                     break;
                 default:
                     throw new Exception("Unknown input from the quesiton list");
             }
 
+            // Displayes the next question
             DisplayNextQuestion();
+        }
+
+
+        /// <summary>
+        /// Handels the Mouse click event for the btn_PrevQuest Element
+        /// </summary>
+        /// <param name="event"> The event when the button is clicked </param>
+        public void OnPrevQuestButtonClick(MouseEventArgs @event)
+        {
+            // Makes sure you click with the left mouse button
+            if (@event.Button != MouseButtons.Left)
+                return;
+
+            // Goes back to the previus question
+            DisplayPreviousQuestion();
         }
 
 
@@ -141,6 +182,26 @@ namespace KøkkenFanatikeren.Src.Handlers
         private void SelectInputQuestionHandler(Models.CustomerQuestion question)
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Gets the data from the checkbox field, and stores it in the questiosn answer
+        /// dictionary
+        /// </summary>
+        /// <param name="question"> The question that is beeing answerd </param>
+        private void MultimpleChoiceInputQuestionHandler(Models.CustomerQuestion question)
+        {
+            // Gets the results from the check list box
+            IEnumerable<string> results = Owner.clb_MCQ.CheckedItems.Cast<string>();
+
+            // if the results key already exsits in for the Anser field,
+            // do not create it, else create it
+            if (!question.Answer.ContainsKey("results"))
+                question.Answer.Add("results", null);
+
+            // Sets the results to be the previusly defined results
+            question.Answer["results"] = results;
         }
 
 
@@ -167,23 +228,10 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <summary>
         /// Sets the answer inputs of the question boxes, when the user goes to an answerd question
         /// </summary>
-        /// <param name="answers"> The questions answer field. (KEY:VALUE) = (CONTROL_NAME:VALUE) </param>
-        private void SetQuestionInputs(Dictionary<string, dynamic> answers, Models.QuestionType type) 
+        /// <param name="question"> The question beeing set to the screen </param>
+        private void SetQuestionInputs(Models.CustomerQuestion question) 
         {
-            foreach (string key in answers.Keys)
-            {
-                try
-                {
-                    // Attemts to find the Control field that is specified in the Dict
-                    // Key in this case should be a field name, and value should be a
-                    // dynamic type that the control could take as a value.
-                    Control target = (Control)Owner.GetType().GetField(key).GetValue(Owner);
-                    target.Text = answers[key];
-                } catch ( NullReferenceException ae )
-                {
-                    // TODO: Logging
-                }
-            }
+            throw new NotImplementedException();
         }
 
 
@@ -212,15 +260,53 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="elementLables"> The { name, value } pairs of the relevant elements </param>
         private void DisplayQuestionElements(IEnumerable<string> relevantElements, Dictionary<string, string> elementLables)
         {
+            // Loopes over all control elements on the owner
             foreach (Control ctrl in Owner.Controls)
             {
                 if ( relevantElements.Contains(ctrl.Name) )
                 {
+                    // Starts by setting the element visiblity to true
                     ctrl.Visible = true;
-                    if (elementLables.TryGetValue(ctrl.Name, out string text))
-                        ctrl.Text = text;
+
+                    // then check if the element has some accositated text with it
+                    // if not the program continues
+                    bool isPresent = elementLables.TryGetValue(ctrl.Name, out string text);
+                    if (!isPresent)
+                        continue;
+
+                    // sets the relevant data for each type of control element
+                    HandelElementLables(ctrl.Name, text);
                 }
             }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="text"></param>
+        private void HandelElementLables(string name, string text)
+        {
+            // Gets the type definition from the front of the control name
+            // EXAMPLE: lb_Test is a label, as can be seen by the lb.
+            string controlElementType = name.Substring(0, name.IndexOf('_'));
+
+            // Asserts the element of the item, then sets the coresponding data
+            switch (controlElementType)
+            {
+                // Label case
+                case "lb":
+                    // Gets the field from the type of the Owner,
+                    // Then sets the Text field to the text variable
+                    ((Label)Owner.GetType().GetField(name).GetValue(Owner)).Text = text;
+                    break;
+                default:
+                    Console.WriteLine(name);
+                    break;
+            }
+
         }
 
 
@@ -253,7 +339,7 @@ namespace KøkkenFanatikeren.Src.Handlers
             int formXMidt = (int)Math.Round(Owner.Size.Width / 2.0f);
 
             // Sets the text of the label
-            Owner.lb_Question.Text = text;
+            FormatTextLabel(text);
 
             // Gets the size of the label, and finds its half width
             Size lb_Size= Owner.lb_Question.Size;
@@ -272,5 +358,28 @@ namespace KøkkenFanatikeren.Src.Handlers
             Owner.lb_Question.Location = lb_NewLoc;
         }
 
+
+        /// <summary>
+        /// Formats the text so it does not go over the screen, and changes size based on the
+        /// amount of chars on the screen
+        /// </summary>
+        /// <param name="text"> The input text to be displayed on the screen </param>
+        private void FormatTextLabel(string text)
+        {
+            // Counts the amount of new lines in the input text
+            int lineBrAmt = text.Count(chr => chr.ToString() == Environment.NewLine );
+
+            Console.WriteLine(lineBrAmt);
+
+            // Get the old font from the label
+            Font lb_OldFont = Owner.lb_Question.Font;
+
+            // Set the labels font to the same family
+            // but change the size based on the amount of lines
+            Owner.lb_Question.Font = new Font(lb_OldFont.FontFamily, lb_OldFont.Size - 2.5f * lineBrAmt);
+
+            // set the text to be equal to the new formated text
+            Owner.lb_Question.Text = text;
+        }
     }
 }

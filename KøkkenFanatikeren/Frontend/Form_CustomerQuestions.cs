@@ -36,5 +36,10 @@ namespace KøkkenFanatikeren.Frontend
         {
             Handler.OnSubmitButtonClick((MouseEventArgs)e);
         }
+
+        private void btn_PrevQuest_Click(object sender, EventArgs e)
+        {
+            Handler.OnPrevQuestButtonClick((MouseEventArgs)e);
+        }
     }
 }
