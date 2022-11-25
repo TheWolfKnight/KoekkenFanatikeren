@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using KøkkenFanatikeren.Src.Models;
 using KøkkenFanatikeren.Src.Database;
-using KøkkenFanatikeren.Src.Services;
 using Item = KøkkenFanatikeren.Src.Models.Item;
+using KøkkenFanatikeren.Src.Repository;
 
 namespace KøkkenFanatikeren.Frontend
 {
@@ -24,14 +24,15 @@ namespace KøkkenFanatikeren.Frontend
             List<Item> QuantitySort = filterService.SortByQuantity(true);
             List<Item> PriceSort = filterService.SortByPrice(50, 1000, true);
             List<Item> CategorySort = filterService.SortByCategory(2);
+            List<Item> ColorSort = filterService.SortByColor(2);
 
             Src.Database.DataClasses1DataContext dbContext = new DataClasses1DataContext();
 
             //List<Item> Sort = filterService.Sort();
 
-            foreach (Item iteminlist in PriceSort)
+            foreach (Item iteminlist in ColorSort)
             {
-                Console.WriteLine(iteminlist.UnitPrice.ToString());
+                Console.WriteLine(iteminlist.Id.ToString());
             }
 
             //foreach (int item in DimensionSort)
