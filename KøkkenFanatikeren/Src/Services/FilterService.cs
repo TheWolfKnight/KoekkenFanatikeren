@@ -141,14 +141,14 @@ namespace KøkkenFanatikeren.Src.Repository
                 c => c.ItemId, //Inner
                 (i, c) => new { ITEM = i, Dimensions = c }) //Result
                 
-                //Run through every dimension
+                //Run through every dimension & check if within range
                 .Where(Parent => Parent.Dimensions.Height >= MinHeight
                 && Parent.Dimensions.Height <= MaxHeight 
                 && Parent.Dimensions.Width >= MinWidth
                 && Parent.Dimensions.Width <= MaxWidth
                 && Parent.Dimensions.Depth >= MinDepth
                 && Parent.Dimensions.Depth <= MaxDepth
-                ) //Match IDs
+                ) 
                 .Select(Result => Result.ITEM); //Select only the item
 
             foreach (Database.Item itemInDB in items)

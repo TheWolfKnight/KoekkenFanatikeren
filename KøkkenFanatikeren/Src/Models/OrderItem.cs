@@ -10,7 +10,7 @@ namespace KøkkenFanatikeren.Src.Models
     {
         public int OrderId { get; private set; }
         public int ItemId { get; private set; }
-        public int Quantity { get; private set; }
+        public int Quantity { get; set; }
 
 
         /// <summary>
@@ -62,5 +62,12 @@ namespace KøkkenFanatikeren.Src.Models
             // Returns the result variable
             return result;
         }
+
+
+        public override string ToString()
+        {
+            return $"OrderItem(OrderId={OrderId}, ItemId={ItemId}, Quantity={Quantity})";
+        }
+
     }
 }

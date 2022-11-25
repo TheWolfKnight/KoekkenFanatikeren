@@ -9,12 +9,18 @@ namespace KøkkenFanatikeren.Src.Models
     public class Employee
     {
         public int Id { get; private set; }
-        public string FullName { get; private set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Creates a new empty instance of the Models.Employee class
         /// </summary>
         public Employee() { }
+
+        /// <summary>
+        /// Creates a new instance of the Models.Employee class with a given full name
+        /// </summary>
+        /// <param name="fullName"> The full name of the new employee </param>
+        public Employee(string fullName) => FullName = fullName;
 
         /// <summary>
         /// Creates a new Models.Employee instance with all the data set
@@ -49,6 +55,12 @@ namespace KøkkenFanatikeren.Src.Models
 
             // Returns the result variable
             return result;
+        }
+
+
+        public override string ToString()
+        {
+            return $"Employee(Id={Id}, FullName={FullName})";
         }
 
     }
