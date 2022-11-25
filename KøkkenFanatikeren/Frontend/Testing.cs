@@ -25,12 +25,13 @@ namespace KøkkenFanatikeren.Frontend
             List<Item> PriceSort = filterService.SortByPrice(50, 1000, true);
             List<Item> CategorySort = filterService.SortByCategory(2);
             List<Item> ColorSort = filterService.SortByColor(2);
+            List<Item> DimensionsSort = filterService.SortByDimensions(1,10,1,10,1,10);
 
             Src.Database.DataClasses1DataContext dbContext = new DataClasses1DataContext();
 
             //List<Item> Sort = filterService.Sort();
 
-            foreach (Item iteminlist in ColorSort)
+            foreach (Item iteminlist in DimensionsSort)
             {
                 Console.WriteLine(iteminlist.Id.ToString());
             }

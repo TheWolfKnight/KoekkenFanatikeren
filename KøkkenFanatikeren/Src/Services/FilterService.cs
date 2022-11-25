@@ -132,6 +132,35 @@ namespace KøkkenFanatikeren.Src.Repository
 
         }
 
+        public List<Models.Item> SortByDimensions(int MinHeight, int MaxHeight, int MinWidth, int MaxWidth, int MinDepth, int MaxDepth)
+        {
+            List<Models.Item> ItemList = new List<Models.Item>();
+
+            IQueryable<Database.Item> items = DBContext.Items.Join(DBContext.ItemDimensions,
+                i => i.Id, //Outer
+                c => c.ItemId, //Inner
+                (i, c) => new { ITEM = i, Dimensions = c }) //Result
+                
+                //Run through every dimension
+                .Where(Parent => Parent.Dimensions.Height >= MinHeight
+                && Parent.Dimensions.Height <= MaxHeight 
+                && Parent.Dimensions.Width >= MinWidth
+                && Parent.Dimensions.Width <= MaxWidth
+                && Parent.Dimensions.Depth >= MinDepth
+                && Parent.Dimensions.Depth <= MaxDepth
+                ) //Match IDs
+                .Select(Result => Result.ITEM); //Select only the item
+
+            foreach (Database.Item itemInDB in items)
+            {
+                Models.Item newItem = new Models.Item(itemInDB);
+
+                ItemList.Add(newItem);
+            }
+
+            return ItemList;
+
+        }
 
 
 
