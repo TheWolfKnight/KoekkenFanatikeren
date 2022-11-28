@@ -10,6 +10,7 @@ namespace KøkkenFanatikeren.Src.Models
     {
         public int Id { get; private set; }
         public string FullName { get; private set; }
+        public string UserName { get; private set; }
 
         /// <summary>
         /// Creates a new empty instance of the Models.Employee class

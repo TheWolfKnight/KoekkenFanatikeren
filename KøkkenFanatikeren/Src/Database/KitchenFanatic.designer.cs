@@ -22,8 +22,8 @@ namespace KøkkenFanatikeren.Src.Database
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="KoekkenFanatikeren")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="KitchenFanatic")]
+	public partial class KitchenFanaticDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -47,31 +47,25 @@ namespace KøkkenFanatikeren.Src.Database
     partial void DeleteItem(Item instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
-				base(global::KøkkenFanatikeren.Properties.Settings.Default.KoekkenFanatikerenConnectionString1, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DataClasses1DataContext(string connection) : 
+		public KitchenFanaticDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public KitchenFanaticDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KitchenFanaticDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KitchenFanaticDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -300,6 +294,10 @@ namespace KøkkenFanatikeren.Src.Database
 		
 		private int _CreatorId;
 		
+		private System.DateTime _Creation;
+		
+		private System.Nullable<System.DateTime> _Completion;
+		
 		private System.Nullable<double> _TotalPrice;
 		
 		private int _Status;
@@ -318,6 +316,10 @@ namespace KøkkenFanatikeren.Src.Database
     partial void OnCustomerIdChanged();
     partial void OnCreatorIdChanging(int value);
     partial void OnCreatorIdChanged();
+    partial void OnCreationChanging(System.DateTime value);
+    partial void OnCreationChanged();
+    partial void OnCompletionChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompletionChanged();
     partial void OnTotalPriceChanging(System.Nullable<double> value);
     partial void OnTotalPriceChanged();
     partial void OnStatusChanging(int value);
@@ -395,6 +397,46 @@ namespace KøkkenFanatikeren.Src.Database
 					this._CreatorId = value;
 					this.SendPropertyChanged("CreatorId");
 					this.OnCreatorIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Creation", DbType="DateTime NOT NULL")]
+		public System.DateTime Creation
+		{
+			get
+			{
+				return this._Creation;
+			}
+			set
+			{
+				if ((this._Creation != value))
+				{
+					this.OnCreationChanging(value);
+					this.SendPropertyChanging();
+					this._Creation = value;
+					this.SendPropertyChanged("Creation");
+					this.OnCreationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Completion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Completion
+		{
+			get
+			{
+				return this._Completion;
+			}
+			set
+			{
+				if ((this._Completion != value))
+				{
+					this.OnCompletionChanging(value);
+					this.SendPropertyChanging();
+					this._Completion = value;
+					this.SendPropertyChanged("Completion");
+					this.OnCompletionChanged();
 				}
 			}
 		}
