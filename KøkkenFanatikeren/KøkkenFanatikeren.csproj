@@ -55,11 +55,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Src\Database\DataClasses1.designer.cs">
+    <Compile Include="Src\Database\KitchenFanatic.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
+      <DependentUpon>KitchenFanatic.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Src\Interface\RepositoryInterface.cs" />
     <Compile Include="Src\Models\Customer.cs" />
     <Compile Include="Src\Models\Employee.cs" />
     <Compile Include="Src\Models\Item.cs" />
@@ -69,7 +70,19 @@
     <Compile Include="Src\Models\ItemDimension.cs" />
     <Compile Include="Src\Models\ItemColors.cs" />
     <Compile Include="Src\Models\OrderItem.cs" />
+    <Compile Include="Src\Repository\ItemDimensionRepository.cs" />
+    <Compile Include="Src\Repository\ItemColorsRepository.cs" />
+    <Compile Include="Src\Repository\ColorRepository.cs" />
+    <Compile Include="Src\Repository\CustomerRepository.cs" />
+    <Compile Include="Src\Repository\EmployeeRepository.cs" />
+    <Compile Include="Src\Repository\GenericRepository.cs" />
+    <Compile Include="Src\Repository\ItemCategoryRepository.cs" />
+    <Compile Include="Src\Repository\ItemRepository.cs" />
+    <Compile Include="Src\Repository\OrderItemRepository.cs" />
+    <Compile Include="Src\Repository\OrderRepository.cs" />
+    <Compile Include="Src\Services\FileService.cs" />
     <Compile Include="Src\Services\FilterService.cs" />
+    <Compile Include="Src\Services\SalesReportService.cs" />
     <EmbeddedResource Include="Frontend\Testing.resx">
       <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,20 +104,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Src\Database\DataClasses1.dbml">
+    <None Include="Src\Database\KitchenFanatic.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <LastGenOutput>KitchenFanatic.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Src\Database\DataClasses1.dbml.layout">
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    <None Include="Src\Database\KitchenFanatic.dbml.layout">
+      <DependentUpon>KitchenFanatic.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Src\Repository\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

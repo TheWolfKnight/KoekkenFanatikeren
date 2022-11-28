@@ -10,7 +10,7 @@ namespace KøkkenFanatikeren.Src.Repository
 {
     public class FilterService
     {
-        Database.DataClasses1DataContext DBContext { get; set; } = new DataClasses1DataContext();
+        Database.KitchenFanaticDataContext DBContext { get; set; } = new KitchenFanaticDataContext();
 
 
         /// <summary>

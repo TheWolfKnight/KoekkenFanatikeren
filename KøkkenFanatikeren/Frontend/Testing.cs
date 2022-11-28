@@ -27,14 +27,18 @@ namespace KøkkenFanatikeren.Frontend
             List<Item> ColorSort = filterService.SortByColor(2);
             List<Item> DimensionsSort = filterService.SortByDimensions(1,10,1,10,1,10);
 
-            Src.Database.DataClasses1DataContext dbContext = new DataClasses1DataContext();
+            Src.Database.KitchenFanaticDataContext DBContext = new KitchenFanaticDataContext();
 
+            ItemRepository repo = new ItemRepository(DBContext);
+            Item test = new Item(repo.GetEntryById(1423));
             //List<Item> Sort = filterService.Sort();
 
             foreach (Item iteminlist in DimensionsSort)
             {
                 Console.WriteLine(iteminlist.Id.ToString());
             }
+
+            Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
 
             //foreach (int item in DimensionSort)
             //{

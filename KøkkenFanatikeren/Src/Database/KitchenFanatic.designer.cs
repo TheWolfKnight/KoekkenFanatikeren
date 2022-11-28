@@ -23,7 +23,7 @@ namespace KøkkenFanatikeren.Src.Database
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="KitchenFanatic")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	public partial class KitchenFanaticDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -50,31 +50,31 @@ namespace KøkkenFanatikeren.Src.Database
     partial void DeleteItem(Item instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
+		public KitchenFanaticDataContext() : 
 				base(global::KøkkenFanatikeren.Properties.Settings.Default.KitchenFanaticConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection) : 
+		public KitchenFanaticDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public KitchenFanaticDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KitchenFanaticDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KitchenFanaticDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
