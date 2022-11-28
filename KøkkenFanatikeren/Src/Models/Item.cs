@@ -9,11 +9,11 @@ namespace KøkkenFanatikeren.Src.Models
     public class Item
     {
         public int Id { get; private set; }
-        public ItemCategory Category { get; private set; }
-        public string Name { get; private set; }
-        public string Producer { get; private set; }
-        public int Quantity { get; private set; }
-        public double UnitPrice { get; private set; }
+        public ItemCategory Category { get; set; }
+        public string Name { get; set; }
+        public string Producer { get; set; }
+        public int Quantity { get; set; }
+        public double UnitPrice { get; set; }
 
 
         /// <summary>
@@ -73,6 +73,12 @@ namespace KøkkenFanatikeren.Src.Models
 
             // returns the result varible
             return result;
+        }
+
+
+        public override string ToString()
+        {
+            return $"Item(Id={Id}, Name={Name}, ItemCategory={Category}, Producer={Producer}, Stock={Quantity}, UnitPrice={UnitPrice}";
         }
     }
 }

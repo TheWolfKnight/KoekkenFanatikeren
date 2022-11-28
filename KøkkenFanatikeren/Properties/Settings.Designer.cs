@@ -44,5 +44,16 @@ namespace KøkkenFanatikeren.Properties {
                 return ((string)(this["KoekkenFanatikerenConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=school-database-server.database.windows.net;Initial Catalog=KitchenFa" +
+            "natic;Persist Security Info=True;User ID=server_admin;Password=#ucl1234")]
+        public string KitchenFanaticConnectionString {
+            get {
+                return ((string)(this["KitchenFanaticConnectionString"]));
+            }
+        }
     }
 }

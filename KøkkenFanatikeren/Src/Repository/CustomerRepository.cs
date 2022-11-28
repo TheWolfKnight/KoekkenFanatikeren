@@ -10,9 +10,9 @@ namespace KøkkenFanatikeren.Src.Repository
     public class CustomerRepository : GenericRepository, Interface.IRepository<Database.Customer>
     {
         /// <summary>
-        /// 
+        /// Creates an instance of the CustomerRepository class
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context"> The database context </param>
         public CustomerRepository(Database.KitchenFanaticDataContext context) : base(context) { }
 
 

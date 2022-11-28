@@ -9,7 +9,7 @@ namespace KøkkenFanatikeren.Src.Models
     public class ItemCategory
     {
         public int Category { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
 
         /// <summary>
@@ -54,6 +54,12 @@ namespace KøkkenFanatikeren.Src.Models
 
             // Returns the result variable
             return result;
+        }
+
+
+        public override string ToString()
+        {
+            return $"ItemCategory(CategoryIndex={Category}, Name={Name})";
         }
 
     }
