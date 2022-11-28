@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,15 +30,25 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="owner"> The window creating this instance </param>
         public Handler_CustomerQuestions(Form_CustomerQuestions owner)
         {
+            // Sets the Owner field to be the owner argument
             Owner = owner;
+
+            // Initiates the current question to be -1
             CurrentQuestion = -1;
+
+            // Sets the questions for the customer, the array consists of CustomerQuestio instances
             Questions = new List<Models.CustomerQuestion>() {
+                // Creates a new CustomerQuestion instance
                 new Models.CustomerQuestion(
+                    // Tells the program to show clb_MCQ
                     new List<string>(){ "clb_MCQ" },
+                    // Tells the program that the type of Question is Multiple Choice
                     Models.QuestionType.MultipleChoice,
+                    // Sets the title of the question
                     "Hvilket farver vil du gerne have i dit køkken?",
+                    // Sets the text for different elements on the screen
                     new Dictionary<string, string>() {
-                        { "ctb_MCQ", "color" }, // When color repoes are ready
+                        { "clb_MCQ", "color,dims,lands" }, // When color repoes are ready
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "tb_MinInput1", "tb_MinInput2", "tb_MinInput3", "tb_MaxInput1", "tb_MaxInput2", "tb_MaxInput3", "lb_Input1", "lb_Input2", "lb_Input3" },
@@ -51,6 +65,9 @@ namespace KøkkenFanatikeren.Src.Handlers
         }
 
 
+        /// <summary>
+        /// Runnes the setup for when the form origionaly loads in
+        /// </summary>
         public void OnForm_CustomerQuestionsLoadEvent()
         {
             HideAllChildElements();
@@ -85,7 +102,6 @@ namespace KøkkenFanatikeren.Src.Handlers
                 return;
 
             }
-
             // Resets the window, and pulles the current question from the questions list
             HideAllChildElements();
             Models.CustomerQuestion currentQuestion = Questions[CurrentQuestion];
@@ -94,7 +110,7 @@ namespace KøkkenFanatikeren.Src.Handlers
             DisplayQuestionElements(currentQuestion.DisplayElements, currentQuestion.Constraints);
 
             // Sets the question label
-            SetQuestionLabel(currentQuestion.Question);
+            SetQuestionLabel(currentQuestion.Title);
 
             // Resets the input
             ResetInputControls();
@@ -146,12 +162,19 @@ namespace KøkkenFanatikeren.Src.Handlers
                     MultimpleChoiceInputQuestionHandler(question);
                     break;
                 case Models.QuestionType.RangeInput:
-                    RangeInputQuestionHandler(question);
+                    try
+                    {
+                        RangeInputQuestionHandler(question);
+                    } catch (Exception)
+                    {
+                        return;
+                    }
                     break;
                 case Models.QuestionType.SingleInput:
                     SingleInputQuestionHandler(question);
                     break;
                 default:
+                    // Handel logging here
                     throw new Exception("Unknown input from the quesiton list");
             }
 
@@ -192,26 +215,92 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="question"> The question that is beeing answerd </param>
         private void MultimpleChoiceInputQuestionHandler(Models.CustomerQuestion question)
         {
-            // Gets the results from the check list box
-            IEnumerable<string> results = Owner.clb_MCQ.CheckedItems.Cast<string>();
+            // defines a function to match the result variable agains later
+            bool isInvalid((int, string) input)
+            {
+                return input.Item1 == -1;
+            }
 
-            // if the results key already exsits in for the Anser field,
+            // Creates a list of the index for the item amount
+            List<int> index = Enumerable.Range(0, Owner.clb_MCQ.Items.Count).ToList();
+            // Turns the items in the CheckedListBox into a list
+            List<string> items = Owner.clb_MCQ.Items.Cast<string>().ToList();
+            // Zip the index and the item toggether, if the item is not checked set it to -1
+            List<(int, string)> results = index.Zip(items, (i, item) =>
+            {
+                if (Owner.clb_MCQ.GetItemChecked(i))
+                    return (i, item);
+                return (-1, "");
+            }).ToList();
+
+            // removes all the elements with the first item beeing -1
+            // using the function defined previusly
+            results.RemoveAll(match: isInvalid);
+
+            results.ForEach(item => Console.WriteLine(item.Item2));
+
+            // If the results key already exsits in for the Answer field,
             // do not create it, else create it
             if (!question.Answer.ContainsKey("results"))
                 question.Answer.Add("results", null);
+            // Do the same for the result_type key
+            if (!question.Answer.ContainsKey("result_type"))
+                question.Answer.Add("result_type", null);
 
             // Sets the results to be the previusly defined results
             question.Answer["results"] = results;
+            // Set the result_type to be the type of 
+            question.Answer["result_type"] = "mult";
         }
 
 
         /// <summary>
-        /// 
+        /// Gets the data from the input range fields, then converts them to ints
+        /// and stores them in the questions answer dictionary
         /// </summary>
-        /// <param name="question"></param>
+        /// <param name="question"> The question that is beeing answerd </param>
         private void RangeInputQuestionHandler(Models.CustomerQuestion question)
         {
-            throw new NotImplementedException();
+            // Gets the control elements on for the question
+            Control[] input_1 = new Control[] { Owner.tb_MinInput1, Owner.tb_MaxInput1 };
+            Control[] input_2 = new Control[] { Owner.tb_MinInput2, Owner.tb_MaxInput2 };
+            Control[] input_3 = new Control[] { Owner.tb_MinInput3, Owner.tb_MaxInput3 };
+
+            // Checks to see if the result_type key is missing
+            // if so, add it
+            if (!question.Answer.ContainsKey("result_type"))
+                question.Answer.Add("result_type", null);
+
+            // Checks to see if the results keys are missing
+            // if so, add them
+            if (!question.Answer.ContainsKey("results_1"))
+                question.Answer.Add("results_1", null);
+            if (!question.Answer.ContainsKey("results_2"))
+                question.Answer.Add("results_2", null);
+            if (!question.Answer.ContainsKey("results_3"))
+                question.Answer.Add("results_3", null);
+
+            question.Answer["result_type"] = "range";
+
+            // Tries to convert the Control arrays to integers
+            // if successfull, add them to the answers.
+            try
+            {
+                question.Answer["results_1"] = ControlToInt(input_1);
+                question.Answer["results_2"] = ControlToInt(input_2);
+                question.Answer["results_3"] = ControlToInt(input_3);
+            }
+            // Else catch the InvalidCastException
+            catch (InvalidCastException ice)
+            {
+                // Handle logging here
+                throw new Exception("Unfinished data grep");
+            } catch (Exception)
+            {
+                // Handle logging here
+                throw new Exception("Unfinished data grep");
+            }
+
         }
 
 
@@ -231,7 +320,65 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="question"> The question beeing set to the screen </param>
         private void SetQuestionInputs(Models.CustomerQuestion question) 
         {
-            throw new NotImplementedException();
+            bool isPressent = question.Answer.TryGetValue("result_type", out dynamic dynamic_Type);
+            if (!isPressent)
+            {
+                // Logging here
+                throw new Exception();
+            }
+            string type = (string)dynamic_Type;
+            switch (type)
+            {
+                case "mult":
+                    // sets the previus answers to the input field
+                    Owner.clb_MCQ.Items.AddRange(question.Constraints["clb_MCQ"].Split(','));
+                    break;
+                case "range":
+
+                    // TODO: SET THE RANGE BOXES
+
+                    break;
+                case "single":
+
+                    // TODO: SET SINGLE INPUT
+
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
+
+
+        /// <summary>
+        /// Takes in a IEnumarble of elements, then converts them to a List of ints
+        /// </summary>
+        /// <param name="elems"> The elements to be converted </param>
+        /// <returns> A list of ints, that have been parsed out of the Control array </returns>
+        private List<int> ControlToInt(IEnumerable<Control> elems)
+        {
+            return elems.Select(elem => {
+                elem.ForeColor = Color.Black;
+                if (string.IsNullOrEmpty(elem.Text))
+                {
+                    MessageBox.Show("Du skal udfylde alle bokse med hele tal!", "WARNING", MessageBoxButtons.OK);
+                    throw new Exception("Empty string");
+                }
+
+                // Try converting the text to an int
+                bool couldParse = int.TryParse(elem.Text, out int result);
+
+                // If the program could not convert to an int,
+                // change the text color to red, and show a warrning
+                if (!couldParse)
+                {
+                    elem.ForeColor = Color.Red;
+                    MessageBox.Show("Du må kun skrive hele tal i boksen!", "WARNING", MessageBoxButtons.OK);
+                    // Then the program throwes an exception
+                    throw new InvalidCastException($"Could not parse the number \"{elem.Text}\"");
+                }
+                // Else return the result
+                return result;
+            }).ToList();
         }
 
 
@@ -283,10 +430,10 @@ namespace KøkkenFanatikeren.Src.Handlers
 
 
         /// <summary>
-        /// 
+        /// Sets the text in Control elements, to the specifed text
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="text"></param>
+        /// <param name="name"> The name of the target element </param>
+        /// <param name="text"> The text for that element </param>
         private void HandelElementLables(string name, string text)
         {
             // Gets the type definition from the front of the control name
@@ -301,6 +448,15 @@ namespace KøkkenFanatikeren.Src.Handlers
                     // Gets the field from the type of the Owner,
                     // Then sets the Text field to the text variable
                     ((Label)Owner.GetType().GetField(name).GetValue(Owner)).Text = text;
+                    break;
+                case "tb":
+                    // Gets the field from the type of the Owner,
+                    // Then sets the Text field on the TextBox to the text variable
+                    ((TextBox)Owner.GetType().GetField(name).GetValue(Owner)).Text = text;
+                    break;
+                case "clb":
+                    CheckedListBox target = (CheckedListBox)Owner.GetType().GetField(name).GetValue(Owner);
+                    text.Split(',').ToList().ForEach(item => target.Items.Add(item));
                     break;
                 default:
                     Console.WriteLine(name);
@@ -330,7 +486,7 @@ namespace KøkkenFanatikeren.Src.Handlers
 
 
         /// <summary>
-        /// Sets the text of the label and move it to the center
+        /// Sets the text of the title label and move it to the center
         /// </summary>
         /// <param name="text"> The new label text </param>
         private void SetQuestionLabel(string text)
@@ -368,8 +524,6 @@ namespace KøkkenFanatikeren.Src.Handlers
         {
             // Counts the amount of new lines in the input text
             int lineBrAmt = text.Count(chr => chr.ToString() == Environment.NewLine );
-
-            Console.WriteLine(lineBrAmt);
 
             // Get the old font from the label
             Font lb_OldFont = Owner.lb_Question.Font;

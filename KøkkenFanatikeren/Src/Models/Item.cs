@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

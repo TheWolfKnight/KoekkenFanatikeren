@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +15,7 @@ namespace KøkkenFanatikeren.Src.Models
     {
         public IEnumerable<string> DisplayElements { get; private set; }
         public QuestionType Type { get; private set; }
-        public string Question { get; private set; }
+        public string Title { get; private set; }
 
         /// <summary>
         /// Contains a dictionary of where the key is the name of the element to change, and the value is the new {key}.Text to be writen
@@ -29,18 +33,18 @@ namespace KøkkenFanatikeren.Src.Models
         /// </summary>
         /// <param name="displayElements"> The name of the elements needed for the question </param>
         /// <param name="type"> The type of the question </param>
-        /// <param name="question"> The actual question. WARNING: use a newline about every 20 chars </param>
+        /// <param name="title"> The actual question. WARNING: use a newline about every 20 chars </param>
         /// <param name="constaints"> The text for the diffection elements </param>
         public CustomerQuestion(
             IEnumerable<string> displayElements,
             QuestionType type,
-            string question,
+            string title,
             Dictionary<string, string> constaints
         )
         {
             DisplayElements = displayElements;
             Type = type;
-            Question = question;
+            Title = title;
             Constraints = constaints;
             Answer = new Dictionary<string, dynamic>();
         }
