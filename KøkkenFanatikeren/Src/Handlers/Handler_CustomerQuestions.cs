@@ -45,7 +45,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     // Tells the program that the type of Question is Multiple Choice
                     Models.QuestionType.MultipleChoice,
                     // Sets the title of the question
-                    "Hvilket farver vil du gerne have i dit køkken?",
+                    "Hvilket farver vil du gerne have i dit køkken? Eller skal vi prøve at finde dig nogle gardiner i stedet. Det kunne da være fint",
                     // Sets the text for different elements on the screen
                     new Dictionary<string, string>() {
                         { "clb_MCQ", "color,dims,lands" }, // When color repoes are ready
@@ -60,6 +60,24 @@ namespace KøkkenFanatikeren.Src.Handlers
                         { "lb_Input2", "Brede:" },
                         { "lb_Input3", "Dybte:" }
                     }
+                    ),
+                new Models.CustomerQuestion(
+                    new List<string>{},
+                    Models.QuestionType.MultipleChoice,
+                    "Hvilket matrilaer vil du have i dit køken?",
+                    new Dictionary<string, string>(){}
+                    ),
+                new Models.CustomerQuestion(
+                    new List<string>(){},
+                    Models.QuestionType.MultipleChoice,
+                    "Hvilke typer låger leder du efter?",
+                    new Dictionary<string, string>(){}
+                    ),
+                new Models.CustomerQuestion(
+                    new List<string>(){ },
+                    Models.QuestionType.RangeInput,
+                    "Dit pris loft",
+                    new Dictionary<string, string>(){}
                     ),
             };
         }
@@ -155,9 +173,6 @@ namespace KøkkenFanatikeren.Src.Handlers
             // Determins the type of the question, then routes the
             // handling of the question to the designated method
             switch(question.Type) {
-                case Models.QuestionType.Select:
-                    SelectInputQuestionHandler(question);
-                    break;
                 case Models.QuestionType.MultipleChoice:
                     MultimpleChoiceInputQuestionHandler(question);
                     break;
@@ -169,9 +184,6 @@ namespace KøkkenFanatikeren.Src.Handlers
                     {
                         return;
                     }
-                    break;
-                case Models.QuestionType.SingleInput:
-                    SingleInputQuestionHandler(question);
                     break;
                 default:
                     // Handel logging here
@@ -199,45 +211,22 @@ namespace KøkkenFanatikeren.Src.Handlers
 
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="question"></param>
-        private void SelectInputQuestionHandler(Models.CustomerQuestion question)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
         /// Gets the data from the checkbox field, and stores it in the questiosn answer
         /// dictionary
         /// </summary>
         /// <param name="question"> The question that is beeing answerd </param>
         private void MultimpleChoiceInputQuestionHandler(Models.CustomerQuestion question)
         {
-            // defines a function to match the result variable agains later
-            bool isInvalid((int, string) input)
-            {
-                return input.Item1 == -1;
-            }
+            // Creates a IEnumerable of the index for the checked item amount
+            IEnumerable<int> index = Enumerable.Range(0, Owner.clb_MCQ.Items.Count);
+            // Turns the checked items in the CheckedListBox into a IEnumerable
+            IEnumerable<string> items = Owner.clb_MCQ.Items.Cast<string>();
+            // Zip the index and the item toggether, if the item is not checked in the clb,
+            // set it to -1 and with a text of "" (empty string)
+            List<(int, string)> results = index.Zip(items, (i, item) => Owner.clb_MCQ.GetItemChecked(i) ? (i, item) : (-1, "") ).ToList();
 
-            // Creates a list of the index for the item amount
-            List<int> index = Enumerable.Range(0, Owner.clb_MCQ.Items.Count).ToList();
-            // Turns the items in the CheckedListBox into a list
-            List<string> items = Owner.clb_MCQ.Items.Cast<string>().ToList();
-            // Zip the index and the item toggether, if the item is not checked set it to -1
-            List<(int, string)> results = index.Zip(items, (i, item) =>
-            {
-                if (Owner.clb_MCQ.GetItemChecked(i))
-                    return (i, item);
-                return (-1, "");
-            }).ToList();
-
-            // removes all the elements with the first item beeing -1
-            // using the function defined previusly
-            results.RemoveAll(match: isInvalid);
-
-            results.ForEach(item => Console.WriteLine(item.Item2));
+            // Remove all the -1 elements in the list
+            results.RemoveAll(item => item.Item1 == -1);
 
             // If the results key already exsits in for the Answer field,
             // do not create it, else create it
@@ -246,6 +235,7 @@ namespace KøkkenFanatikeren.Src.Handlers
             // Do the same for the result_type key
             if (!question.Answer.ContainsKey("result_type"))
                 question.Answer.Add("result_type", null);
+
 
             // Sets the results to be the previusly defined results
             question.Answer["results"] = results;
@@ -305,42 +295,34 @@ namespace KøkkenFanatikeren.Src.Handlers
 
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="question"></param>
-        private void SingleInputQuestionHandler(Models.CustomerQuestion question)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
         /// Sets the answer inputs of the question boxes, when the user goes to an answerd question
         /// </summary>
         /// <param name="question"> The question beeing set to the screen </param>
         private void SetQuestionInputs(Models.CustomerQuestion question) 
         {
+            // Asserts that a "result_type" key is pressent in the questions
+            // Answer field. If not, the program throws an error
             bool isPressent = question.Answer.TryGetValue("result_type", out dynamic dynamic_Type);
             if (!isPressent)
             {
                 // Logging here
                 throw new Exception();
             }
+
+            // gets the result type as a string, in sted of a dynamic type
             string type = (string)dynamic_Type;
+
+            // Match the type against known types
             switch (type)
             {
                 case "mult":
-                    // sets the previus answers to the input field
-                    Owner.clb_MCQ.Items.AddRange(question.Constraints["clb_MCQ"].Split(','));
+                    // Go over the answer, and sets the checked status to true
+                    foreach ((int, string) elem in question.Answer["results"])
+                        Owner.clb_MCQ.SetItemChecked(elem.Item1, true);
                     break;
                 case "range":
 
                     // TODO: SET THE RANGE BOXES
-
-                    break;
-                case "single":
-
-                    // TODO: SET SINGLE INPUT
 
                     break;
                 default:
@@ -455,7 +437,11 @@ namespace KøkkenFanatikeren.Src.Handlers
                     ((TextBox)Owner.GetType().GetField(name).GetValue(Owner)).Text = text;
                     break;
                 case "clb":
+                    // Gets the target Control item.
                     CheckedListBox target = (CheckedListBox)Owner.GetType().GetField(name).GetValue(Owner);
+                    // Clears all the items from the target
+                    target.Items.Clear();
+                    // Adds the desired items from the text argument
                     text.Split(',').ToList().ForEach(item => target.Items.Add(item));
                     break;
                 default:
@@ -522,18 +508,46 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="text"> The input text to be displayed on the screen </param>
         private void FormatTextLabel(string text)
         {
-            // Counts the amount of new lines in the input text
-            int lineBrAmt = text.Count(chr => chr.ToString() == Environment.NewLine );
+            // Define the line length for each question title
+            const int LINE_LENGTH = 50;
+
+            // The finished string, going into the label.Text field
+            string newText = "";
+
+            // The length for the line currently beeing worked on
+            int currentLineLength = 0;
+
+            // The amount of line breaks in the final text
+            int lineBreaks = 0;
+
+            // Loops all the text snippets base on the amount of spaces
+            foreach ( string textSnippet in text.Split(' ') )
+            {
+                // If the curren lines length plus the textSnippets length would excede the LINE_LENGTH constant
+                // break the line, add 1 to lineBreaks, and reset the currentLineLenght
+                if (currentLineLength + textSnippet.Length > LINE_LENGTH) {
+                    lineBreaks++;
+                    currentLineLength = 0;
+                    newText += Environment.NewLine;
+                }
+
+                // Add the textSnippet to the formated newText variable
+                newText += textSnippet;
+                // Add a space to coriaget for the missing one, after the split
+                newText += " ";
+                // Add the textSnippets length to the current lines length
+                currentLineLength += textSnippet.Length;
+            }
 
             // Get the old font from the label
             Font lb_OldFont = Owner.lb_Question.Font;
 
             // Set the labels font to the same family
             // but change the size based on the amount of lines
-            Owner.lb_Question.Font = new Font(lb_OldFont.FontFamily, lb_OldFont.Size - 2.5f * lineBrAmt);
+            Owner.lb_Question.Font = new Font(lb_OldFont.FontFamily, lb_OldFont.Size - 2.5f * lineBreaks);
 
             // set the text to be equal to the new formated text
-            Owner.lb_Question.Text = text;
+            Owner.lb_Question.Text = newText;
         }
     }
 }
