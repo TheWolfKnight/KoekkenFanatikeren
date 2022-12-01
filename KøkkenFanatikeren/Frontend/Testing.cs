@@ -11,6 +11,7 @@ using KøkkenFanatikeren.Src.Models;
 using KøkkenFanatikeren.Src.Database;
 using Item = KøkkenFanatikeren.Src.Models.Item;
 using KøkkenFanatikeren.Src.Repository;
+using System.Diagnostics;
 
 namespace KøkkenFanatikeren.Frontend
 {
@@ -20,12 +21,26 @@ namespace KøkkenFanatikeren.Frontend
         {
             InitializeComponent();
             FilterService filterService = new FilterService();
+
+            Stopwatch timer = Stopwatch.StartNew();
+
             List<Item> list = filterService.GetAllItems();
-            List<Item> QuantitySort = filterService.SortByQuantity(true);
+            timer.Stop();
+            TimeSpan timespan = timer.Elapsed;
+            Console.WriteLine(String.Format("GetAllItems: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+            timer.Restart();
             List<Item> PriceSort = filterService.SortByPrice(50, 1000, true);
+            timer.Stop();
+            timespan = timer.Elapsed;
+            Console.WriteLine(String.Format("SortByPrice: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+            timer.Restart();
             List<Item> CategorySort = filterService.SortByCategory(2);
-            List<Item> ColorSort = filterService.SortByColor(2);
-            List<Item> DimensionsSort = filterService.SortByDimensions(1,10,1,10,1,10);
+            timer.Stop();
+            timespan = timer.Elapsed;
+            Console.WriteLine(String.Format("SortByCategory: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+            filterService.ApplyFilters();
 
             Src.Database.KitchenFanaticDataContext DBContext = new KitchenFanaticDataContext();
 
@@ -33,10 +48,10 @@ namespace KøkkenFanatikeren.Frontend
             Item test = new Item(repo.GetEntryById(1423));
             //List<Item> Sort = filterService.Sort();
 
-            foreach (Item iteminlist in DimensionsSort)
-            {
-                Console.WriteLine(iteminlist.Id.ToString());
-            }
+            //foreach (Item iteminlist in QuantitySort)
+            //{
+                //Console.WriteLine(iteminlist.Id.ToString());
+            //}
 
             Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
 
