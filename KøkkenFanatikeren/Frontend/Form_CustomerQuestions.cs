@@ -20,11 +20,11 @@ namespace KøkkenFanatikeren.Frontend
         public List<Src.Models.CustomerQuestion> Answer { get; set; }
 
 
-        public Form_CustomerQuestions(Form1 owner)
+        public Form_CustomerQuestions(Form1 owner, Src.Database.KitchenFanaticDataContext ctx)
         {
             Owner = owner;
             InitializeComponent();
-            Handler = new Handler_CustomerQuestions(this);
+            Handler = new Handler_CustomerQuestions(this, ctx);
         }
 
         private void Form_CustomerQuestions_Load(object sender, EventArgs e)

@@ -28,8 +28,13 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// Creates a new instance of the Handler_CustomerQuestions class
         /// </summary>
         /// <param name="owner"> The window creating this instance </param>
-        public Handler_CustomerQuestions(Form_CustomerQuestions owner)
+        public Handler_CustomerQuestions(Form_CustomerQuestions owner, Database.KitchenFanaticDataContext ctx)
         {
+
+            Repository.ItemCategoryRepository icr = new Repository.ItemCategoryRepository(ctx);
+
+            string categoryName = string.Join(",", icr.GetEntrys().Select(item => item.Name));
+
             // Sets the Owner field to be the owner argument
             Owner = owner;
 
@@ -45,7 +50,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     // Tells the program that the type of Question is Multiple Choice
                     Models.QuestionType.MultipleChoice,
                     // Sets the title of the question
-                    "Hvilket farver vil du gerne have i dit køkken? Eller skal vi prøve at finde dig nogle gardiner i stedet. Det kunne da være fint",
+                    "Hvilket farver vil du gerne have i dit køkken?",
                     // Sets the text for different elements on the screen
                     new Dictionary<string, string>() {
                         { "clb_MCQ", "color,dims,lands" }, // When color repoes are ready
@@ -54,31 +59,33 @@ namespace KøkkenFanatikeren.Src.Handlers
                     new List<string>(){ "tb_MinInput1", "tb_MinInput2", "tb_MinInput3", "tb_MaxInput1", "tb_MaxInput2", "tb_MaxInput3", "lb_Input1", "lb_Input2", "lb_Input3" },
                     Models.QuestionType.RangeInput,
                     "Hvor stort et skab skal du bruge?",
-                    new Dictionary<string, string>()
-                    {
+                    new Dictionary<string, string>(){
                         { "lb_Input1", "Højde:" },
                         { "lb_Input2", "Brede:" },
                         { "lb_Input3", "Dybte:" }
                     }
                     ),
                 new Models.CustomerQuestion(
-                    new List<string>{},
+                    new List<string>{ "clb_MCQ" },
                     Models.QuestionType.MultipleChoice,
                     "Hvilket matrilaer vil du have i dit køken?",
-                    new Dictionary<string, string>(){}
-                    ),
+                    new Dictionary<string, string>(){
+                        { "clv_MCQ", "" }
+                    }),
                 new Models.CustomerQuestion(
-                    new List<string>(){},
+                    new List<string>(){ "clb_MCQ" },
                     Models.QuestionType.MultipleChoice,
                     "Hvilke typer låger leder du efter?",
-                    new Dictionary<string, string>(){}
-                    ),
+                    new Dictionary<string, string>(){
+                        { "clb_MCQ", categoryName }
+                    }),
                 new Models.CustomerQuestion(
-                    new List<string>(){ },
+                    new List<string>(){ "tb_MinInput2", "tb_MaxInput2", "lb_Input2" },
                     Models.QuestionType.RangeInput,
                     "Dit pris loft",
-                    new Dictionary<string, string>(){}
-                    ),
+                    new Dictionary<string, string>(){
+                        { "lb_Input2", "" }
+                    }),
             };
         }
 
@@ -217,13 +224,18 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <param name="question"> The question that is beeing answerd </param>
         private void MultimpleChoiceInputQuestionHandler(Models.CustomerQuestion question)
         {
+            // Remove all items from the Checked box list control
+            Owner.clb_MCQ.Items.Clear();
+
             // Creates a IEnumerable of the index for the checked item amount
             IEnumerable<int> index = Enumerable.Range(0, Owner.clb_MCQ.Items.Count);
             // Turns the checked items in the CheckedListBox into a IEnumerable
             IEnumerable<string> items = Owner.clb_MCQ.Items.Cast<string>();
             // Zip the index and the item toggether, if the item is not checked in the clb,
             // set it to -1 and with a text of "" (empty string)
-            List<(int, string)> results = index.Zip(items, (i, item) => Owner.clb_MCQ.GetItemChecked(i) ? (i, item) : (-1, "") ).ToList();
+            List<(int, string)> results = index
+                .Zip(items, (i, item) => Owner.clb_MCQ.GetItemChecked(i) ? (i, item) : (-1, "") )
+                .ToList();
 
             // Remove all the -1 elements in the list
             results.RemoveAll(item => item.Item1 == -1);
@@ -283,14 +295,21 @@ namespace KøkkenFanatikeren.Src.Handlers
             // Else catch the InvalidCastException
             catch (InvalidCastException ice)
             {
+
+                question.Answer["results_1"] = null;
+                question.Answer["results_2"] = null;
+                question.Answer["results_3"] = null;
+
                 // Handle logging here
                 throw new Exception("Unfinished data grep");
             } catch (Exception)
             {
+                question.Answer["results_1"] = null;
+                question.Answer["results_2"] = null;
+                question.Answer["results_3"] = null;
                 // Handle logging here
                 throw new Exception("Unfinished data grep");
             }
-
         }
 
 
@@ -322,10 +341,39 @@ namespace KøkkenFanatikeren.Src.Handlers
                     break;
                 case "range":
 
-                    // TODO: SET THE RANGE BOXES
+                    // Loops over the numbers from 1-3, and get the box of the number
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        // Try to get the min box and the max box.
+                        try
+                        {
+                            TextBox minBox = (TextBox)Owner.GetType().GetField($"tb_MinInput{i}").GetValue(Owner);
+                            TextBox maxBox = (TextBox)Owner.GetType().GetField($"tb_MaxInput{i}").GetValue(Owner);
+
+                            // Tryies to pull the data from the answer dict.
+                            // if no answer is pressent, the loop continues
+                            bool answerIsPressent = question.Answer.TryGetValue($"results_{i}", out dynamic value);
+                            if (!answerIsPressent)
+                                continue;
+
+                            // Converst the dynamic type to List<int> type
+                            List<int> numbers = (List<int>)value;
+
+                            // Sets the data from the numbers variable to the text boxes
+                            minBox.Text = numbers[0].ToString();
+                            maxBox.Text = numbers[1].ToString();
+                        }
+                        // If the program encounters an error in this process,
+                        // continue the loop without setting anything
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                    }
 
                     break;
                 default:
+                    // Logging goes here
                     throw new Exception();
             }
         }
@@ -338,7 +386,8 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <returns> A list of ints, that have been parsed out of the Control array </returns>
         private List<int> ControlToInt(IEnumerable<Control> elems)
         {
-            return elems.Select(elem => {
+            return elems
+              .Select(elem => {
                 elem.ForeColor = Color.Black;
                 if (string.IsNullOrEmpty(elem.Text))
                 {
@@ -360,7 +409,8 @@ namespace KøkkenFanatikeren.Src.Handlers
                 }
                 // Else return the result
                 return result;
-            }).ToList();
+            })
+            .ToList();
         }
 
 
@@ -445,10 +495,9 @@ namespace KøkkenFanatikeren.Src.Handlers
                     text.Split(',').ToList().ForEach(item => target.Items.Add(item));
                     break;
                 default:
-                    Console.WriteLine(name);
+                    // Handel logging here
                     break;
             }
-
         }
 
 
