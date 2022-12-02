@@ -31,9 +31,14 @@ namespace KøkkenFanatikeren.Src.Handlers
         public Handler_CustomerQuestions(Form_CustomerQuestions owner, Database.KitchenFanaticDataContext ctx)
         {
 
+            // Create a repository instance for the needed databases
             Repository.ItemCategoryRepository icr = new Repository.ItemCategoryRepository(ctx);
+            // Repository.ColorRepository cr = new ColorRepository(ctr);
 
+
+            // Get the items from the different databases
             string categoryName = string.Join(",", icr.GetEntrys().Select(item => item.Name));
+            // string colorName = string.Join(",", cr.GetEntrys().Select(item => item.Name));
 
             // Sets the Owner field to be the owner argument
             Owner = owner;
@@ -53,7 +58,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     "Hvilket farver vil du gerne have i dit køkken?",
                     // Sets the text for different elements on the screen
                     new Dictionary<string, string>() {
-                        { "clb_MCQ", "color,dims,lands" }, // When color repoes are ready
+                        { "clb_MCQ", "" /*Color goes here*/ }, // When color repoes are ready
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "tb_MinInput1", "tb_MinInput2", "tb_MinInput3", "tb_MaxInput1", "tb_MaxInput2", "tb_MaxInput3", "lb_Input1", "lb_Input2", "lb_Input3" },
@@ -70,7 +75,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     Models.QuestionType.MultipleChoice,
                     "Hvilket matrilaer vil du have i dit køken?",
                     new Dictionary<string, string>(){
-                        { "clv_MCQ", "" }
+                        { "clv_MCQ", "" /*MaterialName*/ }
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "clb_MCQ" },
@@ -84,7 +89,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     Models.QuestionType.RangeInput,
                     "Dit pris loft",
                     new Dictionary<string, string>(){
-                        { "lb_Input2", "" }
+                        { "lb_Input2", "Pris:" }
                     }),
             };
         }
@@ -103,7 +108,7 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <summary>
         /// Displayes the next question in the Questions field, closes the window when the questions are done.
         /// </summary>
-        public void DisplayNextQuestion()
+        private void DisplayNextQuestion()
         {
             // Incroments the question pointer
             CurrentQuestion++;
@@ -145,7 +150,7 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// <summary>
         /// Displayes the previus question, with all the information from the answer
         /// </summary>
-        public void DisplayPreviousQuestion()
+        private void DisplayPreviousQuestion()
         {
             // Makes sure an out of index error does not happen
             if (CurrentQuestion - 1 < 0)
@@ -168,7 +173,7 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// Handles the click of the btn_Submit element
         /// </summary>
         /// <param name="event"> The event when the button is clicked </param>
-        public void OnSubmitButtonClick( MouseEventArgs @event )
+        public void OnSubmitButtonClickEvent( MouseEventArgs @event )
         {
             // Makes sure the left mouse button triggers the event
             if (@event.Button != MouseButtons.Left)
@@ -206,7 +211,7 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// Handels the Mouse click event for the btn_PrevQuest Element
         /// </summary>
         /// <param name="event"> The event when the button is clicked </param>
-        public void OnPrevQuestButtonClick(MouseEventArgs @event)
+        public void OnPrevQuestButtonClickEvent(MouseEventArgs @event)
         {
             // Makes sure you click with the left mouse button
             if (@event.Button != MouseButtons.Left)
@@ -492,7 +497,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     // Clears all the items from the target
                     target.Items.Clear();
                     // Adds the desired items from the text argument
-                    text.Split(',').ToList().ForEach(item => target.Items.Add(item));
+                    text.ToList().ForEach(item => target.Items.Add(item));
                     break;
                 default:
                     // Handel logging here

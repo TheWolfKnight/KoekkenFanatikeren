@@ -16,7 +16,6 @@ namespace KøkkenFanatikeren.Src.Services
     {
         public string Path { get; private set; }
 
-
         /// <summary>
         /// Creates a file at the desired destionation
         /// </summary>
@@ -65,7 +64,17 @@ namespace KøkkenFanatikeren.Src.Services
         /// <param name="content"> An array of text to be writen in the file </param>
         public void WriteFile(IEnumerable<string> content)
         {
-            File.AppendAllLines(Path, content);
+            File.WriteAllLines(Path, content);
+        }
+
+
+        /// <summary>
+        /// Adds text to the back of the file defined in Paht
+        /// </summary>
+        /// <param name="content"> The content to be written to the file </param>
+        public void AppendFile(string content)
+        {
+            File.AppendAllText(Path, content);
         }
 
     }

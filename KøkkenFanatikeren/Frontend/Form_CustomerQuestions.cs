@@ -34,12 +34,12 @@ namespace KøkkenFanatikeren.Frontend
 
         private void btn_Submit_Click(object sender, EventArgs e)
         {
-            Handler.OnSubmitButtonClick((MouseEventArgs)e);
+            Handler.OnSubmitButtonClickEvent((MouseEventArgs)e);
         }
 
         private void btn_PrevQuest_Click(object sender, EventArgs e)
         {
-            Handler.OnPrevQuestButtonClick((MouseEventArgs)e);
+            Handler.OnPrevQuestButtonClickEvent((MouseEventArgs)e);
         }
     }
 }
