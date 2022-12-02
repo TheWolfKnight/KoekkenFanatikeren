@@ -33,6 +33,7 @@
             this.tb_UserName = new System.Windows.Forms.TextBox();
             this.tb_Password = new System.Windows.Forms.TextBox();
             this.b_Login = new System.Windows.Forms.Button();
+            this.lb_errorMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -55,27 +56,27 @@
             // 
             // tb_UserName
             // 
-            this.tb_UserName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tb_UserName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_UserName.Location = new System.Drawing.Point(95, 13);
             this.tb_UserName.Name = "tb_UserName";
-            this.tb_UserName.Size = new System.Drawing.Size(209, 22);
+            this.tb_UserName.Size = new System.Drawing.Size(256, 22);
             this.tb_UserName.TabIndex = 2;
             // 
             // tb_Password
             // 
-            this.tb_Password.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tb_Password.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_Password.Location = new System.Drawing.Point(94, 54);
             this.tb_Password.Name = "tb_Password";
             this.tb_Password.PasswordChar = '*';
-            this.tb_Password.Size = new System.Drawing.Size(210, 22);
+            this.tb_Password.Size = new System.Drawing.Size(257, 22);
             this.tb_Password.TabIndex = 3;
             // 
             // b_Login
             // 
             this.b_Login.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.b_Login.Location = new System.Drawing.Point(194, 133);
+            this.b_Login.Location = new System.Drawing.Point(241, 142);
             this.b_Login.Name = "b_Login";
             this.b_Login.Size = new System.Drawing.Size(109, 40);
             this.b_Login.TabIndex = 4;
@@ -83,12 +84,23 @@
             this.b_Login.UseVisualStyleBackColor = true;
             this.b_Login.Click += new System.EventHandler(this.b_Login_Click);
             // 
+            // lb_errorMessage
+            // 
+            this.lb_errorMessage.AutoSize = true;
+            this.lb_errorMessage.ForeColor = System.Drawing.Color.Red;
+            this.lb_errorMessage.Location = new System.Drawing.Point(13, 154);
+            this.lb_errorMessage.Name = "lb_errorMessage";
+            this.lb_errorMessage.Size = new System.Drawing.Size(44, 16);
+            this.lb_errorMessage.TabIndex = 5;
+            this.lb_errorMessage.Text = "label3";
+            // 
             // Form_Login
             // 
             this.AcceptButton = this.b_Login;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 185);
+            this.ClientSize = new System.Drawing.Size(362, 194);
+            this.Controls.Add(this.lb_errorMessage);
             this.Controls.Add(this.b_Login);
             this.Controls.Add(this.tb_Password);
             this.Controls.Add(this.tb_UserName);
@@ -112,5 +124,6 @@
         public System.Windows.Forms.TextBox tb_UserName;
         public System.Windows.Forms.TextBox tb_Password;
         public System.Windows.Forms.Button b_Login;
+        public System.Windows.Forms.Label lb_errorMessage;
     }
 }

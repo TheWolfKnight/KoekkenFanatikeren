@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Frontend\Form_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Form_Edit.Designer.cs">
+      <DependentUpon>Form_Edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\Form_Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,8 +87,13 @@
     <Compile Include="Src\Repository\OrderItemRepository.cs" />
     <Compile Include="Src\Repository\OrderRepository.cs" />
     <Compile Include="Src\Repository\GenericRepository.cs" />
+    <Compile Include="Src\Services\CustomerService.cs" />
     <Compile Include="Src\Services\FileService.cs" />
+    <Compile Include="Src\Services\LoggingServices.cs" />
     <Compile Include="Src\Services\SalesReportService.cs" />
+    <EmbeddedResource Include="Frontend\Form_Edit.resx">
+      <DependentUpon>Form_Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frontend\Form_Login.resx">
       <DependentUpon>Form_Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +120,11 @@
     <None Include="KitchenFanaticDataSet.xss">
       <DependentUpon>KitchenFanaticDataSet.xsd</DependentUpon>
     </None>
+    <None Include="KøkkenFanatikeren.Src.Database.ItemCategory.datasource" />
+    <None Include="KøkkenFanatikeren.Src.Database.Order.datasource" />
+    <None Include="KøkkenFanatikeren.Src.Database.OrderItem.datasource" />
+    <None Include="KøkkenFanatikeren.Src.Repository.CustomerRepository.datasource" />
+    <None Include="KøkkenFanatikeren.Src.Repository.OrderRepository.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -130,7 +146,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
