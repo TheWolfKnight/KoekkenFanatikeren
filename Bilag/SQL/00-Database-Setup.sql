@@ -107,7 +107,7 @@ create table [Material] (
 create table [Items] (
 	[Id] int identity(1000, 1) not null primary key,
 	[ItemCategory] int not null foreign key references [ItemCategories]([Category]),
-	[Material] int not null foreigh key references [Material]([Id])
+	[Material] int not null foreign key references [Material]([Id]),
 	[Name] varchar(255) not null,
 	[Producer] varchar(255) not null,
 	[Quantity] int not null,

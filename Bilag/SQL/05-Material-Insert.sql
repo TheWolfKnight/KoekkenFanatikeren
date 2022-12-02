@@ -6,5 +6,5 @@ insert into Material (Name) values ('Plastic');
 insert into Material (Name) values ('Granite');
 insert into Material (Name) values ('Soft wood');
 insert into Material (Name) values ('Glass');
-insert into Materail (Name) values ('Iron');
-insert into Materail (Name) values ('Hard wood');
+insert into Material (Name) values ('Iron');
+insert into Material (Name) values ('Hard wood');
