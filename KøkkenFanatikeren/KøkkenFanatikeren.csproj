@@ -73,12 +73,14 @@
     <Compile Include="Src\Models\Employee.cs" />
     <Compile Include="Src\Models\Item.cs" />
     <Compile Include="Src\Models\ItemCategory.cs" />
+    <Compile Include="Src\Models\Material.cs" />
     <Compile Include="Src\Models\Order.cs" />
     <Compile Include="Src\Models\OrderItem.cs" />
     <Compile Include="Src\Repository\CustomerRepository.cs" />
     <Compile Include="Src\Repository\EmployeeRepository.cs" />
     <Compile Include="Src\Repository\ItemCategoryRepository.cs" />
     <Compile Include="Src\Repository\ItemRepository.cs" />
+    <Compile Include="Src\Repository\MaterialRepository.cs" />
     <Compile Include="Src\Repository\OrderItemRepository.cs" />
     <Compile Include="Src\Repository\OrderRepository.cs" />
     <Compile Include="Src\Repository\GenericRepository.cs" />

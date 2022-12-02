@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.125" name="KitchenFanatic">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10.875" name="KitchenFanatic">
   <DataContextMoniker Name="/KitchenFanaticDataContext" />
   <nestedChildShapes>
     <classShape Id="ea9fb51d-a475-4273-a87f-0e72463e9fa3" absoluteBounds="0.75, 4, 2, 1.5785953776041666">
@@ -39,7 +39,7 @@
         <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.85659912109375); (7.25 : 7.85659912109375); (7.25 : 2.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 6.875); (5.875 : 6.5); (5.875 : 1.81814697265625); (6.25 : 1.81814697265625)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/KitchenFanaticDataContext/Item/Item_OrderItem" />
       <nodes>
         <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
@@ -52,7 +52,7 @@
         <elementListCompartment Id="79dd88a8-56d0-428d-8e1d-be25c210b638" absoluteBounds="3.515, 1.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 1.81814697265625); (6.25 : 1.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 1.81814697265625); (6.25 : 1.81814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KitchenFanaticDataContext/Order/Order_OrderItem" />
       <nodes>
         <classShapeMoniker Id="569aa534-01ef-495c-9a5d-c28c60553aba" />
@@ -66,11 +66,56 @@
         <classShapeMoniker Id="569aa534-01ef-495c-9a5d-c28c60553aba" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.78929768880208); (4.5 : 4.78929768880208); (4.5 : 3.28049967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.00121330413662); (3.125 : 3.62621330413662); (3.125 : 2.59499996549479); (3.5 : 2.59499996549479)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/KitchenFanaticDataContext/Customer/Customer_Order" />
       <nodes>
         <classShapeMoniker Id="ea9fb51d-a475-4273-a87f-0e72463e9fa3" />
         <classShapeMoniker Id="569aa534-01ef-495c-9a5d-c28c60553aba" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="935063d4-11cc-46eb-b419-53c3718cff0f" absoluteBounds="3.5, 4.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Color" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26978a15-1162-4883-9758-877350af3fd7" absoluteBounds="3.515, 4.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e9444d32-9dd3-4539-9ce2-590a9c6679b0" absoluteBounds="6.25, 6.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/ItemColor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fa4ea7a1-84c0-42d6-b156-5e092e38956c" absoluteBounds="6.265, 6.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="444728ce-ce5b-4a55-a76a-daa630b69a24" absoluteBounds="6.25, 9, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/ItemDimension" />
+      <nestedChildShapes>
+        <elementListCompartment Id="71e9e863-8ff2-4366-8a38-71428a53cf56" absoluteBounds="6.265, 9.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e5b3c823-8ff6-4c39-92af-e0efc723f1e1" absoluteBounds="6.375, 3.75, 2, 1.193992513020834">
+      <DataClassMoniker Name="/KitchenFanaticDataContext/Material" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1442bb54-2a5b-42eb-bbff-7d4892e5082c" absoluteBounds="6.39, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 5.22524251302083); (5.79166666666667 : 5.22524251302083 : JumpStart); (5.95833333333333 : 5.22524251302083 : JumpEnd); (6.28125 : 5.22524251302083); (6.28125 : 6.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Color/Color_ItemColor" />
+      <nodes>
+        <classShapeMoniker Id="935063d4-11cc-46eb-b419-53c3718cff0f" />
+        <classShapeMoniker Id="e9444d32-9dd3-4539-9ce2-590a9c6679b0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.19074875651042); (6.25 : 7.19074875651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Item/Item_ItemColor" />
+      <nodes>
+        <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
+        <classShapeMoniker Id="e9444d32-9dd3-4539-9ce2-590a9c6679b0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 8.8381982421875); (4.5 : 9.78929768880208); (6.25 : 9.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/KitchenFanaticDataContext/Item/Item_ItemDimension" />
+      <nodes>
+        <classShapeMoniker Id="9e9b9ed1-4542-42b8-b3c8-3c8d108dd61e" />
+        <classShapeMoniker Id="444728ce-ce5b-4a55-a76a-daa630b69a24" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
