@@ -65,6 +65,7 @@
     <Type Name="Item">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ItemCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Material" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Producer" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -73,6 +74,14 @@
       <Association Name="Item_ItemDimension" Member="ItemDimensions" ThisKey="Id" OtherKey="ItemId" Type="ItemDimension" />
       <Association Name="Item_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="ItemId" Type="OrderItem" />
       <Association Name="ItemCategory_Item" Member="ItemCategory1" ThisKey="ItemCategory" OtherKey="Category" Type="ItemCategory" IsForeignKey="true" />
+      <Association Name="Material_Item" Member="Material1" ThisKey="Material" OtherKey="Id" Type="Material" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Material" Member="Materials">
+    <Type Name="Material">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Material_Item" Member="Items" ThisKey="Id" OtherKey="Material" Type="Item" />
     </Type>
   </Table>
   <Table Name="dbo.OrderItems" Member="OrderItems">

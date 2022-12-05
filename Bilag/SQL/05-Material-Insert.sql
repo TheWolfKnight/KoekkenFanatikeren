@@ -1,0 +1,10 @@
+insert into Material (Name) values ('Stone');
+insert into Material (Name) values ('Brass');
+insert into Material (Name) values ('Steel');
+insert into Material (Name) values ('Aluminum');
+insert into Material (Name) values ('Plastic');
+insert into Material (Name) values ('Granite');
+insert into Material (Name) values ('Soft wood');
+insert into Material (Name) values ('Glass');
+insert into Material (Name) values ('Iron');
+insert into Material (Name) values ('Hard wood');

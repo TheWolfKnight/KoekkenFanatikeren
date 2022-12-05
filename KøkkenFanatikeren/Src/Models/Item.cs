@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,7 +83,7 @@ namespace KøkkenFanatikeren.Src.Models
 
         public override string ToString()
         {
-            return $"Item(Id={Id}, Name={Name}, ItemCategory={Category}, Producer={Producer}, Stock={Quantity}, UnitPrice={UnitPrice}";
+            return $"Item(Id={Id}, Name={Name}, ItemCategory={Category}, Producer={Producer}, Stock={Quantity}, UnitPrice={UnitPrice})";
         }
     }
 }

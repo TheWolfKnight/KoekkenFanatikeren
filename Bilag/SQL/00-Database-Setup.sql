@@ -57,13 +57,27 @@ create table [Orders] (
 /*
 	@Name:			ItemCategories
 	@Column:		Categories, int identity starts at 0 incroments by 1, cannot be null, is a primary key
-					Is used as an enumeratort for other tables to have an easy time destinctioning between different item categories.
+					Is used as an enumeratort for other tables to have an easy time
+					destinctioning between different item categories.
 	@Column:		Name, chars between 0 - 255, cannot be null,
-					The name of a given item category, which can easily by the Id.
+					The name of a given item category.
 */
 create table [ItemCategories] (
 	[Category] int identity(0,1) not null primary key,
 	[Name] varchar(255) not null,
+);
+
+
+/*
+	@Name:			Material
+	@Column:		Id, int identity starts at 0 incroments by 1, cannot be null, is a primary key,
+					The id of the material.
+	@Column:		Name, chars between 0 -255, cannot be null,
+					The name of the material
+*/
+create table [Material] (
+	[Id] int identity(0,1) not null primary key,
+	[Name] varchar(255) not null
 );
 
 /*
@@ -72,6 +86,8 @@ create table [ItemCategories] (
 					Contains the id of a item, for reference use.
 	@Column:		ItemCategory, int, cannot be null, is a reference to the ItemCategories Category column
 					Used to sort the items based upon different category specifications.
+	@Column:		Material, int, cannot be null, is a refernce to the Material Id column
+					Used to indicate the pirmary material used in the construction of the item
 	@Column:		Name, chars between 0 - 255, cannot be null,
 					Contains the name of an item.
 	@Column:		Producer, chars between 0 - 255, cannot be null,
@@ -85,6 +101,7 @@ create table [ItemCategories] (
 create table [Items] (
 	[Id] int identity(1000, 1) not null primary key,
 	[ItemCategory] int not null foreign key references [ItemCategories]([Category]),
+	[Material] int not null foreign key references [Material]([Id]),
 	[Name] varchar(255) not null,
 	[Producer] varchar(255) not null,
 	[Quantity] int not null,
