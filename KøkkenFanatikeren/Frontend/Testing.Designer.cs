@@ -1,7 +1,7 @@
 ﻿
-namespace KøkkenFanatikeren
+namespace KøkkenFanatikeren.Frontend
 {
-    partial class Form1
+    partial class Testing
     {
         /// <summary>
         /// Required designer variable.
@@ -31,13 +31,14 @@ namespace KøkkenFanatikeren
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Testing
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Testing";
+            this.Text = "Testing";
+            this.Load += new System.EventHandler(this.Testing_Load);
             this.ResumeLayout(false);
 
         }
@@ -45,4 +46,3 @@ namespace KøkkenFanatikeren
         #endregion
     }
 }
-

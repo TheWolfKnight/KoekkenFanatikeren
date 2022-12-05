@@ -1,0 +1,13 @@
+insert into Colors (Name) values ('Green');
+insert into Colors (Name) values ('Olive');
+insert into Colors (Name) values ('Lime');
+insert into Colors (Name) values ('Blue');
+insert into Colors (Name) values ('Purple');
+insert into Colors (Name) values ('Red');
+insert into Colors (Name) values ('Orange');
+insert into Colors (Name) values ('Yellow');
+insert into Colors (Name) values ('Tan');
+insert into Colors (Name) values ('Brown');
+insert into Colors (Name) values ('Black');
+insert into Colors (Name) values ('Gray');
+insert into Colors (Name) values ('White');

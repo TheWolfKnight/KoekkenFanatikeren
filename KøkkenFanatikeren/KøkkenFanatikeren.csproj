@@ -47,11 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Frontend\Form_CustomerQuestions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Frontend\Form_CustomerQuestions.Designer.cs">
+      <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Testing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Testing.Designer.cs">
+      <DependentUpon>Testing.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,24 +66,38 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KitchenFanatic.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Src\Handlers\Handler_CustomerQuestions.cs" />
     <Compile Include="Src\Interface\RepositoryInterface.cs" />
+    <Compile Include="Src\Models\Colors.cs" />
     <Compile Include="Src\Models\Customer.cs" />
+    <Compile Include="Src\Models\CustomerQuestion.cs" />
     <Compile Include="Src\Models\Employee.cs" />
     <Compile Include="Src\Models\Item.cs" />
     <Compile Include="Src\Models\ItemCategory.cs" />
+    <Compile Include="Src\Models\ItemColors.cs" />
+    <Compile Include="Src\Models\ItemDimension.cs" />
+    <Compile Include="Src\Models\Material.cs" />
     <Compile Include="Src\Models\Order.cs" />
     <Compile Include="Src\Models\OrderItem.cs" />
+    <Compile Include="Src\Repository\ColorRepository.cs" />
     <Compile Include="Src\Repository\CustomerRepository.cs" />
     <Compile Include="Src\Repository\EmployeeRepository.cs" />
     <Compile Include="Src\Repository\ItemCategoryRepository.cs" />
+    <Compile Include="Src\Repository\ItemColorsRepository.cs" />
+    <Compile Include="Src\Repository\ItemDimensionRepository.cs" />
     <Compile Include="Src\Repository\ItemRepository.cs" />
+    <Compile Include="Src\Repository\MaterialRepository.cs" />
     <Compile Include="Src\Repository\OrderItemRepository.cs" />
     <Compile Include="Src\Repository\OrderRepository.cs" />
     <Compile Include="Src\Repository\GenericRepository.cs" />
     <Compile Include="Src\Services\FileService.cs" />
+    <Compile Include="Src\Services\FilterService.cs" />
     <Compile Include="Src\Services\SalesReportService.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Frontend\Form_CustomerQuestions.resx">
+      <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frontend\Testing.resx">
+      <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,9 +129,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Frontend\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>

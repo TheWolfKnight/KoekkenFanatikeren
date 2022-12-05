@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +54,7 @@ namespace KøkkenFanatikeren.Src.Models
             this.Name = dbEntry.Name;
             this.Producer = dbEntry.Producer;
             this.Category = new ItemCategory(dbEntry.ItemCategory1);
+            this.Quantity = dbEntry.Quantity;
             this.UnitPrice = dbEntry.UnitPrice;
         }
 

@@ -12,9 +12,16 @@ namespace KøkkenFanatikeren
 {
     public partial class Form1 : Form
     {
+        public List<Src.Models.CustomerQuestion> Answer { get; set; }
+
         public Form1()
         {
             InitializeComponent();
+
+            Src.Database.KitchenFanaticDataContext ctx = new Src.Database.KitchenFanaticDataContext();
+
+            Frontend.Form_CustomerQuestions tmp = new Frontend.Form_CustomerQuestions(this, ctx);
+            tmp.ShowDialog();
         }
     }
 }
