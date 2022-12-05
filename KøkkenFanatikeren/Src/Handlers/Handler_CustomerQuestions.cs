@@ -28,17 +28,18 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// Creates a new instance of the Handler_CustomerQuestions class
         /// </summary>
         /// <param name="owner"> The window creating this instance </param>
+        /// <param name="ctx"> The database context to be used in for the class </param>
         public Handler_CustomerQuestions(Form_CustomerQuestions owner, Database.KitchenFanaticDataContext ctx)
         {
-
             // Create a repository instance for the needed databases
             Repository.ItemCategoryRepository icr = new Repository.ItemCategoryRepository(ctx);
-            // Repository.ColorRepository cr = new ColorRepository(ctr);
-
+            //Repository.ColorRepository cr = new Repository.ColorRepository(ctx);
+            Repository.MaterialRepository mr = new Repository.MaterialRepository(ctx); 
 
             // Get the items from the different databases
             string categoryName = string.Join(",", icr.GetEntrys().Select(item => item.Name));
-            // string colorName = string.Join(",", cr.GetEntrys().Select(item => item.Name));
+            //string colorName = string.Join(",", cr.GetEntrys().Select(item => item.Name));
+            string materialName = string.Join(",", mr.GetEntrys().Select(item => item.Name));
 
             // Sets the Owner field to be the owner argument
             Owner = owner;
@@ -48,7 +49,7 @@ namespace KøkkenFanatikeren.Src.Handlers
 
             // Sets the questions for the customer, the array consists of CustomerQuestio instances
             Questions = new List<Models.CustomerQuestion>() {
-                // Creates a new CustomerQuestion instance
+                // Creates a new Models.CustomerQuestion instance
                 new Models.CustomerQuestion(
                     // Tells the program to show clb_MCQ
                     new List<string>(){ "clb_MCQ" },
@@ -75,7 +76,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     Models.QuestionType.MultipleChoice,
                     "Hvilket matrilaer vil du have i dit køken?",
                     new Dictionary<string, string>(){
-                        { "clv_MCQ", "" /*MaterialName*/ }
+                        { "clb_MCQ", materialName }
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "clb_MCQ" },
@@ -86,7 +87,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "tb_MinInput2", "tb_MaxInput2", "lb_Input2" },
-                    Models.QuestionType.RangeInput,
+                    Models.QuestionType.SingleInput,
                     "Dit pris loft",
                     new Dictionary<string, string>(){
                         { "lb_Input2", "Pris:" }
@@ -123,7 +124,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                 // and the form is terminated
                 if (result == DialogResult.Yes)
                 {
-                    Owner.Owner.Answer = Questions;
+                    Owner.WindowOwner.Answer = Questions;
                     Owner.Close();
                 }
 
@@ -173,7 +174,7 @@ namespace KøkkenFanatikeren.Src.Handlers
         /// Handles the click of the btn_Submit element
         /// </summary>
         /// <param name="event"> The event when the button is clicked </param>
-        public void OnSubmitButtonClickEvent( MouseEventArgs @event )
+        public void OnSubmitButtonClickEvent(MouseEventArgs @event)
         {
             // Makes sure the left mouse button triggers the event
             if (@event.Button != MouseButtons.Left)
@@ -192,6 +193,15 @@ namespace KøkkenFanatikeren.Src.Handlers
                     try
                     {
                         RangeInputQuestionHandler(question);
+                    } catch (Exception)
+                    {
+                        return;
+                    }
+                    break;
+                case Models.QuestionType.SingleInput:
+                    try
+                    {
+                        SingleInputQuestionHandler(question);
                     } catch (Exception)
                     {
                         return;
@@ -319,6 +329,39 @@ namespace KøkkenFanatikeren.Src.Handlers
 
 
         /// <summary>
+        /// Gets the data from the singular input field, and sets it in the Models.CustomerQuestions
+        /// Answer field
+        /// </summary>
+        /// <param name="question"> The question that is beeing handeld currently </param>
+        private void SingleInputQuestionHandler(Models.CustomerQuestion question)
+        {
+            Control[] input = new Control[] { Owner.tb_MinInput2, Owner.tb_MaxInput2 };
+
+            if (!question.Answer.ContainsKey("result_type"))
+                question.Answer.Add("result_type", "single_input");
+
+            if (!question.Answer.ContainsKey("results"))
+                question.Answer.Add("results", null);
+
+            try
+            {
+                question.Answer["results"] = ControlToInt(input);
+            } catch (InvalidCastException ice)
+            {
+                question.Answer["results"] = null;
+                // Logging
+                throw new Exception("Unfinished data grep");
+            } catch (Exception)
+            {
+                // Logging
+                question.Answer["results"] = null;
+                throw new Exception("Unfinished data grep");
+            }
+
+        }
+
+
+        /// <summary>
         /// Sets the answer inputs of the question boxes, when the user goes to an answerd question
         /// </summary>
         /// <param name="question"> The question beeing set to the screen </param>
@@ -345,7 +388,6 @@ namespace KøkkenFanatikeren.Src.Handlers
                         Owner.clb_MCQ.SetItemChecked(elem.Item1, true);
                     break;
                 case "range":
-
                     // Loops over the numbers from 1-3, and get the box of the number
                     for (int i = 1; i <= 3; i++)
                     {
@@ -372,9 +414,37 @@ namespace KøkkenFanatikeren.Src.Handlers
                         // continue the loop without setting anything
                         catch (Exception)
                         {
+                            // Logging goes here
                             continue;
                         }
                     }
+                    break;
+                case "single":
+                    try
+                    {
+                        // Get the 2 central text boxes
+                        TextBox minBox = (TextBox)Owner.GetType().GetField("tb_MinInput2").GetValue(Owner);
+                        TextBox maxBox = (TextBox)Owner.GetType().GetField("tb_MaxInput2").GetValue(Owner);
+
+                        // Asserts that the results key exists in the Answer field
+                        // otherwise break the function.
+                        bool answerIsPressent = question.Answer.TryGetValue("results", out dynamic value);
+                        if (!answerIsPressent)
+                            break;
+
+                        // Converts the dynamic value to a List<int> type
+                        List<int> numbers = (List<int>)value;
+
+                        // Sets the value of the min and max text box to their
+                        // corresponding data
+                        minBox.Text = numbers[0].ToString();
+                        maxBox.Text = numbers[1].ToString();
+                    } catch (Exception)
+                    {
+                        // Logging goes here
+                        break;
+                    }
+
 
                     break;
                 default:
@@ -450,7 +520,9 @@ namespace KøkkenFanatikeren.Src.Handlers
                 if ( relevantElements.Contains(ctrl.Name) )
                 {
                     // Starts by setting the element visiblity to true
+                    // and removes any text from the last question
                     ctrl.Visible = true;
+                    ctrl.Text = "";
 
                     // then check if the element has some accositated text with it
                     // if not the program continues
@@ -497,11 +569,11 @@ namespace KøkkenFanatikeren.Src.Handlers
                     // Clears all the items from the target
                     target.Items.Clear();
                     // Adds the desired items from the text argument
-                    text.ToList().ForEach(item => target.Items.Add(item));
+                    text.Split(',').ToList().ForEach(item => target.Items.Add(item));
                     break;
                 default:
                     // Handel logging here
-                    break;
+                    throw new Exception("Could not parse the Control element name");
             }
         }
 
