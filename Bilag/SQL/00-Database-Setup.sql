@@ -1,7 +1,7 @@
--- drop database [KitchenFanatic];
--- create database [KitchenFanatic];
+-- drop database KitchenFanatic;
+-- create database KitchenFanatic;
 
-use [KitchenFanatic];
+use KitchenFanatic;
 
 /*
 	@Name:		Employees
@@ -41,10 +41,6 @@ create table [Customers] (
 					Contains the id of the customer, who placed the order.
 	@Column:		CreatorId, int, cannot be null, is a reference to the table Employees Id column
 					The id of the employee who created the order.
-	@Column			Creation, datetime, cannot be null,
-					The date and time at which the order was made.
-	@Column			Completion, datetime,
-					The date and time at which the order was completed.
 	@Column:		TotalPrice, float
 					The total price of all elements of the order, can be null if there are no emelents in the order.
 	@Column:		Status, int, cannot be null, is between 0 and 3, starts with 0
@@ -54,8 +50,6 @@ create table [Orders] (
 	[Id] int identity(1000, 1) not null primary key,
 	[CustomerId] int not null foreign key references [Customers]([Id]),
 	[CreatorId] int not null foreign key references [Employees]([Id]),
-	[Creation] datetime not null,
-	[Completion] datetime,
 	[TotalPrice] float,
 	[Status] int not null check([Status] between 0 and 3) default 0
 );
@@ -128,5 +122,50 @@ create table [OrderItems] (
 	[ItemId] int not null foreign key references [Items]([Id]),
 	[Quantity] int not null,
 );
+
+/*
+	@Name:			ItemDimensions
+	@Column:		ItemId, int, cannot be null, is a reference to the Items id column,
+					Contains the Id for the item, to which these dimensions belongs.
+	@Column:		Height, int, cannot be null, 
+					Contains the height of the selected item.
+	@Column:		Width, int, cannot be null, 
+					Contains the Width of the selected item.
+	@Column:		Depth, int, cannot be null, 
+					Contains the Depth of the selected item.
+
+*/
+create table [ItemDimensions] (
+	[ItemId] int not null foreign key references [Items]([Id]),
+	[Height] int not null,
+	[Width] int not null,
+	[Depth] int not null,
+);
+
+/*
+	@Name:			Colors
+	@Column:		ColorId, int, cannot be null, Primary key.
+					Contains the Id for the color for referential use
+	@Column:		Name, varchar 255, cannot be null, 
+					Contains the name of the specific color.
+*/
+create table [Colors] (
+	[ColorId] int identity(0, 1) not null primary key,
+	[Name] varchar(255) not null,
+);
+
+/*
+	@Name:			ItemColors
+	@Column:		ItemId, cannot be null, is a reference to the Items id column,
+					Contains the Id for the item, to which this color belongs.
+	@Column:		ColorId, cannot be null, is a reference to the Color id column,
+					Contains the Id for the Color, of which has the name of it.
+*/
+create table [ItemColors] (
+	[ItemId] int not null foreign key references [Items]([Id]),
+	[ColorId] int not null foreign key references [Colors]([ColorId]),
+);
+
+
 
 go

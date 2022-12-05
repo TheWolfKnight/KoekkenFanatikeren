@@ -15,12 +15,13 @@ namespace KøkkenFanatikeren.Frontend
     public partial class Form_CustomerQuestions : Form
     {
 
-        public Form1 WindowOwner { get; private set; }
+        // Skal hede Start_Menu
+        public Form WindowOwner { get; private set; }
         public Handler_CustomerQuestions Handler { get; private set; }
         public List<Src.Models.CustomerQuestion> Answer { get; set; }
 
 
-        public Form_CustomerQuestions(Form1 owner, Src.Database.KitchenFanaticDataContext ctx)
+        public Form_CustomerQuestions(Form owner, Src.Database.KitchenFanaticDataContext ctx)
         {
             WindowOwner = owner;
             InitializeComponent();

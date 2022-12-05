@@ -1,5 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KitchenFanatic" Class="KitchenFanaticDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=school-database-server.database.windows.net;Initial Catalog=KitchenFanatic;Persist Security Info=True;User ID=server_admin" SettingsObjectName="KøkkenFanatikeren.Properties.Settings" SettingsPropertyName="KitchenFanaticConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Colors" Member="Colors">
+    <Type Name="Color">
+      <Column Name="ColorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Color_ItemColor" Member="ItemColors" ThisKey="ColorId" OtherKey="ColorId" Type="ItemColor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Creation" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Completion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_Order" Member="Employee" ThisKey="CreatorId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Customers" Member="Customers">
     <Type Name="Customer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -23,50 +44,6 @@
       <Association Name="ItemCategory_Item" Member="Items" ThisKey="Category" OtherKey="ItemCategory" Type="Item" />
     </Type>
   </Table>
-  <Table Name="dbo.Items" Member="Items">
-    <Type Name="Item">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ItemCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Producer" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UnitPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="Item_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="ItemId" Type="OrderItem" />
-      <Association Name="Item_ItemColor" Member="ItemColors" ThisKey="Id" OtherKey="ItemId" Type="ItemColor" />
-      <Association Name="Item_ItemDimension" Member="ItemDimensions" ThisKey="Id" OtherKey="ItemId" Type="ItemDimension" />
-      <Association Name="ItemCategory_Item" Member="ItemCategory1" ThisKey="ItemCategory" OtherKey="Category" Type="ItemCategory" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.OrderItems" Member="OrderItems">
-    <Type Name="OrderItem">
-      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Item_OrderItem" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
-      <Association Name="Order_OrderItem" Member="Order" ThisKey="OrderId" OtherKey="Id" Type="Order" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Orders" Member="Orders">
-    <Type Name="Order">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Creation" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Completion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
-      <Association Name="Employee_Order" Member="Employee" ThisKey="CreatorId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
-      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Colors" Member="Colors">
-    <Type Name="Color">
-      <Column Name="ColorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Color_ItemColor" Member="ItemColors" ThisKey="ColorId" OtherKey="ColorId" Type="ItemColor" />
-    </Type>
-  </Table>
   <Table Name="dbo.ItemColors" Member="ItemColors">
     <Type Name="ItemColor">
       <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -84,10 +61,36 @@
       <Association Name="Item_ItemDimension" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Items" Member="Items">
+    <Type Name="Item">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Material" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Producer" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Item_ItemColor" Member="ItemColors" ThisKey="Id" OtherKey="ItemId" Type="ItemColor" />
+      <Association Name="Item_ItemDimension" Member="ItemDimensions" ThisKey="Id" OtherKey="ItemId" Type="ItemDimension" />
+      <Association Name="Item_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="ItemId" Type="OrderItem" />
+      <Association Name="ItemCategory_Item" Member="ItemCategory1" ThisKey="ItemCategory" OtherKey="Category" Type="ItemCategory" IsForeignKey="true" />
+      <Association Name="Material_Item" Member="Material1" ThisKey="Material" OtherKey="Id" Type="Material" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Material" Member="Materials">
     <Type Name="Material">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Material_Item" Member="Items" ThisKey="Id" OtherKey="Material" Type="Item" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderItems" Member="OrderItems">
+    <Type Name="OrderItem">
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Item_OrderItem" Member="Item" ThisKey="ItemId" OtherKey="Id" Type="Item" IsForeignKey="true" />
+      <Association Name="Order_OrderItem" Member="Order" ThisKey="OrderId" OtherKey="Id" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

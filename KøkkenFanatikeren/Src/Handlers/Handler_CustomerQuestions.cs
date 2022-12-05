@@ -124,7 +124,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                 // and the form is terminated
                 if (result == DialogResult.Yes)
                 {
-                    Owner.WindowOwner.Answer = Questions;
+                    //Owner.WindowOwner.Answer = Questions;
                     Owner.Close();
                 }
 

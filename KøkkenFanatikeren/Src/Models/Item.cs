@@ -54,6 +54,7 @@ namespace KøkkenFanatikeren.Src.Models
             this.Name = dbEntry.Name;
             this.Producer = dbEntry.Producer;
             this.Category = new ItemCategory(dbEntry.ItemCategory1);
+            this.Quantity = dbEntry.Quantity;
             this.UnitPrice = dbEntry.UnitPrice;
         }
 

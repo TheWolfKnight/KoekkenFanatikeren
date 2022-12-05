@@ -47,17 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Frontend\Form_CustomerQuestions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frontend\Form_CustomerQuestions.Designer.cs">
       <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Testing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Testing.Designer.cs">
+      <DependentUpon>Testing.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,11 +86,11 @@
     <Compile Include="Src\Repository\GenericRepository.cs" />
     <Compile Include="Src\Services\FileService.cs" />
     <Compile Include="Src\Services\SalesReportService.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Frontend\Form_CustomerQuestions.resx">
       <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frontend\Testing.resx">
+      <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
