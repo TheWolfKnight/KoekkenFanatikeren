@@ -33,12 +33,12 @@ namespace KøkkenFanatikeren.Src.Handlers
         {
             // Create a repository instance for the needed databases
             Repository.ItemCategoryRepository icr = new Repository.ItemCategoryRepository(ctx);
-            //Repository.ColorRepository cr = new Repository.ColorRepository(ctx);
+            Repository.ColorRepository cr = new Repository.ColorRepository(ctx);
             Repository.MaterialRepository mr = new Repository.MaterialRepository(ctx); 
 
             // Get the items from the different databases
             string categoryName = string.Join(",", icr.GetEntrys().Select(item => item.Name));
-            //string colorName = string.Join(",", cr.GetEntrys().Select(item => item.Name));
+            string colorName    = string.Join(",", cr.GetEntrys().Select(item => item.Name));
             string materialName = string.Join(",", mr.GetEntrys().Select(item => item.Name));
 
             // Sets the Owner field to be the owner argument
@@ -59,7 +59,7 @@ namespace KøkkenFanatikeren.Src.Handlers
                     "Hvilket farver vil du gerne have i dit køkken?",
                     // Sets the text for different elements on the screen
                     new Dictionary<string, string>() {
-                        { "clb_MCQ", "" /*Color goes here*/ }, // When color repoes are ready
+                        { "clb_MCQ", colorName },
                     }),
                 new Models.CustomerQuestion(
                     new List<string>(){ "tb_MinInput1", "tb_MinInput2", "tb_MinInput3", "tb_MaxInput1", "tb_MaxInput2", "tb_MaxInput3", "lb_Input1", "lb_Input2", "lb_Input3" },
