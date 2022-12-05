@@ -21,39 +21,34 @@ namespace KøkkenFanatikeren.Frontend
         {
             InitializeComponent();
             FilterService filterService = new FilterService();
+            //List<Func<int, List<Item>>> filterList = new List<Func<int, List<Item>>>();
+            //filterList.Add(filterService.SortByColor);
+            //filterList.Add(filterService.SortByCategory);
+            //filterService.ApplyFilters2(filterList);
 
-            Stopwatch timer = Stopwatch.StartNew();
+            List<Item> itemList = filterService.SortByColor(8);
+            itemList = filterService.SortByDimensions(10, 25, 1, 25, 1, 3);
+            itemList = filterService.SortByPrice(50, 3000, false);
+            itemList = filterService.SortByQuantity(false);
+            itemList = filterService.SortByCategory(2);
 
-            List<Item> list = filterService.GetAllItems();
-            timer.Stop();
-            TimeSpan timespan = timer.Elapsed;
-            Console.WriteLine(String.Format("GetAllItems: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
-            timer.Restart();
-            List<Item> PriceSort = filterService.SortByPrice(50, 1000, true);
-            timer.Stop();
-            timespan = timer.Elapsed;
-            Console.WriteLine(String.Format("SortByPrice: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+            foreach (Item iteminlist in itemList)
+            {
+                Console.WriteLine(iteminlist.ToString());
+            }
 
-            timer.Restart();
-            List<Item> CategorySort = filterService.SortByCategory(2);
-            timer.Stop();
-            timespan = timer.Elapsed;
-            Console.WriteLine(String.Format("SortByCategory: {0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+            //filterService.ApplyFilters();
 
-            filterService.ApplyFilters();
+            Console.WriteLine("FInished");
 
-            Src.Database.KitchenFanaticDataContext DBContext = new KitchenFanaticDataContext();
-
-            ItemRepository repo = new ItemRepository(DBContext);
-            Item test = new Item(repo.GetEntryById(1423));
             //List<Item> Sort = filterService.Sort();
 
             //foreach (Item iteminlist in QuantitySort)
             //{
-                //Console.WriteLine(iteminlist.Id.ToString());
+            //Console.WriteLine(iteminlist.Id.ToString());
             //}
 
-            Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
+           // Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
 
             //foreach (int item in DimensionSort)
             //{

@@ -3,27 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KøkkenFanatikeren.Src.Models;
-using KøkkenFanatikeren.Src.Repository;
-using KøkkenFanatikeren.Src.Database;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
     public class FilterService
     {
-        Database.KitchenFanaticDataContext DBContext { get; set; } = new KitchenFanaticDataContext();
+        Database.KitchenFanaticDataContext DBContext { get; set; } = new Database.KitchenFanaticDataContext();
         public List<Models.Item> ItemList { get; set; } = new List<Models.Item>();
         public List<Models.ItemColors> ColorList { get; set; } = new List<Models.ItemColors>();
-        public  List<Models.ItemDimension> DimensionList { get; set; } = new List<Models.ItemDimension>();
+        public List<Models.ItemDimension> DimensionList { get; set; } = new List<Models.ItemDimension>();
+
+        private readonly List<Models.Item> OriginalList = new List<Models.Item>();
+
+        public FilterService ()
+        {
+            //Update complete list of all values
+            ItemList = GetAllItems();
+            ColorList = GetItemColors();
+            DimensionList = GetItemDimensions();
+        }
 
         /// <summary>
-        /// retrieves all items in the database
+        /// Returns a list of all items in the database
         /// </summary>
         public List<Models.Item> GetAllItems()
         {
 
             List<Models.Item> ItemList = new List<Models.Item>();
-            
+
             ItemRepository ItemRepository = new Repository.ItemRepository(DBContext);
             IEnumerable<Database.Item> items = ItemRepository.GetEntrys();
 
@@ -37,7 +44,7 @@ namespace KøkkenFanatikeren.Src.Repository
         }
 
         /// <summary>
-        /// retrieves all ItemColors in the database
+        /// Returns a list of all ItemColors in the database
         /// </summary>
         public List<Models.ItemColors> GetItemColors()
         {
@@ -56,6 +63,9 @@ namespace KøkkenFanatikeren.Src.Repository
             return ItemColorList;
         }
 
+        /// <summary>
+        /// Returns a list of all ItemDimensions in the database
+        /// </summary>
         public List<Models.ItemDimension> GetItemDimensions()
         {
 
@@ -78,134 +88,180 @@ namespace KøkkenFanatikeren.Src.Repository
         /// </summary>
         /// <param name="min"> Minimum int to search for </param>
         /// <param name="max"> Maximum int to search for </param>
-        /// <param name="Ascending"> Orderby bool </param>
-        public List<Models.Item> SortByPrice(int Min, int Max, bool Ascending)
+        /// <param name="ascending"> Orderby bool </param>
+        public List<Models.Item> SortByPrice(int min, int max, bool ascending)
         {
 
-            IEnumerable<Models.Item> items = ItemList.Where(i => i.UnitPrice >= Min
-            && i.UnitPrice <= Max).OrderBy(i => i.UnitPrice);
+            IEnumerable<Models.Item> items = ItemList
+                .Where(i => InRange(Convert.ToInt32(i.UnitPrice), min, max))
+                .OrderBy(i => i.UnitPrice);
 
-            if (Ascending == false)
+            if (ascending == false)
             {
-                items = ItemList.Where(i => i.UnitPrice >= Min
-            && i.UnitPrice <= Max).OrderByDescending(i => i.UnitPrice);
+                items = ItemList
+                .Where(i => InRange(Convert.ToInt32(i.UnitPrice), min, max))
+                .OrderByDescending(i => i.UnitPrice);
             }
 
-
-            return items.ToList();
+            //Set new list & return
+            ItemList = items.ToList();
+            return ItemList;
         }
 
         /// <summary>
         /// Sorts all items by quantitiy in order by given ascending bool
         /// </summary>
-        /// <param name="Ascending"> Orderby bool </param>
-        public List<Models.Item> SortByQuantity(bool Ascending)
+        /// <param name="ascending"> Orderby bool </param>
+        public List<Models.Item> SortByQuantity(bool ascending)
         {
 
             IEnumerable<Models.Item> items = ItemList.OrderBy(i => i.Quantity);
 
-
-            if (Ascending == false)
+            if (ascending == false)
             {
                 items = ItemList.OrderByDescending(i => i.Quantity);
             }
 
-            return items.ToList();
+            //Set new list & return
+            ItemList = items.ToList();
+            return ItemList;
 
         }
 
         /// <summary>
         /// Sorts all items by the categoryId, which determines material. 
         /// </summary>
-        /// <param name="CategoryId"> Int CategoryId (foreign key) </param>
-        public List<Models.Item> SortByCategory(int CategoryId)
+        /// <param name="categoryId"> Int CategoryId (foreign key) </param>
+        public List<Models.Item> SortByCategory(int categoryId)
         {
 
-            IEnumerable<Models.Item> items = ItemList.Where(i => i.Category.Category == CategoryId);
+            IEnumerable<Models.Item> items = ItemList.Where(i => i.Category.Category == categoryId);
 
-
-            return items.ToList();
+            //Set new list & return
+            ItemList = items.ToList();
+            return ItemList;
 
         }
 
         /// <summary>
         /// Sorts all items by the ColorId, which determines Color. 
         /// </summary>
-        /// <param name="ColorId"> Int ColorId (foreign key) </param>
-        public List<Models.Item> SortByColor(int ColorId)
+        /// <param name="colorId"> Int ColorId (foreign key) </param>
+        public List<Models.Item> SortByColor(int colorId)
         {
             IEnumerable<Models.Item> items = ItemList.Join(ColorList,
                 i => i.Id, //Outer
                 c => c.ItemId, //Inner
                 (i, c) => new { ITEM = i, COLOR = c }) //Result
-                .Where(Parent => Parent.COLOR.ColorId == ColorId) //Match IDs
+                .Where(Parent => Parent.COLOR.ColorId == colorId) //Match IDs
                 .Select(Result => Result.ITEM); //Select only the item
 
-            return items.ToList();
+            //Set new list & return
+            ItemList = items.ToList();
+            return ItemList;
 
+        }
+
+        /// <summary>
+        /// Checks if if num is within range of min and max
+        /// </summary>
+        /// <param name="num"> The int to check </param>
+        /// <param name="min"> Minimum int </param>
+        /// <param name="max"> Maximum int </param>
+        bool InRange(int num, int min, int max)
+        {
+            return (num >= min && num <= max);
         }
 
         /// <summary>
         /// Sorts all items by the Dimensions minimum and maximum value of: Height, Width, & Depth.
         /// </summary>
-        /// <param name="MinHeight"> Min int of height </param>
-        /// <param name="MaxHeight"> Max int of height </param>
-        /// <param name="MinWidth"> Min int of Width </param>
-        /// <param name="MaxWidth"> Max int of Width </param>
-        /// <param name="MinDepth"> Min int of Depth </param>
-        /// <param name="MaxDepth"> Min int of Depth </param>
-        public List<Models.Item> SortByDimensions(int MinHeight, int MaxHeight, int MinWidth, int MaxWidth, int MinDepth, int MaxDepth)
+        /// <param name="minHeight"> Min int of height </param>
+        /// <param name="maxHeight"> Max int of height </param>
+        /// <param name="minWidth"> Min int of Width </param>
+        /// <param name="maxWidth"> Max int of Width </param>
+        /// <param name="minDepth"> Min int of Depth </param>
+        /// <param name="maxDepth"> Min int of Depth </param>
+        public List<Models.Item> SortByDimensions(int minHeight, int maxHeight, int minWidth, int maxWidth, int minDepth, int maxDepth)
         {
-
 
             IEnumerable<Models.Item> items = ItemList.Join(DimensionList,
                 i => i.Id, //Outer
                 c => c.ItemId, //Inner
                 (i, c) => new { ITEM = i, Dimensions = c }) //Result
-                
+
                 //Run through every dimension & check if within range
-                .Where(Parent => Parent.Dimensions.Height >= MinHeight
-                && Parent.Dimensions.Height <= MaxHeight 
-                && Parent.Dimensions.Width >= MinWidth
-                && Parent.Dimensions.Width <= MaxWidth
-                && Parent.Dimensions.Depth >= MinDepth
-                && Parent.Dimensions.Depth <= MaxDepth
-                ) 
+                .Where(Parent => InRange(Parent.Dimensions.Height, minHeight, maxHeight) == true
+                && InRange(Parent.Dimensions.Width, minWidth, maxWidth) == true 
+                && InRange(Parent.Dimensions.Depth, minDepth, maxDepth) == true)
                 .Select(Result => Result.ITEM); //Select only the item
 
-            return items.ToList();
-
-        }
-
-        /// <summary>
-        /// Runs through all filters and returns given value
-        /// Add a list or array of params to apply to the filters+++++++++++++
-        /// </summary>
-        public List<Models.Item> ApplyFilters ()
-        {
-            //Update complete list values
-            ItemList = GetAllItems();
-            ColorList = GetItemColors();
-            DimensionList = GetItemDimensions();
-
-            //Apply filters
-            ItemList = SortByColor(2);
-            ItemList = SortByDimensions(1, 30, 1, 40, 1, 40);
-            ItemList = SortByQuantity(true);
-            ItemList = SortByCategory(3);
-            ItemList = SortByPrice(10, 2000, true);
-
-            foreach (Models.Item item in ItemList)
-            {
-                Console.WriteLine(item.ToString());
-            }
-
-
-
-            //Returning the filtered list
+            //Set new list & return
+            ItemList = items.ToList();
             return ItemList;
 
         }
+
+        
+
+
+
+
+
+
+
+        //Old stuff
+
+
+
+        //public List<Models.Item> ApplyFilters()
+        //{
+        //    //Update complete list values'
+        //    ItemList = GetAllItems();
+        //    ColorList = GetItemColors();
+        //    DimensionList = GetItemDimensions();
+            
+        //    //Apply filters
+        //    ItemList = SortByColor(2);
+        //    ItemList = SortByDimensions(1, 30, 1, 40, 1, 40);
+        //    ItemList = SortByQuantity(true);
+        //    ItemList = SortByCategory(3);
+        //    ItemList = SortByPrice(10, 2000, true);
+
+        //    foreach (Models.Item item in ItemList)
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+
+
+        //    //Returning the filtered list
+        //    return ItemList;
+
+        //}
+
+        //public List<Models.Item> ApplyFilters2(List<Func<int, List<Models.Item>>> SortList)
+        //{
+        //    //Update complete list values'
+        //    ItemList = GetAllItems();
+        //    ColorList = GetItemColors();
+        //    DimensionList = GetItemDimensions();
+
+        //    //Apply filters
+        //    foreach (Func<int, List<Models.Item>> func in SortList)
+        //        ItemList = func(2);
+
+        //    foreach (Models.Item item in ItemList)
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+
+
+        //    //Returning the filtered list
+        //    return ItemList;
+
+        //}
 
 
 
