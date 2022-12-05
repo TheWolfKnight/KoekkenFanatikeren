@@ -41,6 +41,20 @@ namespace KøkkenFanatikeren.Frontend
 
             Console.WriteLine("FInished");
 
+
+            FilterService filterService2 = new FilterService();
+            itemList = filterService2.SortByColor(8);
+            itemList = filterService2.SortByDimensions(10, 25, 1, 25, 1, 3);
+            itemList = filterService2.SortByPrice(50, 3000, false);
+            itemList = filterService2.SortByQuantity(false);
+            itemList = filterService2.SortByCategory(3);
+
+            foreach (Item iteminlist in itemList)
+            {
+                Console.WriteLine(iteminlist.ToString());
+            }
+
+
             //List<Item> Sort = filterService.Sort();
 
             //foreach (Item iteminlist in QuantitySort)
@@ -48,7 +62,7 @@ namespace KøkkenFanatikeren.Frontend
             //Console.WriteLine(iteminlist.Id.ToString());
             //}
 
-           // Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
+            // Console.WriteLine($"{test.Id}  {test.Name}  {test.Producer}  {test.Quantity}  {test.UnitPrice}");
 
             //foreach (int item in DimensionSort)
             //{
