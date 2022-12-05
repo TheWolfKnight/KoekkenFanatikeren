@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,11 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using KøkkenFanatikeren.Src.Models;
-using KøkkenFanatikeren.Src.Database;
-using Item = KøkkenFanatikeren.Src.Models.Item;
-using KøkkenFanatikeren.Src.Repository;
-using System.Diagnostics;
+
 
 namespace KøkkenFanatikeren.Frontend
 {
