@@ -27,14 +27,14 @@ namespace KøkkenFanatikeren.Src.Services
         /// Enumerates over a files lines, and yields them to caller
         /// </summary>
         /// <returns> An IEnumerable of strings, containing the lines of the file </returns>
-        public IEnumerable<string> ReadFileLineByLine()
+        public IEnumerable<string> ReadFileLineByLine(string path)
         {
-            if (!File.Exists(Path)) {
+            if (!File.Exists(path)) {
                 yield break;
             }
 
             // Creates a StreamReader to open the file
-            using ( StreamReader reader = new StreamReader(Path) )
+            using ( StreamReader reader = new StreamReader(path) )
             {
                 // creates a variable named line, to store each line in the file
                 string line = null;
@@ -76,6 +76,12 @@ namespace KøkkenFanatikeren.Src.Services
         {
             File.AppendAllText(Path, content);
         }
+
+        public void AppendFile(string content)
+        {
+            File.AppendAllText(Path, content);
+        }
+
 
     }
 }

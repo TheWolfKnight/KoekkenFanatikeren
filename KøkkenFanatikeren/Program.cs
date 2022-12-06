@@ -17,7 +17,7 @@ namespace KøkkenFanatikeren
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Testing());
+            Application.Run(new Frontend.Start_Menu());
         }
     }
 }

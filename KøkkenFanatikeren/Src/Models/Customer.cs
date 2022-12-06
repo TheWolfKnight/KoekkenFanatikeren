@@ -35,6 +35,23 @@ namespace KøkkenFanatikeren.Src.Models
             Email = email;
         }
 
+
+        /// <summary>
+        /// Creates a new instance of the Models.Customer with the Id field unfilled. Used when a new Customer is comming to the store
+        /// </summary>
+        /// <param name="id"> the ID of the customer </param>
+        /// <param name="fullName"> The full name of the customer </param>
+        /// <param name="phoneNumber"> The phone number of the customer </param>
+        /// <param name="email"> The email of the customer </param>
+        public Customer(int id, string fullName, string phoneNumber, string email)
+        {
+            FullName = fullName;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Id = id;
+        }
+
+
         /// <summary>
         /// Creates an instance of the Models.Customer class, base upon the data from a Database.Customer class instnace
         /// </summary>
