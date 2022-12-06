@@ -88,6 +88,7 @@
     <Compile Include="Src\Repository\OrderRepository.cs" />
     <Compile Include="Src\Repository\GenericRepository.cs" />
     <Compile Include="Src\Services\CustomerService.cs" />
+    <Compile Include="Src\Services\DGWService.cs" />
     <Compile Include="Src\Services\FileService.cs" />
     <Compile Include="Src\Services\LoggingServices.cs" />
     <Compile Include="Src\Services\SalesReportService.cs" />
