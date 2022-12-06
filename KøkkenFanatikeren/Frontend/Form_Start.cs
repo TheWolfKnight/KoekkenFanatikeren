@@ -210,7 +210,7 @@ namespace KøkkenFanatikeren.Frontend
         /// <param name="e"> The parameters given with the call </param>
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            Form_Print printWindow = new Form_Print();
+            Form_Print printWindow = new Form_Print(Context);
             printWindow.ShowDialog();
         }
     }

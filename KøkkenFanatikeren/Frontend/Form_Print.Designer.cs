@@ -34,10 +34,10 @@ namespace KøkkenFanatikeren.Frontend
             this.label2 = new System.Windows.Forms.Label();
             this.tb_To = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv_OrderView = new System.Windows.Forms.DataGridView();
             this.btn_Print = new System.Windows.Forms.Button();
             this.cb_Completed = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_OrderView)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_From
@@ -83,15 +83,15 @@ namespace KøkkenFanatikeren.Frontend
             this.label3.TabIndex = 4;
             this.label3.Text = "DD-MM-YYYY";
             // 
-            // dataGridView1
+            // dgv_OrderView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(321, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(467, 419);
-            this.dataGridView1.TabIndex = 5;
+            this.dgv_OrderView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_OrderView.Location = new System.Drawing.Point(321, 19);
+            this.dgv_OrderView.Name = "dgv_OrderView";
+            this.dgv_OrderView.RowHeadersWidth = 51;
+            this.dgv_OrderView.RowTemplate.Height = 24;
+            this.dgv_OrderView.Size = new System.Drawing.Size(467, 419);
+            this.dgv_OrderView.TabIndex = 5;
             // 
             // btn_Print
             // 
@@ -101,6 +101,7 @@ namespace KøkkenFanatikeren.Frontend
             this.btn_Print.TabIndex = 6;
             this.btn_Print.Text = "Print";
             this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // cb_Completed
             // 
@@ -111,6 +112,7 @@ namespace KøkkenFanatikeren.Frontend
             this.cb_Completed.TabIndex = 7;
             this.cb_Completed.Text = "Tillad ikke færdige";
             this.cb_Completed.UseVisualStyleBackColor = true;
+            this.cb_Completed.CheckedChanged += new System.EventHandler(this.cb_Completed_Changed);
             // 
             // Form_Print
             // 
@@ -119,7 +121,7 @@ namespace KøkkenFanatikeren.Frontend
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.cb_Completed);
             this.Controls.Add(this.btn_Print);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgv_OrderView);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tb_To);
@@ -127,7 +129,7 @@ namespace KøkkenFanatikeren.Frontend
             this.Controls.Add(this.tb_From);
             this.Name = "Form_Print";
             this.Text = "Print";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_OrderView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,7 +142,7 @@ namespace KøkkenFanatikeren.Frontend
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_To;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv_OrderView;
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.CheckBox cb_Completed;
     }

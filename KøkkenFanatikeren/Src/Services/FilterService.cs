@@ -35,7 +35,7 @@ namespace KøkkenFanatikeren.Src.Services
 
             List<Models.Item> ItemList = new List<Models.Item>();
 
-            ItemRepository ItemRepository = new Repository.ItemRepository(DBContext);
+            Repository.ItemRepository ItemRepository = new Repository.ItemRepository(DBContext);
             IEnumerable<Database.Item> items = ItemRepository.GetEntrys();
 
             foreach (Database.Item itemInDB in items)
@@ -55,7 +55,7 @@ namespace KøkkenFanatikeren.Src.Services
 
             List<Models.ItemColors> ItemColorList = new List<Models.ItemColors>();
 
-            ItemColorRepository ItemColorRepository = new Repository.ItemColorRepository(DBContext);
+            Repository.ItemColorRepository ItemColorRepository = new Repository.ItemColorRepository(DBContext);
             IEnumerable<Database.ItemColor> ItemColors = ItemColorRepository.GetEntrys();
 
             foreach (Database.ItemColor ItemColorInDB in ItemColors)
@@ -75,7 +75,7 @@ namespace KøkkenFanatikeren.Src.Services
 
             List<Models.ItemDimension> ItemDimensionList = new List<Models.ItemDimension>();
 
-            ItemDimensionRepository ItemDimensionRepository = new Repository.ItemDimensionRepository(DBContext);
+            Repository.ItemDimensionRepository ItemDimensionRepository = new Repository.ItemDimensionRepository(DBContext);
             IEnumerable<Database.ItemDimension> ItemDimensions = ItemDimensionRepository.GetEntrys();
 
             foreach (Database.ItemDimension ItemDimensionInDB in ItemDimensions)
@@ -216,7 +216,7 @@ namespace KøkkenFanatikeren.Src.Services
         /// <returns> The orders between the specifide date </returns>
         public List<Models.Order> SortOrderByDate(DateTime from, DateTime to, bool completedOnly=false)
         {
-            OrderRepository orderRepo = new OrderRepository(DBContext);
+            Repository.OrderRepository orderRepo = new Repository.OrderRepository(DBContext);
             IEnumerable<Models.Order> orders = orderRepo.GetEntrys().Select(item => new Models.Order(item));
             orders = orders.Where(item => item.Creation >= from && item.Creation <= to);
             if (completedOnly)

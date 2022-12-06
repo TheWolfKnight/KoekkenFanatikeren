@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+    Skrevet af Philip Knudsen
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,18 +21,30 @@ namespace KøkkenFanatikeren.Frontend
 
         private bool CanPrint;
 
-        private readonly Src.Repository.OrderRepository OrderRepo;
-        private Src.Services.FilterService FS;
+        private readonly Src.Services.SalesReportService SalesService;
+        private readonly Src.Services.FilterService FilterService;
+        private readonly Src.Services.FileService FileService;
+
+        private List<Src.Models.Order> Orders;
+
+        private string Path;
 
         public Form_Print(Src.Database.KitchenFanaticDataContext ctx)
         {
             InitializeComponent();
 
-            OrderRepo = new Src.Repository.OrderRepository(ctx);
+            Path = $@"{System.IO.Path.GetTempPath()}\{DateTime.Now.Year}_{DateTime.Now.Month}-SalgsRaport.txt";
 
-            FromDate = DateTime.MaxValue;
-            ToDate = new DateTime();
+            FilterService = new Src.Services.FilterService();
+            SalesService = new Src.Services.SalesReportService(ctx);
+            FileService = new Src.Services.FileService(Path);
+
+            FromDate = DateTime.MinValue;
+            ToDate = DateTime.MaxValue;
             CanPrint = true;
+
+            UpdateDGV();
+
         }
 
         /// <summary>
@@ -39,10 +54,19 @@ namespace KøkkenFanatikeren.Frontend
         /// <param name="e"> The arguments of the call </param>
         private void tb_From_Change(object sender, EventArgs e)
         {
+            Console.WriteLine(tb_From.Text);
             try
             {
-                DateTime fromDate = StringToDateTime(tb_From.Text);
-                FromDate = fromDate;
+                if (string.IsNullOrEmpty(tb_From.Text))
+                {
+                    FromDate = DateTime.MinValue;
+                }
+                else
+                {
+                    DateTime fromDate = StringToDateTime(tb_From.Text);
+                    FromDate = fromDate;
+                }
+                CanPrint = true;
             } catch (Exception)
             {
                 CanPrint = false;
@@ -63,8 +87,16 @@ namespace KøkkenFanatikeren.Frontend
         {
             try
             {
-                DateTime toDate = StringToDateTime(tb_To.Text);
-                ToDate = toDate;
+                if (string.IsNullOrEmpty(tb_To.Text))
+                {
+                    ToDate = DateTime.MaxValue;
+                }
+                else
+                {
+                    DateTime toDate = StringToDateTime(tb_To.Text);
+                    ToDate = toDate;
+                }
+                CanPrint = true;
             }
             catch (Exception)
             {
@@ -87,7 +119,7 @@ namespace KøkkenFanatikeren.Frontend
         private DateTime StringToDateTime(string input)
         {
             // Splits the string based on the "-"
-            string[] parts = tb_From.Text.Split('-');
+            string[] parts = input.Split('-');
 
             // Converts all parst to ints
             int day = int.Parse(parts[0]);
@@ -105,11 +137,42 @@ namespace KøkkenFanatikeren.Frontend
         /// </summary>
         private void UpdateDGV()
         {
-            bool onlyCompleted = cb_Completed.Enabled;
+            bool onlyCompleted = !cb_Completed.Checked;
 
-            List<Src.Models.Order> orders = FS.SortOrderByDate(FromDate, ToDate, onlyCompleted);
 
+            List<Src.Models.Order> orders = FilterService.SortOrderByDate(FromDate, ToDate, onlyCompleted);
+            Orders = orders;
+            dgv_OrderView.DataSource = orders;
         }
+
+        /// <summary>
+        /// Gets called when the check box changes states
+        /// </summary>
+        /// <param name="sender"> The caller of the method </param>
+        /// <param name="e"> The parameters of the call </param>
+        private void cb_Completed_Changed(object sender, EventArgs e)
+        {
+            UpdateDGV();
+        }
+
+
+        /// <summary>
+        /// Gets called when the Print butten gets clicked
+        /// </summary>
+        /// <param name="sender"> The caller of the method </param>
+        /// <param name="e"> The paramerters of the event </param>
+        private void btn_Print_Click(object sender, EventArgs e)
+        {
+            // Writes the content of the file
+            List<string> reportContents = SalesService.GenerateReport(Orders);
+            // Writes the contents into a file
+            FileService.AppendFile(reportContents);
+
+            // Prompts the user for closure
+            if (MessageBox.Show($"Du har skrevet en raport til {Path}, vil du lave en mere?", "Opgave Udført", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                this.Close();
+        }
+
 
     }
 }
