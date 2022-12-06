@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +68,18 @@
     <Compile Include="Frontend\Form_Edit.Designer.cs">
       <DependentUpon>Form_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\Form_CustomerQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Form_CustomerQuestions.Designer.cs">
+      <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Testing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Testing.Designer.cs">
+      <DependentUpon>Testing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\Form_Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,17 +100,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KitchenFanatic.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Src\Handlers\Handler_CustomerQuestions.cs" />
     <Compile Include="Src\Interface\RepositoryInterface.cs" />
+    <Compile Include="Src\Models\Colors.cs" />
     <Compile Include="Src\Models\Customer.cs" />
+    <Compile Include="Src\Models\CustomerQuestion.cs" />
     <Compile Include="Src\Models\Employee.cs" />
     <Compile Include="Src\Models\Item.cs" />
     <Compile Include="Src\Models\ItemCategory.cs" />
+    <Compile Include="Src\Models\ItemColors.cs" />
+    <Compile Include="Src\Models\ItemDimension.cs" />
+    <Compile Include="Src\Models\Material.cs" />
     <Compile Include="Src\Models\Order.cs" />
     <Compile Include="Src\Models\OrderItem.cs" />
+    <Compile Include="Src\Repository\ColorRepository.cs" />
     <Compile Include="Src\Repository\CustomerRepository.cs" />
     <Compile Include="Src\Repository\EmployeeRepository.cs" />
     <Compile Include="Src\Repository\ItemCategoryRepository.cs" />
+    <Compile Include="Src\Repository\ItemColorsRepository.cs" />
+    <Compile Include="Src\Repository\ItemDimensionRepository.cs" />
     <Compile Include="Src\Repository\ItemRepository.cs" />
+    <Compile Include="Src\Repository\MaterialRepository.cs" />
     <Compile Include="Src\Repository\OrderItemRepository.cs" />
     <Compile Include="Src\Repository\OrderRepository.cs" />
     <Compile Include="Src\Repository\GenericRepository.cs" />
@@ -100,6 +137,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frontend\Form_Start.resx">
       <DependentUpon>Form_Start.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Src\Services\FilterService.cs" />
+    <Compile Include="Src\Services\SalesReportService.cs" />
+    <EmbeddedResource Include="Frontend\Form_CustomerQuestions.resx">
+      <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frontend\Testing.resx">
+      <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

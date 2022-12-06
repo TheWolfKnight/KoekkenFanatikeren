@@ -1,9 +1,4 @@
-﻿/*
-    Skrevet af: Philip Knudsen
-*/
-
-using KøkkenFanatikeren.Src.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class CustomerRepository : GenericRepository, Interface.IRepository<Database.Customer>
+    public class MaterialRepository : GenericRepository, Interface.IRepository<Database.Material>
     {
         /// <summary>
-        /// Creates an instance of the CustomerRepository class
+        /// Creates an instance of the OrderRepository class
         /// </summary>
-        /// <param name="context"> The database context </param>
-        public CustomerRepository(Database.KitchenFanaticDataContext context) : base(context) { }
+        /// <param name="context"> The Database context the class instance will use </param>
+        public MaterialRepository(Database.KitchenFanaticDataContext ctx) : base(ctx) { }
 
 
         /// <summary>
         /// Deletes a single entry from the database
         /// </summary>
         /// <param name="entry"> The entry to be deleted from the database </param>
-        public void DeleteEntry(Database.Customer entry)
+        public void DeleteEntry(Database.Material entry)
         {
-            Context.Customers.DeleteOnSubmit(entry);
+            Context.Materials.DeleteOnSubmit(entry);
         }
 
 
@@ -35,9 +30,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// </summary>
         /// <param name="entryId"> The id of the entry to be returned </param>
         /// <returns> Returns a Database.entry instance with the data from the database </returns>
-        public Database.Customer GetEntryById(int entryId)
+        public Database.Material GetEntryById(int entryId)
         {
-            return Context.Customers.Where(dbEntry => dbEntry.Id == entryId).First();
+            return Context.Materials.Where(item => item.Id == entryId).First();
         }
 
 
@@ -45,9 +40,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Gets all the entrys in the database as an enumerable
         /// </summary>
         /// <returns> An enumerable of all entrys in the database </returns>
-        public IEnumerable<Database.Customer> GetEntrys()
+        public IEnumerable<Database.Material> GetEntrys()
         {
-            return Context.Customers.AsEnumerable();
+            return Context.Materials;
         }
 
 
@@ -55,9 +50,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Inserts an entry in the database
         /// </summary>
         /// <param name="entry"> The entry to be inserted </param>
-        public void InsertEntry(Database.Customer entry)
+        public void InsertEntry(Database.Material entry)
         {
-            Context.Customers.InsertOnSubmit(entry);
+            Context.Materials.InsertOnSubmit(entry);
         }
 
 
@@ -65,12 +60,11 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Updates an entry with new information
         /// </summary>
         /// <param name="entry"> The entry object containg the new information </param>
-        public void UpdateEntry(Database.Customer entry)
+        public void UpdateEntry(Database.Material entry)
         {
-            Database.Customer dbEntry = Context.Customers.Where(dbInner => dbInner.Id == entry.Id).First();
-            dbEntry.FullName = entry.FullName;
-            dbEntry.Email = entry.Email;
-            dbEntry.PhoneNumber = entry.PhoneNumber;
+            Database.Material dbEntry = GetEntryById(entry.Id);
+            dbEntry.Id = entry.Id;
+            dbEntry.Name = entry.Name;
         }
     }
 }

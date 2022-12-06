@@ -1,5 +1,5 @@
 ﻿/*
-    Skrevet af: Philip Knudsen
+    Skrevet af: Martin Dalgaard
 */
 
 using KøkkenFanatikeren.Src.Models;
@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace KøkkenFanatikeren.Src.Repository
 {
-    public class CustomerRepository : GenericRepository, Interface.IRepository<Database.Customer>
+    public class ItemDimensionRepository : GenericRepository, Interface.IRepository<Database.ItemDimension>
     {
         /// <summary>
-        /// Creates an instance of the CustomerRepository class
+        /// Creates an instance of the ItemDimensionRepository class
         /// </summary>
         /// <param name="context"> The database context </param>
-        public CustomerRepository(Database.KitchenFanaticDataContext context) : base(context) { }
+        public ItemDimensionRepository(Database.KitchenFanaticDataContext context) : base(context) { }
 
 
         /// <summary>
         /// Deletes a single entry from the database
         /// </summary>
         /// <param name="entry"> The entry to be deleted from the database </param>
-        public void DeleteEntry(Database.Customer entry)
+        public void DeleteEntry(Database.ItemDimension entry)
         {
-            Context.Customers.DeleteOnSubmit(entry);
+            Context.ItemDimensions.DeleteOnSubmit(entry);
         }
 
 
@@ -35,9 +35,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// </summary>
         /// <param name="entryId"> The id of the entry to be returned </param>
         /// <returns> Returns a Database.entry instance with the data from the database </returns>
-        public Database.Customer GetEntryById(int entryId)
+        public Database.ItemDimension GetEntryById(int entryId)
         {
-            return Context.Customers.Where(dbEntry => dbEntry.Id == entryId).First();
+            return Context.ItemDimensions.Where(dbEntry => dbEntry.ItemId == entryId).First();
         }
 
 
@@ -45,9 +45,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Gets all the entrys in the database as an enumerable
         /// </summary>
         /// <returns> An enumerable of all entrys in the database </returns>
-        public IEnumerable<Database.Customer> GetEntrys()
+        public IEnumerable<Database.ItemDimension> GetEntrys()
         {
-            return Context.Customers.AsEnumerable();
+            return Context.ItemDimensions.AsEnumerable();
         }
 
 
@@ -55,9 +55,9 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Inserts an entry in the database
         /// </summary>
         /// <param name="entry"> The entry to be inserted </param>
-        public void InsertEntry(Database.Customer entry)
+        public void InsertEntry(Database.ItemDimension entry)
         {
-            Context.Customers.InsertOnSubmit(entry);
+            Context.ItemDimensions.InsertOnSubmit(entry);
         }
 
 
@@ -65,12 +65,12 @@ namespace KøkkenFanatikeren.Src.Repository
         /// Updates an entry with new information
         /// </summary>
         /// <param name="entry"> The entry object containg the new information </param>
-        public void UpdateEntry(Database.Customer entry)
+        public void UpdateEntry(Database.ItemDimension entry)
         {
-            Database.Customer dbEntry = Context.Customers.Where(dbInner => dbInner.Id == entry.Id).First();
-            dbEntry.FullName = entry.FullName;
-            dbEntry.Email = entry.Email;
-            dbEntry.PhoneNumber = entry.PhoneNumber;
+            Database.ItemDimension dbEntry = Context.ItemDimensions.Where(dbInner => dbInner.ItemId == entry.ItemId).First();
+            dbEntry.Height = entry.Height;
+            dbEntry.Width = entry.Width;
+            dbEntry.Depth = entry.Depth;
         }
     }
 }

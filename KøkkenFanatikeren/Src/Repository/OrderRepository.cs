@@ -1,4 +1,8 @@
-﻿using KøkkenFanatikeren.Src.Models;
+﻿/*
+    Skrevet af: Philip Knudsen
+*/
+
+using KøkkenFanatikeren.Src.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
