@@ -69,7 +69,7 @@ namespace KøkkenFanatikeren.Src.Services
 
 
         /// <summary>
-        /// Adds text to the back of the file defined in Paht
+        /// Adds text to the back of the file defined in Path
         /// </summary>
         /// <param name="content"> The content to be written to the file </param>
         public void AppendFile(string content)
@@ -77,9 +77,13 @@ namespace KøkkenFanatikeren.Src.Services
             File.AppendAllText(Path, content);
         }
 
-        public void AppendFile(string content)
+        /// <summary>
+        /// Adds text to the back of the file defined in the Path
+        /// </summary>
+        /// <param name="content"> The content to be writen to the file </param>
+        public void AppendFile(IEnumerable<string> content)
         {
-            File.AppendAllText(Path, content);
+            File.AppendAllLines(Path, content);
         }
 
 

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KøkkenFanatikeren.Src.Repository
+namespace KøkkenFanatikeren.Src.Services
 {
     public class FilterService
     {
@@ -206,7 +206,24 @@ namespace KøkkenFanatikeren.Src.Repository
 
         }
 
-        
+
+        /// <summary>
+        /// Returns the orders between two dates, and can be set to only return completed orders
+        /// </summary>
+        /// <param name="from"> The start date </param>
+        /// <param name="to"> The end date </param>
+        /// <param name="completedOnly"> Wether the ordes may only be done, DEFAULT: false </param>
+        /// <returns> The orders between the specifide date </returns>
+        public List<Models.Order> SortOrderByDate(DateTime from, DateTime to, bool completedOnly=false)
+        {
+            OrderRepository orderRepo = new OrderRepository(DBContext);
+            IEnumerable<Models.Order> orders = orderRepo.GetEntrys().Select(item => new Models.Order(item));
+            orders = orders.Where(item => item.Creation >= from && item.Creation <= to);
+            if (completedOnly)
+                orders = orders.Where(item => item.Status == Models.OrderStatus.Done);
+
+            return orders.ToList();
+        }
 
 
 

@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
-using KøkkenFanatikeren.Src.Services;
 
 namespace KøkkenFanatikeren.Frontend
 {
@@ -18,10 +17,10 @@ namespace KøkkenFanatikeren.Frontend
     {
         public Src.Models.Employee LoggedInUser { get; set; }
         public Src.Database.KitchenFanaticDataContext Context { get; private set; }
-
-        private DataRow SelectedCustomer;
         public Src.Services.LoggingService LoggingService { get; set; }
-        
+
+        private int SelectedCustomerRowIndex;
+
 
         public Start_Menu()
         {
@@ -29,9 +28,10 @@ namespace KøkkenFanatikeren.Frontend
             this.LoggingService = new Src.Services.LoggingService();
             this.LoggedInUser = new Src.Models.Employee();
             Context = new Src.Database.KitchenFanaticDataContext();
+            SelectedCustomerRowIndex = -1;
             
         }
-       
+
         /// <summary>
         /// Opens the form LoginBox, if the username and password is correct, then it closes the form
         /// </summary>
@@ -93,7 +93,7 @@ namespace KøkkenFanatikeren.Frontend
         /// </summary>
         private void UpdateDGVOnUI()
         {
-            DGWService dgwService = new DGWService(Context);
+            Src.Services.DGWService dgwService = new Src.Services.DGWService(Context);
 
             dgv_CustomerInfo.DataSource = dgwService.GetAllCustomers();
 
@@ -132,8 +132,8 @@ namespace KøkkenFanatikeren.Frontend
             {
                 Src.Models.Customer selectedCustomer;
 
-                if (SelectedCustomer != null)
-                    selectedCustomer = FromDGRToCustomer(SelectedCustomer);
+                if (SelectedCustomerRowIndex != -1)
+                    selectedCustomer = FromDGRToCustomer(SelectedCustomerRowIndex);
                 else
                     selectedCustomer = LoadCustomerData(int.Parse(tb_CustomerID.Text));
 
@@ -180,17 +180,38 @@ namespace KøkkenFanatikeren.Frontend
         /// </summary>
         /// <param name="customerInfo"></param>
         /// <returns></returns>
-        private Src.Models.Customer FromDGRToCustomer(DataRow customerInfo)
+        private Src.Models.Customer FromDGRToCustomer(int customerIndex)
         {
-
-            int customerId = (int)customerInfo[0];
-            string customerFullName = (string)customerInfo[1];
-            string customerPhone = (string)customerInfo[2];
-            string customerEmail = (string)customerInfo[3];
+            int customerId = (int)dgv_CustomerInfo[0, customerIndex].Value;
+            string customerFullName = (string)dgv_CustomerInfo[1, customerIndex].Value;
+            string customerPhone = (string)dgv_CustomerInfo[2, customerIndex].Value;
+            string customerEmail = (string)dgv_CustomerInfo[3, customerIndex].Value;
             Src.Models.Customer result = new Src.Models.Customer(customerId, customerFullName, customerPhone, customerEmail);
 
             return result;
         }
 
+        /// <summary>
+        /// Gets the row selected by the user
+        /// </summary>
+        /// <param name="sender"> The object that calls the method </param>
+        /// <param name="e"> The parameters of the call </param>
+        private void dgv_CustomerInfo_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            // Sets the selected index of from the Data Grid
+            int index = e.RowIndex;
+            SelectedCustomerRowIndex = index;
+        }
+
+        /// <summary>
+        /// Opens a new print window when the button is clicked
+        /// </summary>
+        /// <param name="sender"> The object that calls the method </param>
+        /// <param name="e"> The parameters given with the call </param>
+        private void btn_Print_Click(object sender, EventArgs e)
+        {
+            Form_Print printWindow = new Form_Print();
+            printWindow.ShowDialog();
+        }
     }
 }

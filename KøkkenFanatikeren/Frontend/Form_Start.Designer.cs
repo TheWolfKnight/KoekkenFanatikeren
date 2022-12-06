@@ -40,7 +40,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgv_CustomerInfo = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fullNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phoneNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.kitchenFanaticDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.kitchenFanaticDataSet = new KøkkenFanatikeren.KitchenFanaticDataSet();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgv_Orders = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,35 +59,32 @@
             this.employeeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dgv_OrderItem = new System.Windows.Forms.DataGridView();
+            this.orderIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dgv_ItemCat = new System.Windows.Forms.DataGridView();
+            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemCategoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.b_search = new System.Windows.Forms.Button();
             this.b_CreatNewDoc = new System.Windows.Forms.Button();
             this.b_OpenDoc = new System.Windows.Forms.Button();
             this.b_SaveDoc = new System.Windows.Forms.Button();
             this.b_EditCustomer = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dgv_OrderItem = new System.Windows.Forms.DataGridView();
-            this.orderItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.orderIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dgv_ItemCat = new System.Windows.Forms.DataGridView();
-            this.itemCategoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fullNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phoneNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kitchenFanaticDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.kitchenFanaticDataSet = new KøkkenFanatikeren.KitchenFanaticDataSet();
             this.customerRepositoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.customersTableAdapter = new KøkkenFanatikeren.KitchenFanaticDataSetTableAdapters.CustomersTableAdapter();
             this.orderRepositoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btn_Print = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSet)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Orders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
@@ -91,8 +94,6 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ItemCat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemCategoryBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerRepositoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderRepositoryBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -102,7 +103,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.Size = new System.Drawing.Size(62, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Employe";
             // 
@@ -111,7 +112,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(8, 80);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 16);
+            this.label2.Size = new System.Drawing.Size(109, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Customer Name";
             // 
@@ -120,7 +121,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(8, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 16);
+            this.label3.Size = new System.Drawing.Size(85, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Customer ID";
             // 
@@ -158,7 +159,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(55, 213);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 16);
+            this.label4.Size = new System.Drawing.Size(115, 17);
             this.label4.TabIndex = 7;
             this.label4.Text = "Your Assignment";
             // 
@@ -203,11 +204,55 @@
             this.dgv_CustomerInfo.RowTemplate.Height = 24;
             this.dgv_CustomerInfo.Size = new System.Drawing.Size(565, 190);
             this.dgv_CustomerInfo.TabIndex = 0;
+            this.dgv_CustomerInfo.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CustomerInfo_RowEnter);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // fullNameDataGridViewTextBoxColumn
+            // 
+            this.fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
+            this.fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
+            this.fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
+            this.fullNameDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // phoneNumberDataGridViewTextBoxColumn
+            // 
+            this.phoneNumberDataGridViewTextBoxColumn.DataPropertyName = "PhoneNumber";
+            this.phoneNumberDataGridViewTextBoxColumn.HeaderText = "PhoneNumber";
+            this.phoneNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.phoneNumberDataGridViewTextBoxColumn.Name = "phoneNumberDataGridViewTextBoxColumn";
+            this.phoneNumberDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // emailDataGridViewTextBoxColumn
+            // 
+            this.emailDataGridViewTextBoxColumn.DataPropertyName = "Email";
+            this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
+            this.emailDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
+            this.emailDataGridViewTextBoxColumn.Width = 125;
             // 
             // customersBindingSource
             // 
             this.customersBindingSource.DataMember = "Customers";
             this.customersBindingSource.DataSource = this.kitchenFanaticDataSetBindingSource;
+            // 
+            // kitchenFanaticDataSetBindingSource
+            // 
+            this.kitchenFanaticDataSetBindingSource.DataSource = this.kitchenFanaticDataSet;
+            this.kitchenFanaticDataSetBindingSource.Position = 0;
+            // 
+            // kitchenFanaticDataSet
+            // 
+            this.kitchenFanaticDataSet.DataSetName = "KitchenFanaticDataSet";
+            this.kitchenFanaticDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tabPage2
             // 
@@ -319,56 +364,6 @@
             // 
             this.orderBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Database.Order);
             // 
-            // b_search
-            // 
-            this.b_search.Location = new System.Drawing.Point(256, 52);
-            this.b_search.Name = "b_search";
-            this.b_search.Size = new System.Drawing.Size(106, 24);
-            this.b_search.TabIndex = 9;
-            this.b_search.Text = "Search";
-            this.b_search.UseVisualStyleBackColor = true;
-            this.b_search.Click += new System.EventHandler(this.B_search_Click);
-            // 
-            // b_CreatNewDoc
-            // 
-            this.b_CreatNewDoc.Location = new System.Drawing.Point(15, 124);
-            this.b_CreatNewDoc.Name = "b_CreatNewDoc";
-            this.b_CreatNewDoc.Size = new System.Drawing.Size(101, 36);
-            this.b_CreatNewDoc.TabIndex = 10;
-            this.b_CreatNewDoc.Text = "New";
-            this.b_CreatNewDoc.UseVisualStyleBackColor = true;
-            this.b_CreatNewDoc.Click += new System.EventHandler(this.B_CreatNewDoc_Click);
-            // 
-            // b_OpenDoc
-            // 
-            this.b_OpenDoc.Location = new System.Drawing.Point(122, 124);
-            this.b_OpenDoc.Name = "b_OpenDoc";
-            this.b_OpenDoc.Size = new System.Drawing.Size(105, 36);
-            this.b_OpenDoc.TabIndex = 11;
-            this.b_OpenDoc.Text = "Open";
-            this.b_OpenDoc.UseVisualStyleBackColor = true;
-            this.b_OpenDoc.Click += new System.EventHandler(this.B_OpenDuc_Click);
-            // 
-            // b_SaveDoc
-            // 
-            this.b_SaveDoc.Location = new System.Drawing.Point(15, 166);
-            this.b_SaveDoc.Name = "b_SaveDoc";
-            this.b_SaveDoc.Size = new System.Drawing.Size(101, 36);
-            this.b_SaveDoc.TabIndex = 12;
-            this.b_SaveDoc.Text = "Save";
-            this.b_SaveDoc.UseVisualStyleBackColor = true;
-            this.b_SaveDoc.Click += new System.EventHandler(this.B_SaveDoc_Click);
-            // 
-            // b_EditCustomer
-            // 
-            this.b_EditCustomer.Location = new System.Drawing.Point(126, 166);
-            this.b_EditCustomer.Name = "b_EditCustomer";
-            this.b_EditCustomer.Size = new System.Drawing.Size(101, 36);
-            this.b_EditCustomer.TabIndex = 13;
-            this.b_EditCustomer.Text = "Edit";
-            this.b_EditCustomer.UseVisualStyleBackColor = true;
-            this.b_EditCustomer.Click += new System.EventHandler(this.B_EditCustomer_Click);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dgv_OrderItem);
@@ -397,10 +392,6 @@
             this.dgv_OrderItem.Size = new System.Drawing.Size(565, 190);
             this.dgv_OrderItem.TabIndex = 0;
             // 
-            // orderItemBindingSource
-            // 
-            this.orderItemBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Database.OrderItem);
-            // 
             // orderIdDataGridViewTextBoxColumn
             // 
             this.orderIdDataGridViewTextBoxColumn.DataPropertyName = "OrderId";
@@ -424,6 +415,10 @@
             this.quantityDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
             this.quantityDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // orderItemBindingSource
+            // 
+            this.orderItemBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Database.OrderItem);
             // 
             // tabPage4
             // 
@@ -452,10 +447,6 @@
             this.dgv_ItemCat.Size = new System.Drawing.Size(565, 190);
             this.dgv_ItemCat.TabIndex = 0;
             // 
-            // itemCategoryBindingSource
-            // 
-            this.itemCategoryBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Database.ItemCategory);
-            // 
             // categoryDataGridViewTextBoxColumn
             // 
             this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
@@ -472,48 +463,59 @@
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.Width = 125;
             // 
-            // idDataGridViewTextBoxColumn
+            // itemCategoryBindingSource
             // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Width = 125;
+            this.itemCategoryBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Database.ItemCategory);
             // 
-            // fullNameDataGridViewTextBoxColumn
+            // b_search
             // 
-            this.fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
-            this.fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
-            this.fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
-            this.fullNameDataGridViewTextBoxColumn.Width = 125;
+            this.b_search.Location = new System.Drawing.Point(256, 52);
+            this.b_search.Name = "b_search";
+            this.b_search.Size = new System.Drawing.Size(106, 24);
+            this.b_search.TabIndex = 9;
+            this.b_search.Text = "Search";
+            this.b_search.UseVisualStyleBackColor = true;
+            this.b_search.Click += new System.EventHandler(this.B_search_Click);
             // 
-            // phoneNumberDataGridViewTextBoxColumn
+            // b_CreatNewDoc
             // 
-            this.phoneNumberDataGridViewTextBoxColumn.DataPropertyName = "PhoneNumber";
-            this.phoneNumberDataGridViewTextBoxColumn.HeaderText = "PhoneNumber";
-            this.phoneNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.phoneNumberDataGridViewTextBoxColumn.Name = "phoneNumberDataGridViewTextBoxColumn";
-            this.phoneNumberDataGridViewTextBoxColumn.Width = 125;
+            this.b_CreatNewDoc.Location = new System.Drawing.Point(362, 12);
+            this.b_CreatNewDoc.Name = "b_CreatNewDoc";
+            this.b_CreatNewDoc.Size = new System.Drawing.Size(101, 36);
+            this.b_CreatNewDoc.TabIndex = 10;
+            this.b_CreatNewDoc.Text = "New";
+            this.b_CreatNewDoc.UseVisualStyleBackColor = true;
+            this.b_CreatNewDoc.Click += new System.EventHandler(this.B_CreatNewDoc_Click);
             // 
-            // emailDataGridViewTextBoxColumn
+            // b_OpenDoc
             // 
-            this.emailDataGridViewTextBoxColumn.DataPropertyName = "Email";
-            this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
-            this.emailDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
-            this.emailDataGridViewTextBoxColumn.Width = 125;
+            this.b_OpenDoc.Location = new System.Drawing.Point(469, 12);
+            this.b_OpenDoc.Name = "b_OpenDoc";
+            this.b_OpenDoc.Size = new System.Drawing.Size(105, 36);
+            this.b_OpenDoc.TabIndex = 11;
+            this.b_OpenDoc.Text = "Open";
+            this.b_OpenDoc.UseVisualStyleBackColor = true;
+            this.b_OpenDoc.Click += new System.EventHandler(this.B_OpenDuc_Click);
             // 
-            // kitchenFanaticDataSetBindingSource
+            // b_SaveDoc
             // 
-            this.kitchenFanaticDataSetBindingSource.DataSource = this.kitchenFanaticDataSet;
-            this.kitchenFanaticDataSetBindingSource.Position = 0;
+            this.b_SaveDoc.Location = new System.Drawing.Point(580, 12);
+            this.b_SaveDoc.Name = "b_SaveDoc";
+            this.b_SaveDoc.Size = new System.Drawing.Size(101, 36);
+            this.b_SaveDoc.TabIndex = 12;
+            this.b_SaveDoc.Text = "Save";
+            this.b_SaveDoc.UseVisualStyleBackColor = true;
+            this.b_SaveDoc.Click += new System.EventHandler(this.B_SaveDoc_Click);
             // 
-            // kitchenFanaticDataSet
+            // b_EditCustomer
             // 
-            this.kitchenFanaticDataSet.DataSetName = "KitchenFanaticDataSet";
-            this.kitchenFanaticDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.b_EditCustomer.Location = new System.Drawing.Point(687, 12);
+            this.b_EditCustomer.Name = "b_EditCustomer";
+            this.b_EditCustomer.Size = new System.Drawing.Size(101, 36);
+            this.b_EditCustomer.TabIndex = 13;
+            this.b_EditCustomer.Text = "Edit";
+            this.b_EditCustomer.UseVisualStyleBackColor = true;
+            this.b_EditCustomer.Click += new System.EventHandler(this.B_EditCustomer_Click);
             // 
             // customerRepositoryBindingSource
             // 
@@ -527,11 +529,22 @@
             // 
             this.orderRepositoryBindingSource.DataSource = typeof(KøkkenFanatikeren.Src.Repository.OrderRepository);
             // 
+            // btn_Print
+            // 
+            this.btn_Print.Location = new System.Drawing.Point(687, 54);
+            this.btn_Print.Name = "btn_Print";
+            this.btn_Print.Size = new System.Drawing.Size(101, 36);
+            this.btn_Print.TabIndex = 14;
+            this.btn_Print.Text = "Print";
+            this.btn_Print.UseVisualStyleBackColor = true;
+            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
+            // 
             // Start_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.b_EditCustomer);
             this.Controls.Add(this.b_SaveDoc);
             this.Controls.Add(this.b_OpenDoc);
@@ -553,6 +566,8 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSet)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Orders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
@@ -562,8 +577,6 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ItemCat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemCategoryBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kitchenFanaticDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerRepositoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderRepositoryBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -622,5 +635,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource itemCategoryBindingSource;
+        public System.Windows.Forms.Button btn_Print;
     }
 }

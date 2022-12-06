@@ -74,17 +74,17 @@
     <Compile Include="Frontend\Form_CustomerQuestions.Designer.cs">
       <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frontend\Testing.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frontend\Testing.Designer.cs">
-      <DependentUpon>Testing.cs</DependentUpon>
-    </Compile>
     <Compile Include="Frontend\Form_Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frontend\Form_Login.designer.cs">
       <DependentUpon>Form_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Form_Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frontend\Form_Print.Designer.cs">
+      <DependentUpon>Form_Print.cs</DependentUpon>
     </Compile>
     <Compile Include="Frontend\Form_Start.cs">
       <SubType>Form</SubType>
@@ -129,22 +129,21 @@
     <Compile Include="Src\Services\FileService.cs" />
     <Compile Include="Src\Services\LoggingServices.cs" />
     <Compile Include="Src\Services\SalesReportService.cs" />
+    <Compile Include="Src\Services\FilterService.cs" />
     <EmbeddedResource Include="Frontend\Form_Edit.resx">
       <DependentUpon>Form_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frontend\Form_Login.resx">
       <DependentUpon>Form_Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frontend\Form_Print.resx">
+      <DependentUpon>Form_Print.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frontend\Form_Start.resx">
       <DependentUpon>Form_Start.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Src\Services\FilterService.cs" />
-    <Compile Include="Src\Services\SalesReportService.cs" />
     <EmbeddedResource Include="Frontend\Form_CustomerQuestions.resx">
       <DependentUpon>Form_CustomerQuestions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Frontend\Testing.resx">
-      <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
