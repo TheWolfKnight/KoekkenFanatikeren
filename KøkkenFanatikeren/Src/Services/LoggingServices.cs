@@ -19,10 +19,10 @@ namespace KøkkenFanatikeren.Src.Services
         /// <param name="path"></param>
         public LoggingService(string path = "")
         {
-            path = string.IsNullOrEmpty(path) ? $@"%TEMP%\{DateTime.Now:d}_logging.log" : path;
+            path = string.IsNullOrEmpty(path) ? $@"{System.IO.Path.GetTempPath()}\{DateTime.Now:d}_logging.log" : path;
             FS = new FileService(path);
-            
         }
+
         /// <summary>
         /// rights a message to the user and logs the error in the log file
         /// </summary>
